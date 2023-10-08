@@ -1,0 +1,106 @@
+  /* Center the contents of the login page */
+  .register-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+  }
+  
+  /* Style the PennBuzz heading */
+  .header-text {
+    font-size: 4rem;
+    font-weight: bold;
+    text-align: center;
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  
+  /* Style the container for the login form */
+  .register-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 80px 20px 80px 20px;
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.5);
+    margin-top: 10px;
+    height: 300px;
+    width: 400px;
+  }
+  
+  
+  /* Style the input fields for the username and password */
+  .input-edits {
+    font-size: 1.2rem;
+    padding-bottom: 25px;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin: 20px 28px 20px;
+    border: none;
+    background-color: #fff;
+    width: 85%;
+    box-sizing: border-box;
+    border: 1px solid black;
+    line-height: 30px;
+    padding: 10px;
+
+  }
+  
+  .btn-edits {
+    background-color: red;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    padding: 20px 0px 20px;
+    margin: 10px 0px;
+    cursor: pointer;
+    box-sizing: border-box;
+    width: 86%;
+  }
+  
+  .url-text {
+    color: red;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-decoration: none;
+  }
+    
+    
+    .login-text {
+    font-size: 0.8rem;
+    margin-top: 1px;
+    color: black;
+    }
+
+    .title-text {
+      font-size: 1.6rem;
+      color: black;
+      font-weight: bold;
+      margin-top: 0px;
+      margin-bottom: 3px;
+    }
+
+    .Buzz {
+        font-size: 4rem;
+        color: red;
+    }
+    
+    .error-text {
+        font-size: 1rem;
+        align-items: center;
+        font-weight: bold;
+        padding-left: 45px;
+    }
+
+    .titles-text {
+        margin: 0px 28px;
+        font-size: 1rem;
+        font-weight: bold;
+
+    }
+    
+  

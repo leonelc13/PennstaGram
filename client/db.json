@@ -1,0 +1,21 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "testUser",
+      "password": "testPass"
+    },
+    {
+      "username": "leonelc",
+      "password": "Mexico121301@",
+      "id": 2,
+      "token": "j7i6o"
+    },
+    {
+      "username": "justin",
+      "password": "tran",
+      "id": 3,
+      "token": "dwh10b"
+    }
+  ]
+}

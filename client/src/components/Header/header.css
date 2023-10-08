@@ -1,0 +1,123 @@
+#header-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75em;
+    z-index: 1;
+    border-bottom: 0.5px solid rgb(78, 78, 78);
+    background-color: white;
+}
+
+#pennbuzz-name {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+#buzz-name {
+    color: #FF0000;
+}
+
+
+#search-input {
+
+    width: 100%;
+    border: 1px solid #FF0606;
+    border-radius: 25px;
+    padding: 10px;
+    margin-right: 10px;
+    height: 0.25em;
+}
+
+#search-input::placeholder {
+    color: #FF0606;
+}
+
+.navbar-text {
+    font-weight: bold;
+}
+
+#user-profile-picture-wrapper {
+    margin-right: 0%;
+    border-radius: 50%;
+    width: 2.5em;
+    height: 2.5em;
+    overflow: hidden;
+    align-items: center;
+}
+
+#user-profile-picture-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    width: 50%;
+}
+
+.search-container ul.search-results {
+    /* display: none; */
+    position: absolute;
+    z-index: 999;
+    top: calc(100% + 2px);
+    left: 0;
+
+    padding: 0;
+    margin: 10%;
+    width: 80%;
+    margin-top: 0;
+    list-style: none;
+    background-color: #fff;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.search-result-container {
+    padding: 10px;
+}
+
+.search-result-container span {
+    margin-left: 5px;
+    font-size: 0.5em;
+}
+
+.search-container ul.search-results li a {
+    color: #555;
+    text-decoration: none;
+}
+
+.search-container ul.search-results li a:hover {
+    text-decoration: underline;
+
+}
+
+.logout_button {
+    background-color: red;
+    color: #fff;
+    box-sizing: border-box;
+    padding: 5px 10px 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-right: 2.3%;
+    cursor: pointer;
+    border-radius: 25px;
+    border: 1px solid #FF0606;
+}
