@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+/* font-family: 'Lato', sans-serif; */
+
+*{
+    margin: 0;
+    font-family: "Lato", sans-serif;
+    color:darkslategray;
+}
+
+.user .userHeader{
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    max-width: 800px;
+    margin:0 auto;
+
+}
+
+.user .links{
+    margin-left:auto;
+}
+
+.user a{
+    margin-left: 16px;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.user a:hover{
+    color:coral;
+}
+
+.user *div{
+    vertical-align: middle;
+}

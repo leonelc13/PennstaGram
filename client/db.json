@@ -17,5 +17,30 @@
       "id": 3,
       "token": "dwh10b"
     }
+  ],
+
+  "posts": [
+    {
+      "id": 1,
+      "title": "testPost",
+      "content": "testContent",
+      "author": "Sunny",
+      "created": "2017-11-28T20:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "title": "testTitle2",
+      "content": "testContent2",
+      "author": "testAuthor2",
+      "created": "2017-11-28T20:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "title": "testTitle3",
+      "content": "testContent3",
+      "author": "testAuthor3",
+      "created": "2017-11-28T20:00:00.000Z"
+    }
   ]
+
 }
