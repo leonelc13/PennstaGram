@@ -1,5 +1,6 @@
 import { Layout } from 'antd';
 import React from 'react';
+import CreatePost from './createpost';
 const { Content } = Layout;
 
 function HomePage(props) {
@@ -13,6 +14,7 @@ function HomePage(props) {
             <p>
               Welcome to <em>CIS 557 Deployment Demo</em>. To log in, click{' '}
             </p>
+            <CreatePost />
           </div>
         </div>
       </div>

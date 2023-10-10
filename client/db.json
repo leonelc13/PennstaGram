@@ -15,7 +15,15 @@
       "username": "justin",
       "password": "tran",
       "id": 3,
-      "token": "dwh10b"
+      "token": "83f6iia"
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "isVideo": false,
+      "url": "https://i.ibb.co/60NBw0q/tiger.jpg",
+      "ownerId": 1
     }
   ]
 }
