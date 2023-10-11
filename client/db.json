@@ -26,21 +26,6 @@
       "ownerId": 1
     },
     {
-      "url": "www.google.com",
-      "isImage": "true",
-      "id": 2
-    },
-    {
-      "url": "www.instagram.com",
-      "isImage": false,
-      "id": 3
-    },
-    {
-      "url": "www.instagram.com",
-      "isImage": true,
-      "id": 4
-    },
-    {
       "url": "www.instagram.com",
       "isImage": true,
       "ownerId": 3,
