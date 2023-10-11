@@ -1,12 +1,12 @@
-.post-preview{
+.post-preview .image-video{
     width: 200px;
     height: 200px;
-    padding: 40px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 20px auto;
+    margin: 0px auto;
     background-color: wheat;
     border-bottom: 1px solid black;
 }
@@ -17,11 +17,22 @@
     object-fit: cover;
 }
 
-.post-preview:hover{
+.post-preview .image-video:hover{
     cursor: pointer;
     box-shadow: 3px 3px 5px;
 }
 
+.post-preview .post-info{
+    width: 200px;
+    height: 50px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    border: 1px solid black;
+}
 .post-preview p{
     font-size: medium;
 }
@@ -39,7 +50,7 @@
 }
 
 .post-preview button{
-    align-self: last baseline;
+    align-self: center;
     margin-top: 10px;
     border-radius: 5px;
     font-weight: bold;

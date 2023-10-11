@@ -1,4 +1,4 @@
-const Setting = () => {
+const Settings = () => {
     return (  
         <div className = "setting">
             <h2> User Settings </h2>
@@ -6,4 +6,4 @@ const Setting = () => {
     );
 }
  
-export default Setting;
+export default Settings;

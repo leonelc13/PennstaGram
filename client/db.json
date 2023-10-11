@@ -18,29 +18,40 @@
       "token": "dwh10b"
     }
   ],
-
   "posts": [
     {
       "id": 1,
       "title": "testPost",
       "content": "testContent",
-      "author": "Sunny",
-      "created": "2017-11-28T20:00:00.000Z"
+      "user": "Sunny",
+      "created": "2017-11-28T20:00:00.000Z",
+      "likes": 0,
+      "comments": [
+        {
+          "id": 1,
+          "content": "testComment",
+          "user": "Sunny",
+          "created": "2017-11-28T20:00:00.000Z"
+        }
+      ]
     },
     {
       "id": 2,
-      "title": "testTitle2",
       "content": "testContent2",
-      "author": "testAuthor2",
+      "user": "Alice",
       "created": "2017-11-28T20:00:00.000Z"
     },
     {
       "id": 3,
-      "title": "testTitle3",
       "content": "testContent3",
-      "author": "testAuthor3",
+      "user": "Bob",
+      "created": "2017-11-28T20:00:00.000Z"
+    },
+    {
+      "id": 4,
+      "content": "testContent4",
+      "user": "Bob",
       "created": "2017-11-28T20:00:00.000Z"
     }
   ]
-
 }

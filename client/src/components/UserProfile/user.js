@@ -1,10 +1,12 @@
 import React from 'react';
 import './user.css';
 import UserPost from './userPost'; 
-import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, useParams } from 'react-router-dom';
 
 const User= () => {
-    const username = "Sunny's page";
+    const { user } = useParams();
+
+    const username = `${user}'s Profile`;
     const clickSettings = () => {
         console.log('settings clicked, should be directed to the settings page');
     }
@@ -12,16 +14,15 @@ const User= () => {
     return ( 
         <div className = "user">
             <div className="userHeader">
-                <h1>User Profile</h1>
+                <h1> { username } </h1>
                 <div className="links">
                     <a href="/">Home</a>
-                    <a href="/user">User</a>
-                    <a href="/user/profile">Profile</a>
-                    <a href="/user/settings" onClick = {clickSettings}>Settings</a>
+                    <Link to="/user">User</Link>
+                    <Link to="/user/profile">Profile</Link>
+                    <Link to="/user/settings" onClick = {clickSettings}>Settings</Link>
                 </div>
                 <div className= "profilePic">
                     <img src="https://i.imgur.com/1YBxwXb.jpeg" alt="profile pic" />
-                    <h2>{ username }</h2>
                 </div>
             </div>
             <div className="userPost">
