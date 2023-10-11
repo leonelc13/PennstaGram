@@ -14,7 +14,7 @@ function HomePage(props) {
             <p>
               Welcome to <em>CIS 557 Deployment Demo</em>. To log in, click{' '}
             </p>
-            <CreatePost />
+            <CreatePost userId={props.userId} />
           </div>
         </div>
       </div>
