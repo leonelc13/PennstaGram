@@ -23,6 +23,8 @@
       "id": 1,
       "title": "testPost",
       "content": "testContent",
+      "url": "https://i.ibb.co/60NBw0q/tiger.jpg",
+      "isImage": true,
       "user": "Sunny",
       "created": "2017-11-28T20:00:00.000Z",
       "likes": 0,
@@ -39,19 +41,25 @@
       "id": 2,
       "content": "testContent2",
       "user": "Alice",
-      "created": "2017-11-28T20:00:00.000Z"
+      "created": "2017-11-28T20:00:00.000Z",
+      "url": "https://i.ibb.co/60NBw0q/tiger.jpg",
+      "isImage": true
     },
     {
       "id": 3,
       "content": "testContent3",
       "user": "Bob",
-      "created": "2017-11-28T20:00:00.000Z"
+      "created": "2017-11-28T20:00:00.000Z",
+      "url": "https://www.youtube.com/embed/i8n1gSw_o_8",
+      "isImage": false
     },
     {
       "id": 4,
       "content": "testContent4",
       "user": "Bob",
-      "created": "2017-11-28T20:00:00.000Z"
+      "created": "2017-11-28T20:00:00.000Z",
+      "url": "https://www.youtube.com/embed/i8n1gSw_o_8",
+      "isImage": false
     }
   ]
 }

@@ -10,10 +10,12 @@ const PostList = (props) => {
             {posts.map((post) => (
                 <div className="post-preview" key={post.id}>
                     <Link to = {`/post/${post.id}`}>
-                        <div className='image-video'> </div>
+                        {post.isImage ?
+                            <img className="image-video" src={post.url} alt={post.testContent} />
+                            : <iframe className="image-video" title={post.title} src={post.url}></iframe>}
                     </Link>
                     <div className="post-info">
-                        <h1>Posed by 
+                        <h1>Posted by 
                             <Link to={`/user/${post.user}`}> {post.user} </Link>
                         </h1>
                         <p>{post.content}</p>
