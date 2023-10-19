@@ -7,6 +7,10 @@ import Profile from './components/ProfilePage/profile';
 import MainFeed from './components/Homepage/homepage';
 import './style/index.css';
 import axios from "axios";
+import User from './components/UserProfile/user';
+import Settings from './components/UserProfile/setting';
+import PostDetails from './components/Post/PostDetails';
+import ActivityFeed from './components/ActivityFeed/ActivityFeed'; 
 const { rootURL } = require('./utils/utils');
 
 
@@ -78,6 +82,7 @@ function App() {
                         <Route exact path='/login' element={<Login handleLogin={handleLogin} />} />
                         <Route exact path='/register' element={<Register handleLogin={handleLogin} />} />
                         <Route exact path='*' element={<Navigate to='/login' />} />
+                        <Route index element = {<ActivityFeed />} /> 
                         <Route exact path ="/user/:username" element = {<User />} />
                         <Route path ="/user/settings" element = {<Settings />} />
                         <Route exact path ="/post/:id" element = {<PostDetails />} />
@@ -86,6 +91,21 @@ function App() {
             )}
         </Router>
     );
+
+//   return (
+//     <Router>
+//         <div className="App">
+//             <div className = "content">
+//                 <Routes>
+//                     <Route index element = {<User />} />
+//                     <Route path ="/user" element = {<User />} />
+//                     <Route path ="/user/settings" element = {<Settings />} />
+//                 </Routes>
+//             </div>
+//         </div>
+//     </Router>
+//   );
+
 }
 
 export default App;

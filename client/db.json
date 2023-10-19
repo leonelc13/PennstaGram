@@ -37,9 +37,29 @@
   "posts": [
     {
       "id": 1,
-      "isVideo": false,
+      "title": "testPost",
+      "content": "testContent",
       "url": "https://i.ibb.co/60NBw0q/tiger.jpg",
-      "ownerId": 1
+      "isImage": true,
+      "user": "Sunny",
+      "created": "2017-11-28T20:00:00.000Z",
+      "likes": 0,
+      "comments": [
+        {
+          "id": 1,
+          "content": "testComment",
+          "user": "Sunny",
+          "created": "2017-11-28T20:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "content": "testContent2",
+      "user": "Alice",
+      "created": "2017-11-28T20:00:00.000Z",
+      "url": "https://i.ibb.co/60NBw0q/tiger.jpg",
+      "isImage": true
     },
     {
       "id": 2,
