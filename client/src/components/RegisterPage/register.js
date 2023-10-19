@@ -57,8 +57,6 @@ function Register(props) {
             navigate('/login');
 
         } catch (err) {
-            setErrorMessage(err.response.data.error);
-            console.log('error', err.message);
         }
 
     }, [username, password, navigate]);
