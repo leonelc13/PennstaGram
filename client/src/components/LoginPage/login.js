@@ -42,7 +42,7 @@ function Login(props) {
                     username: username,
                     password: password
                 } 
-            });          
+            });
 
             const data = response.data;
             if (data.length === 0 || data[0].password !== password || data[0].username !== username) {

@@ -8,6 +8,27 @@
   ],
   "comments": [
     {
+      "username": "justin",
+      "password": "tran",
+      "id": 3,
+      "token": "83f6iia"
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "isVideo": false,
+      "url": "https://i.ibb.co/60NBw0q/tiger.jpg",
+      "ownerId": 1
+    },
+    {
+      "url": "www.instagram.com",
+      "isImage": true,
+      "ownerId": 3,
+      "id": 5
+    }
+  ]
+}
       "id": 1,
       "body": "some comment",
       "postId": 1
