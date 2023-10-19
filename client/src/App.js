@@ -82,10 +82,6 @@ function App() {
                         <Route exact path='/login' element={<Login handleLogin={handleLogin} />} />
                         <Route exact path='/register' element={<Register handleLogin={handleLogin} />} />
                         <Route exact path='*' element={<Navigate to='/login' />} />
-                        <Route index element = {<ActivityFeed />} /> 
-                        <Route exact path ="/user/:username" element = {<User />} />
-                        <Route path ="/user/settings" element = {<Settings />} />
-                        <Route exact path ="/post/:id" element = {<PostDetails />} />
                     </Routes>
                 </>
             )}
