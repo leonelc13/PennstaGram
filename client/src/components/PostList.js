@@ -20,7 +20,6 @@ const PostList = (props) => {
                         </h1>
                         <p>{post.content}</p>
                         {/* <button onClick = { () => handleDelete(post.id)}> Delete Post </button> */}
-                        <button > Delete Post </button>
                     </div>
                 </div>
             ))}

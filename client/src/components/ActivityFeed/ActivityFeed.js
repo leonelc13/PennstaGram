@@ -10,7 +10,7 @@ const ActivityFeed = () => {
     //     setPosts(newPosts);
     // }
 
-    const {data: posts, isLoading, error} = useFetch('http://localhost:3000/posts');
+    const {data: posts, isLoading, error} = useFetch('http://localhost:8000/posts');
     
     return (  
         <div className = "feed">

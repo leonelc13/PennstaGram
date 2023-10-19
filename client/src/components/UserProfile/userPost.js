@@ -5,18 +5,7 @@ import { useParams } from 'react-router-dom';
   
 
 const UserPost = () => {
-    const { user } = useParams();
-
-    const handleClick = () => {
-        // console.log('button clicked');
-        // setPost('New User Post')
-        // setUser('Alice')
-    }
-
-    // const handleDelete = (id) => {
-    //     const newPosts = posts.filter(post => post.id !== id);
-    //     setPosts(newPosts);
-    // }
+    const { username } = useParams();
 
     const {data: posts, isLoading, error} = useFetch('http://localhost:8000/posts');
     
@@ -27,7 +16,7 @@ const UserPost = () => {
             { error && <div>{ error }</div>}
             { isLoading && <div>Loading...</div>}
             {/* {posts && <PostList posts = {posts} />} */}
-            {posts && <PostList posts = {posts.filter((post) => post.user === user)}/>}
+            {posts && <PostList posts = {posts.filter((post) => post.user === username)}/>}
         </div>
 
     );
