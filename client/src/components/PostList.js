@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 const PostList = (props) => {
 
     const posts  = props.posts;
+    // const currentUser = props.currentUser;
 
     return ( 
         <div className="post-list">
