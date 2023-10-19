@@ -9,6 +9,7 @@
     "antd": "^5.9.4",
     "axios": "^1.5.1",
     "eslint-plugin-jest": "^27.4.2",
+    "jest": "^27.5.1",
     "jwt-decode": "^3.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -17,10 +18,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start:mock": "json-server --watch db.json --port 3000",
+    "start:mock": "json-server --watch src/json-server/db.json --port 3000",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "json-server --watch src/json-server/db.json & jest --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -42,7 +43,16 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.23.0",
+    "@babel/preset-env": "^7.22.20",
+    "@babel/preset-react": "^7.22.15",
+    "babel-jest": "^29.7.0",
     "eslint": "^8.50.0",
-    "eslint-plugin-react": "^7.33.2"
+    "eslint-plugin-react": "^7.33.2",
+    "json-server": "^0.17.4"
+    "react-test-renderer": "^18.2.0"
+  },
+  "transform": {
+    "^.+\\.(js|jsx)$": "babel-jest"
   }
 }

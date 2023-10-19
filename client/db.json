@@ -1,21 +1,17 @@
 {
-  "users": [
+  "posts": [
     {
       "id": 1,
-      "username": "testUser",
-      "password": "testPass"
-    },
-    {
-      "username": "leonelc",
-      "password": "Mexico121301@",
-      "id": 2,
-      "token": "j7i6o"
-    },
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
     {
       "username": "justin",
       "password": "tran",
       "id": "justin",
-      "token": "dwh10b"
+      "token": "83f6iia"
     },
     {
       "id": "Alice",

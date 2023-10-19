@@ -17,6 +17,7 @@ const { rootURL } = require('./utils/utils');
 function App() {
     const [authenticated, setAuthenticated] = useState(false);
     const [username, setUsername] = useState("");
+    const [userId, setUserId] = useState(-1);
     const [token, setToken] = useState(localStorage.getItem('userToken'));
     const [loading, setLoading] = useState(true); // Add this line
 
@@ -28,6 +29,7 @@ function App() {
           }).then(response => {
               if(response.data.length > 0) {
                   setUsername(response.data[0].username);
+                  setUserId(response.data[0].id);
                   setAuthenticated(true);
               }
               setLoading(false);
@@ -65,7 +67,7 @@ function App() {
                 <>
                     <Header {...props} />
                     <Routes>
-                        <Route exact path='/' element={<MainFeed {...props} />} />
+                        <Route exact path='/' element={<MainFeed userId={userId} />} />
                         <Route exact path='/profile/:username' element={<Profile {...props} />} />
                         <Route exact path='*' element={<Navigate to='/' />} />
                     </Routes>
