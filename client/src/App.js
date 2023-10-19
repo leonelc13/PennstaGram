@@ -70,13 +70,10 @@ function App() {
                         <Route exact path='/' element={<MainFeed userId={userId} />} />
                         <Route exact path='/profile/:username' element={<Profile {...props} />} />
                         <Route exact path='*' element={<Navigate to='/' />} />
-<<<<<<< Updated upstream
-=======
                         <Route index element = {<ActivityFeed currentUser = {username}/>} /> 
                         <Route exact path ="/user/:username" element = {<User />} />
                         <Route path ="/user/settings" element = {<Settings />} />
                         <Route exact path ="/post/:id" element = {<PostDetails currentUser = {username}/>} />
->>>>>>> Stashed changes
                     </Routes>
                 </>
             ) : (
