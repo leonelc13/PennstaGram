@@ -4,7 +4,7 @@
       "id": 1,
       "username": "testUser",
       "password": "testPass",
-      "token": "z8poha"
+      "token": "bmjd7r"
     },
     {
       "username": "leonelc",
@@ -17,6 +17,12 @@
       "password": "tran",
       "id": 3,
       "token": "dwh10b"
+    },
+    {
+      "username": "Alice",
+      "password": "alice",
+      "id": 4,
+      "token": "9xvi3s"
     }
   ]
 }

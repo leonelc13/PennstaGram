@@ -66,6 +66,10 @@ function App() {
                         <Route exact path='/' element={<MainFeed userId={userId} />} />
                         <Route exact path='/profile/:username' element={<Profile {...props} />} />
                         <Route exact path='*' element={<Navigate to='/' />} />
+                        <Route index element = {<ActivityFeed />} /> 
+                        <Route exact path ="/user/:username" element = {<User />} />
+                        <Route path ="/user/settings" element = {<Settings />} />
+                        <Route exact path ="/post/:id" element = {<PostDetails />} />
                     </Routes>
                 </>
             ) : (
@@ -74,6 +78,9 @@ function App() {
                         <Route exact path='/login' element={<Login handleLogin={handleLogin} />} />
                         <Route exact path='/register' element={<Register handleLogin={handleLogin} />} />
                         <Route exact path='*' element={<Navigate to='/login' />} />
+                        <Route exact path ="/user/:username" element = {<User />} />
+                        <Route path ="/user/settings" element = {<Settings />} />
+                        <Route exact path ="/post/:id" element = {<PostDetails />} />
                     </Routes>
                 </>
             )}
