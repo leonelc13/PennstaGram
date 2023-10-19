@@ -4,7 +4,7 @@ import useFetch from '../useFetch';
 
 const PostDetails = () => {
     const { id } = useParams();
-    const {data: post, isLoading, error} = useFetch('http://localhost:8000/posts/' + id);
+    const {data: post, isLoading, error} = useFetch('http://localhost:3000/posts/' + id);
     const navigate = useNavigate();
 
     const handleDelete = () => {

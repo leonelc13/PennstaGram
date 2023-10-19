@@ -76,7 +76,7 @@ function Register(props) {
 
     return (
         <div className='register-container'>
-        <h1 className='header-text'>Penn<span className="Buzz">Buzz</span></h1>
+        <h1 className='header-text'>Penn<span className="Buzz">Connect</span></h1>
         {errorMessage && <p className='error-text'>{errorMessage}</p>}
         <form className="register-form" onSubmit={handleSubmit}>
             <p className="title-text">Sign Up</p>

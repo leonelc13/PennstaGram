@@ -12,7 +12,7 @@ const User= () => {
         console.log('settings clicked, should be directed to the settings page');
     }
     
-    const {data: user, isLoading, error} = useFetch(`http://localhost:8000/users/${username}`);
+    const {data: user, isLoading, error} = useFetch(`http://localhost:3000/users/${username}`);
 
 
     return ( 
