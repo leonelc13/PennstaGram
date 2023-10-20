@@ -4,19 +4,111 @@
       "id": 1,
       "username": "testUser",
       "password": "testPass",
-      "token": "z8poha"
+      "followers": [],
+      "following": [],
+      "token": "me3rj8"
     },
     {
       "username": "leonelc",
       "password": "Mexico121301@",
       "id": 2,
-      "token": "j7i6o"
+      "token": "j7i6o",
+      "followers": [],
+      "following": []
     },
     {
       "username": "justin",
       "password": "tran",
       "id": 3,
-      "token": "dwh10b"
+      "token": "dwh10b",
+      "followers": [],
+      "following": []
+    },
+    {
+      "id": "Alice",
+      "username": "Alice",
+      "password": "testalice",
+      "token": "7urn5",
+      "profile": "https://cdn.pixabay.com/photo/2014/03/25/16/54/user-297566_1280.png",
+      "followers": [],
+      "following": []
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "testPost",
+      "content": "testContent",
+      "url": "https://i.ibb.co/60NBw0q/tiger.jpg",
+      "isImage": true,
+      "user": "Sunny",
+      "created": "2017-11-28T20:00:00.000Z",
+      "likes": 0,
+      "comments": [
+        {
+          "id": 1,
+          "content": "testComment",
+          "user": "Sunny",
+          "created": "2017-11-28T20:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "content": "testContent2",
+      "user": "Alice",
+      "created": "2017-11-28T20:00:00.000Z",
+      "url": "https://i.ibb.co/60NBw0q/tiger.jpg",
+      "isImage": true
+    },
+    {
+      "id": 2,
+      "content": "testContent2",
+      "user": "Alice",
+      "created": "2017-11-28T20:00:00.000Z",
+      "url": "https://i.ibb.co/60NBw0q/tiger.jpg",
+      "isImage": true
+    },
+    {
+      "id": 3,
+      "content": "testContent3",
+      "user": "Bob",
+      "created": "2017-11-28T20:00:00.000Z",
+      "url": "https://www.youtube.com/embed/i8n1gSw_o_8",
+      "isImage": false
+    },
+    {
+      "id": 4,
+      "content": "testContent4",
+      "user": "Bob",
+      "created": "2017-11-28T20:00:00.000Z",
+      "url": "https://www.youtube.com/embed/i8n1gSw_o_8",
+      "isImage": false
+    },
+    {
+      "id": 5,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "id": 6,
+      "isVideo": false,
+      "url": "https://i.ibb.co/60NBw0q/tiger.jpg",
+      "ownerId": 1
+    },
+    {
+      "id": 7,
+      "url": "www.instagram.com",
+      "isImage": true,
+      "ownerId": 3
+    }
+  ],
+  "comments": [
+    {
+      "username": "justin",
+      "password": "tran",
+      "id": 3,
+      "token": "83f6iia"
     }
   ]
 }

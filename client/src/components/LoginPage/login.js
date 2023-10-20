@@ -82,7 +82,7 @@ function Login(props) {
 
     return (
         <div className="login-container">
-        <h1 className="heading-text">Penn<span className="buzz-text">Buzz</span></h1>
+        <h1 className="heading-text">Penn<span className="buzz-text">Connect</span></h1>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
 
         <form className="login-form" onSubmit={handleSubmit}>

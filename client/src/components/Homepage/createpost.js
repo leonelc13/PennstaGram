@@ -41,11 +41,10 @@ function CreatePost(props) {
           return;
       }
 
-      console.log('post submitted');
+      setErrorMessage('Post Submitted!');
 
     } catch (err) {
         setErrorMessage(err.response.data.error);
-        console.log('error', err.message);
     }
   }
 
@@ -54,12 +53,11 @@ function CreatePost(props) {
       <form className="login-form" onSubmit={handleSubmit}>
           <p className="sign-text">Create Post</p>
           {errorMessage && <p className='error-text'>{errorMessage}</p>}
-          <p>Post URL <input type="text" value={url} onChange={handleUrlChange} /></p>
+          <label htmlFor='postUrl'>Post URL</label>
+          <input id="postUrl" type="text" value={url} onChange={handleUrlChange} />
 
-          <p>Image or Video? <br />
-            <label><input type="radio" name="isImage" value={true} required onChange={handleIsImageChange} defaultChecked={true}/> Image</label> <br />
-            <label><input type="radio" name="isImage" value={false} required onChange={handleIsImageChange} /> Video</label>
-          </p>
+          <label htmlFor='isImageTrue'><input type="radio" name="isImage" id="isImageTrue" value={true} required onChange={handleIsImageChange} defaultChecked={true}/> Image</label> <br />
+          <label htmlFor='isImageFalse'><input data-testid="isImageFalse" type="radio" name="isImage" id="isImageFalse" value={false} required onChange={handleIsImageChange} /> Video</label>
           <button type="submit" className="login-button">Submit</button>
       </form>
     </div>

@@ -7,6 +7,7 @@ import axios from 'axios';
 const PostDetails = (props) => {
     const { id } = useParams();
     const {data: post, isLoading, error} = useFetch('http://localhost:3000/posts/' + id);
+    const {data: post, isLoading, error} = useFetch('http://localhost:3000/posts/' + id);
     const navigate = useNavigate();
     const currentUser = props.currentUser;
 

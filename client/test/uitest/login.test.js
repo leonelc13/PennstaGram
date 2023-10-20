@@ -32,9 +32,9 @@ describe("Login component", () => {
     expect(screen.getByRole('link', { name: /Sign up/i })).toBeInTheDocument();
   });
 
-  test("renders with 'PennBuzz' heading", () => {
+  test("renders with 'PennConnect' heading", () => {
     render(<BrowserRouter><Login /></BrowserRouter>);
-    expect(screen.getByRole('heading', { name: /Penn Buzz/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Penn Connect/i })).toBeInTheDocument();
   });
 });
 

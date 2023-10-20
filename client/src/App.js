@@ -4,7 +4,7 @@ import Register from './components/RegisterPage/register';
 import Login from './components/LoginPage/login';
 import Header from './components/Header/header';
 import Profile from './components/ProfilePage/profile';
-import MainFeed from './components/Homepage/homepage';
+import CreatePost from './components/Homepage/createpost'; 
 import './style/index.css';
 import axios from "axios";
 import User from './components/UserProfile/user';
@@ -67,13 +67,14 @@ function App() {
                 <>
                     <Header {...props} />
                     <Routes>
-                        <Route exact path='/' element={<MainFeed userId={userId} />} />
+                        <Route exact path='/' element={<ActivityFeed />} />
                         <Route exact path='/profile/:username' element={<Profile {...props} />} />
                         <Route exact path='*' element={<Navigate to='/' />} />
                         <Route index element = {<ActivityFeed currentUser = {username}/>} /> 
                         <Route exact path ="/user/:username" element = {<User currentUser = {username}/>} />
                         <Route path ="/user/settings/:username" element = {<Settings currentUser = {username}/>} />
                         <Route exact path ="/post/:id" element = {<PostDetails currentUser = {username}/>} />
+                        <Route exact path ="/createpost" element = {<CreatePost userId={userId} />} />
                     </Routes>
                 </>
             ) : (
@@ -87,21 +88,6 @@ function App() {
             )}
         </Router>
     );
-
-//   return (
-//     <Router>
-//         <div className="App">
-//             <div className = "content">
-//                 <Routes>
-//                     <Route index element = {<User />} />
-//                     <Route path ="/user" element = {<User />} />
-//                     <Route path ="/user/settings" element = {<Settings />} />
-//                 </Routes>
-//             </div>
-//         </div>
-//     </Router>
-//   );
-
 }
 
 export default App;

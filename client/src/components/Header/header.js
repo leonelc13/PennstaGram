@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './header.css'
 /**
  * React Component for Header displayed to a logged in user
  **/
@@ -16,7 +17,7 @@ function Header(props) {
                 <Link to="/">
                     Penn
                     <span id="buzz-name">
-                        Buzz
+                        Connect
                     </span>
                 </Link>
             </span>
@@ -29,6 +30,11 @@ function Header(props) {
             <span className="navbar-text">
                 <Link to="/chat">
                     Chats
+                </Link>
+            </span>
+            <span className="navbar-text">
+                <Link to="/createpost">
+                    Create Post
                 </Link>
             </span>
             <span id="user-profile-picture-wrapper">
