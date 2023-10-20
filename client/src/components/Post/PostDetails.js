@@ -8,7 +8,7 @@ const PostDetails = () => {
     const navigate = useNavigate();
 
     const handleDelete = () => {
-        fetch('http://localhost:8000/posts/' + post.id, {
+        fetch('http://localhost:3000/posts/' + post.id, {
             method: 'DELETE'
         }).then(() => {
             navigate('/');
