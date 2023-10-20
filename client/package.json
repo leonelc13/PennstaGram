@@ -21,7 +21,7 @@
     "start:mock": "json-server --watch src/json-server/db.json --port 3000",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "json-server --watch src/json-server/db.json & jest --coverage",
+    "test": "jest --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

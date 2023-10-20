@@ -29,9 +29,9 @@ describe("Register component", () => {
     expect(screen.getByRole('link', { name: /sign in/i })).toBeInTheDocument();
   });
 
-  test("renders with 'PennBuzz' heading", () => {
+  test("renders with 'PennConnect' heading", () => {
     render(<BrowserRouter><Register /></BrowserRouter>);
-    expect(screen.getByRole('heading', { name: /Penn Buzz/i })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /Penn Connect/i })).toBeInTheDocument();
   });
 
   describe('Registration Functionality', () => {
