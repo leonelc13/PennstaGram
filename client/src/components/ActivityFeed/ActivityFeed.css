@@ -1,16 +1,12 @@
-.post-details .image-video{
-    width: 200px;
-    height: 200px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0px auto;
-    background-color: wheat;
-    border-bottom: 1px solid black;
-}
 
 .post-details{
     align-items: center;
+}
+
+div .feed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding: 10px
 }

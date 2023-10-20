@@ -28,7 +28,7 @@
       "id": "Alice",
       "username": "Alice",
       "password": "testalice",
-      "token": "smt0oc",
+      "token": "qayu0c",
       "profile": "https://cdn.pixabay.com/photo/2014/03/25/16/54/user-297566_1280.png",
       "followers": [
         "Sunny",
@@ -36,7 +36,8 @@
       ],
       "following": [
         "testUser",
-        "Bob"
+        "Bob",
+        "Sunny"
       ]
     },
     {
@@ -45,7 +46,9 @@
       "password": "testSunny",
       "token": "",
       "profile": "https://t4.ftcdn.net/jpg/05/62/99/31/360_F_562993122_e7pGkeY8yMfXJcRmclsoIjtOoVDDgIlh.jpg",
-      "followers": [],
+      "followers": [
+        "Alice"
+      ],
       "following": []
     },
     {

@@ -1,12 +1,14 @@
 div .post-display{
     width: 400px;
     height: 400px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin: auto;
 }
+
 .post-display img {
     width: 100%;
     height: 100%;

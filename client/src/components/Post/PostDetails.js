@@ -31,7 +31,6 @@ const PostDetails = (props) => {
 
     return (
         <div className="post-details">
-            <h2>Post Details - { id }</h2>
             { isLoading && <div>Loading...</div> }
             { error && <div>{ error }</div>}
             { post && (
@@ -39,13 +38,13 @@ const PostDetails = (props) => {
                     {/* display the image of the post here */}
                     <div className="post-display">
                         {post.isImage ?
-                                <img className="image-video" src={post.url} alt={post.testContent} />
-                                : <iframe className="image-video" title={post.title} src={post.url}></iframe>}
+                                <img className="image-video" src={ post.url } alt={ post.testContent } />
+                                : <iframe className="image-video" title={ post.title } src={ post.url }></iframe>}
                     </div>
                     <div className="post-content">
                         <h2>{ post.content}</h2>
                         <p>posted by { post.user }</p>
-                        {currentUser === post.user &&  <button onClick = {handleDeletePost} > Delete Post </button>}
+                        {currentUser === post.user &&  <button onClick = { handleDeletePost } > Delete Post </button>}
                     </div>
                     <div className= "comments">
                         <h3> Comments </h3>

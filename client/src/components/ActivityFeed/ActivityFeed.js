@@ -15,9 +15,7 @@ const ActivityFeed = (props) => {
     
     return (  
         <div className = "feed">
-            <h1> Activity Feed: currently showing all posts </h1>
-            {/* <h2> {user}'s {post} </h2>
-            <button onClick={handleClick}> Add Post </button> */}
+            <h2> Activity Feed </h2>
             { error && <div>{ error }</div>}
             { isLoading && <div>Loading...</div>}
             {posts && <PostList posts = {posts} currentUser = {currentUser}/>}
