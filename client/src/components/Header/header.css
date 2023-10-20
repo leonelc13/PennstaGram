@@ -1,7 +1,4 @@
 #header-container {
-    position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -25,8 +22,6 @@
 
 
 #search-input {
-
-    width: 100%;
     border: 1px solid #FF0606;
     border-radius: 25px;
     padding: 10px;

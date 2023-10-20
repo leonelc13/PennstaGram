@@ -67,10 +67,9 @@ function App() {
                 <>
                     <Header {...props} />
                     <Routes>
-                        <Route exact path='/' element={<MainFeed userId={userId} />} />
+                        <Route exact path='/' element={<ActivityFeed />} />
                         <Route exact path='/profile/:username' element={<Profile {...props} />} />
                         <Route exact path='*' element={<Navigate to='/' />} />
-                        <Route index element = {<ActivityFeed />} /> 
                         <Route exact path ="/user/:username" element = {<User />} />
                         <Route path ="/user/settings" element = {<Settings />} />
                         <Route exact path ="/post/:id" element = {<PostDetails />} />
@@ -87,21 +86,6 @@ function App() {
             )}
         </Router>
     );
-
-//   return (
-//     <Router>
-//         <div className="App">
-//             <div className = "content">
-//                 <Routes>
-//                     <Route index element = {<User />} />
-//                     <Route path ="/user" element = {<User />} />
-//                     <Route path ="/user/settings" element = {<Settings />} />
-//                 </Routes>
-//             </div>
-//         </div>
-//     </Router>
-//   );
-
 }
 
 export default App;
