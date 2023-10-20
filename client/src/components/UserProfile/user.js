@@ -1,8 +1,8 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import './user.css';
 import UserPost from './userPost'; 
 import useFetch from '../useFetch';
-import { BrowserRouter as Router, Route, Routes, Link, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 

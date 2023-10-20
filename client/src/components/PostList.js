@@ -20,7 +20,6 @@ const PostList = (props) => {
                             <Link to={`/user/${post.user}`}> {post.user} </Link>
                         </h1>
                         <p>{post.content}</p>
-                        {/* <button onClick = { () => handleDelete(post.id)}> Delete Post </button> */}
                     </div>
                 </div>
             ))}

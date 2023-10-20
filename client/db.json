@@ -28,10 +28,16 @@
       "id": "Alice",
       "username": "Alice",
       "password": "testalice",
-      "token": "syn06",
+      "token": "smt0oc",
       "profile": "https://cdn.pixabay.com/photo/2014/03/25/16/54/user-297566_1280.png",
-      "followers": ["Sunny", "Bob"],
-      "following": ["testUser", "Bob"]
+      "followers": [
+        "Sunny",
+        "Bob"
+      ],
+      "following": [
+        "testUser",
+        "Bob"
+      ]
     },
     {
       "id": "Sunny",
@@ -78,19 +84,26 @@
       "created": "2017-11-28T20:00:00.000Z",
       "url": "https://i.ibb.co/60NBw0q/tiger.jpg",
       "isImage": true,
-      "comments":[{
-        "from-user": "Alice",
-        "content": "im commenting on myself",
-        "time": "2017-11-28T20:00:00.000Z"
+      "comments": [
+        {
+          "id": 1,
+          "user": "Alice",
+          "content": "im commenting on myself",
+          "time": "2017-11-28T20:00:00.000Z"
         },
         {
-          "from-user": "Alice",
+          "id": 2,
+          "user": "Alice",
           "content": "im commenting on myself again",
-          "time": "2017-11-28T20:00:00.000Z"},
+          "time": "2017-11-28T20:00:00.000Z"
+        },
         {
-          "from-user": "Bob",
+          "id": 3,
+          "user": "Bob",
           "content": "hi Alice",
-          "time": "2018-11-28T20:00:00.000Z"}]
+          "time": "2018-11-28T20:00:00.000Z"
+        }
+      ]
     },
     {
       "id": 3,
@@ -107,6 +120,14 @@
       "created": "2017-11-28T20:00:00.000Z",
       "url": "https://www.youtube.com/embed/i8n1gSw_o_8",
       "isImage": false
+    },
+    {
+      "id": 6,
+      "content": "testContent6",
+      "user": "Alice",
+      "created": "2017-11-28T20:00:00.000Z",
+      "url": "https://i.ibb.co/60NBw0q/tiger.jpg",
+      "isImage": true
     }
   ],
   "comments": [
