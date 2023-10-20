@@ -4,7 +4,7 @@ import Register from './components/RegisterPage/register';
 import Login from './components/LoginPage/login';
 import Header from './components/Header/header';
 import Profile from './components/ProfilePage/profile';
-import MainFeed from './components/Homepage/homepage';
+import CreatePost from './components/Homepage/createpost'; 
 import './style/index.css';
 import axios from "axios";
 import User from './components/UserProfile/user';
@@ -73,6 +73,7 @@ function App() {
                         <Route exact path ="/user/:username" element = {<User />} />
                         <Route path ="/user/settings" element = {<Settings />} />
                         <Route exact path ="/post/:id" element = {<PostDetails />} />
+                        <Route exact path ="/createpost" element = {<CreatePost userId={userId} />} />
                     </Routes>
                 </>
             ) : (
