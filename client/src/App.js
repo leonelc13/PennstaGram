@@ -71,8 +71,8 @@ function App() {
                         <Route exact path='/profile/:username' element={<Profile {...props} />} />
                         <Route exact path='*' element={<Navigate to='/' />} />
                         <Route index element = {<ActivityFeed currentUser = {username}/>} /> 
-                        <Route exact path ="/user/:username" element = {<User />} />
-                        <Route path ="/user/settings" element = {<Settings />} />
+                        <Route exact path ="/user/:username" element = {<User currentUser = {username}/>} />
+                        <Route path ="/user/settings/:username" element = {<Settings currentUser = {username}/>} />
                         <Route exact path ="/post/:id" element = {<PostDetails currentUser = {username}/>} />
                     </Routes>
                 </>
