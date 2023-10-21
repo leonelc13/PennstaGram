@@ -44,10 +44,10 @@ function Header(props) {
                     </span>
                 </Link>
             </span>
-            <input type="text" id="search-input" placeholder="Search for Friends, Quizzes, and more"></input>
+            <input type="text" id="search-input" placeholder="Search for Users"></input>
             <span className="navbar-text">
-                <Link to="/leaderboard">
-                    Leaderboard
+                <Link to="/">
+                    Main Activity
                 </Link >
             </span>
             <span className="navbar-text">
