@@ -8,3 +8,12 @@ import axios from 'axios';
 jest.mock('axios');
 
 //test for user profile page
+describe("User component", () => {
+
+    test("renders correctly", () => {
+        const tree = renderer.create(<BrowserRouter><User /></BrowserRouter>).toJSON();
+        expect(tree).toMatchSnapshot();
+      });
+
+
+});

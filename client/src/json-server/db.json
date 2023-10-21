@@ -4,15 +4,17 @@
       "id": 1,
       "username": "testUser",
       "password": "testPass",
+      "profile": "https://cdn.pixabay.com/photo/2014/03/25/16/54/user-297566_1280.png",
       "followers": [],
       "following": [],
-      "token": "sj2rga"
+      "token": "6eyaq"
     },
     {
       "username": "leonelc",
       "password": "Mexico121301@",
       "id": 2,
       "token": "j7i6o",
+      "profile": "https://cdn.pixabay.com/photo/2014/03/25/16/54/user-297566_1280.png",
       "followers": [],
       "following": []
     },
@@ -36,7 +38,7 @@
       "id": "Alice",
       "username": "Alice",
       "password": "testalice",
-      "token": "21ab9e",
+      "token": "zrwj8p",
       "profile": "https://cdn.pixabay.com/photo/2014/03/25/16/54/user-297566_1280.png",
       "followers": [],
       "following": []

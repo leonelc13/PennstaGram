@@ -1,57 +1,59 @@
-/* eslint-disable */
+
 import React from 'react';
 import './Follow.css'
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-function Follow({ currentUser, profileUser }) {
-  const isFollowing = currentUser?.following.includes(profileUser?.username);
+function Follow(props) {
+    const { username } = useParams();
+    const currentUser = props.currentUser;
+    const handleFollow = async () => {
+        // axios call get the current user's data, add this user to the following list and for this user add current user to its follower list
+        try {
+            const response = await axios.get(`http://localhost:3000/users/${currentUser}`);
+            let currentUserData= response.data;
+            const currentUserFollowing = currentUserData.following;
+            currentUserFollowing.push(username);
+            currentUserData.following = currentUserFollowing;
+            user.followers.push(currentUser);
 
-  const handleFollowToggle = () => {
-    let updatedCurrentUserFollowing;
-    let updatedProfileUserFollowers;
-
-    if (isFollowing) {
-      // If currently following, then unfollow
-      updatedCurrentUserFollowing = currentUser?.following.filter(
-        username => username !== profileUser?.username
-      );
-      updatedProfileUserFollowers = profileUser?.followers.filter(
-        username => username !== currentUser?.username
-      );
-    } else {
-      // If not currently following, then follow
-      updatedCurrentUserFollowing = [...currentUser?.following, profileUser?.username];
-      updatedProfileUserFollowers = [...profileUser?.followers, currentUser?.username];
+            await axios.put(`http://localhost:3000/users/${currentUser}`, 
+                currentUserData);
+            await axios.put(`http://localhost:3000/users/${username}`, user);
+            window.location.reload();
+        } catch (err) {
+            console.log(err);
+        }
     }
 
-    // Update the current user's following list
-    fetch(`http://localhost:3001/users/${currentUser?.id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ following: updatedCurrentUserFollowing })
-    })
-    .then(() => {
-      // Once that's done, update the profile user's followers list
-      return fetch(`http://localhost:3001/users/${profileUser.id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ followers: updatedProfileUserFollowers })
-      });
-    })
-    .then(() => {
-      // After both updates, refresh the page or set the state elsewhere to show the updated data
-      window.location.reload();
-    });
-  };
+    const handleUnfollow = async () => {
+        try {
+            const response = await axios.get(`http://localhost:3000/users/${currentUser}`);
+            let currentUserData= response.data;
+            const currentUserFollowing = currentUserData.following;
 
-  return (
-    <button onClick={handleFollowToggle} data-following={isFollowing}>
-      {isFollowing ? 'Unfollow' : 'Follow'}
-    </button>
-  );
+            var index = currentUserFollowing.indexOf(username);
+            if (index > -1) {
+                currentUserFollowing.splice(index, 1);
+            }
+            currentUserData.following = currentUserFollowing;
+
+            var follower_index = user.followers.indexOf(currentUser);
+            if (follower_index > -1) {
+                user.followers.splice(follower_index, 1);
+            }
+            
+            await axios.put(`http://localhost:3000/users/${currentUser}`, 
+                currentUserData);
+
+            await axios.put(`http://localhost:3000/users/${username}`, user);
+
+            window.location.reload();
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    return (
+            <button onClick = { handleUnfollow }> unfollow </button> : <button onClick={ handleFollow }> Follow </button>);
 }
-
-export default Follow;
+export default Follow

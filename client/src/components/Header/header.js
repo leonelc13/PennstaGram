@@ -64,7 +64,7 @@ function Header(props) {
                 <Link to={`/user/${currentUser}`} >
                     { loading && <div>Loading...</div> }
                     { error  && <div>{ error }</div>}
-                    { user && <img src={user.profile} alt=" profile-pic"></img>}
+                    { user && <img src={user.profile} alt=' profile-pic'></img>}
                 </Link>
             </span>
 
