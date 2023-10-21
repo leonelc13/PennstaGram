@@ -46,7 +46,7 @@ function Header(props) {
             </span>
             <input type="text" id="search-input" placeholder="Search for Users"></input>
             <span className="navbar-text">
-                <Link to="/leaderboard">
+                <Link to="/">
                     Main Activity
                 </Link >
             </span>
@@ -64,7 +64,7 @@ function Header(props) {
                 <Link to={`/user/${currentUser}`} >
                     { loading && <div>Loading...</div> }
                     { error  && <div>{ error }</div>}
-                    { user && <img src={user.profile} alt=" profile-pic"></img>}
+                    { user && <img src={user.profile} alt=' profile-pic'></img>}
                 </Link>
             </span>
 
