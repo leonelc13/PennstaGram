@@ -20,9 +20,6 @@ const User= (props) => {
     const [following, setFollowing] = useState(null);
     const [isFollowing, setIsFollowing] = useState(false);
 
-    // const followerNumRef = useRef(0);
-    // const followingNumRef = useRef(0);
-
     useEffect(() => {
         axios.get(`http://localhost:3000/users/${username}`)
         .then(response => {
@@ -31,22 +28,19 @@ const User= (props) => {
             setError(null);
             setFollowers(response.data.followers);
             setFollowing(response.data.following);
+            if (followers !== null) {
+                setIsFollowing(followers.includes(currentUser));
+                console.log(isFollowing);
+            } else {
+                if (currentUser !== username){
+                setIsFollowing(false);}
+            }
         })
         .catch(err => {
             setError(err.message);
             setLoading(false);
         })
         
-        // if (currentUser === username){
-        //     setIsFollowing(true);
-        // }
-        if (followers !== null) {
-            setIsFollowing(followers.includes(currentUser));
-        } else {
-            if (currentUser !== username){
-            setIsFollowing(false);}
-        }
-
     },[username, currentUser])
 
     const handleFollow = async () => {
