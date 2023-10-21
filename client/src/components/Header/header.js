@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import './header.css'
 /**
  * React Component for Header displayed to a logged in user
@@ -7,9 +9,30 @@ import './header.css'
 
 
 function Header(props) {
+    const currentUser = props.user;
+
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+
     const handleLogout = () => {
         props.handleLogout();
     }
+
+    useEffect(() => {
+        axios.get(`http://localhost:3000/users/${currentUser}`)
+        .then(response => {
+            setUser(response.data);
+            setLoading(false);
+            setError(null);
+        })
+        .catch(err => {
+            setError(err.message);
+            setLoading(false);
+        })
+    },[currentUser])
+
 
     return (
         <div id="header-container">
@@ -38,8 +61,10 @@ function Header(props) {
                 </Link>
             </span>
             <span id="user-profile-picture-wrapper">
-                <Link to={`/profile`} >
-                    <img src={props.user_profile_picture} alt=" profile-pic"></img>
+                <Link to={`/user/${currentUser}`} >
+                    { loading && <div>Loading...</div> }
+                    { error  && <div>{ error }</div>}
+                    { user && <img src={user.profile} alt=" profile-pic"></img>}
                 </Link>
             </span>
 

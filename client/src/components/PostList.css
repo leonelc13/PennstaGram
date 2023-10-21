@@ -1,14 +1,13 @@
+
 .post-preview .image-video{
     width: 200px;
     height: 200px;
-    padding: 20px;
+    /* padding: 20px; */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin: 0px auto;
-    background-color: wheat;
-    border-bottom: 1px solid black;
 }
 
 .post-preview img {
@@ -24,7 +23,7 @@
 
 .post-preview .post-info{
     width: 200px;
-    height: 50px;
+    height: 40px;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -33,6 +32,7 @@
     margin: 20px auto;
     border: 1px solid black;
 }
+
 .post-preview p{
     font-size: medium;
 }
@@ -55,4 +55,8 @@
     border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
+}
+
+div .post-info a:hover{
+    color:coral;
 }

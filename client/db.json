@@ -1,0 +1,144 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "testUser",
+      "password": "testPass",
+      "followers": [],
+      "following": [],
+      "token": "iaou3q"
+    },
+    {
+      "username": "leonelc",
+      "password": "Mexico121301@",
+      "id": 2,
+      "token": "j7i6o",
+      "followers": [],
+      "following": []
+    },
+    {
+      "username": "justin",
+      "password": "tran",
+      "id": 3,
+      "token": "dwh10b",
+      "followers": [],
+      "following": []
+    },
+    {
+      "id": "Alice",
+      "username": "Alice",
+      "password": "testalice",
+      "token": "dzcxms",
+      "profile": "https://cdn.pixabay.com/photo/2014/03/25/16/54/user-297566_1280.png",
+      "followers": [
+        "Sunny",
+        "Bob"
+      ],
+      "following": [
+        "testUser",
+        "Bob",
+        "Sunny"
+      ]
+    },
+    {
+      "id": "Sunny",
+      "username": "Sunny",
+      "password": "testSunny",
+      "token": "",
+      "profile": "https://t4.ftcdn.net/jpg/05/62/99/31/360_F_562993122_e7pGkeY8yMfXJcRmclsoIjtOoVDDgIlh.jpg",
+      "followers": [
+        "Alice"
+      ],
+      "following": []
+    },
+    {
+      "id": "Bob",
+      "username": "Bob",
+      "password": "testBob",
+      "token": "",
+      "profile": "https://cdn.pixabay.com/photo/2014/04/03/10/32/businessman-310819_1280.png",
+      "followers": [],
+      "following": []
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "testPost",
+      "content": "testContent",
+      "url": "https://i.ibb.co/60NBw0q/tiger.jpg",
+      "isImage": true,
+      "user": "Sunny",
+      "created": "2017-11-28T20:00:00.000Z",
+      "likes": 0,
+      "comments": [
+        {
+          "id": 1,
+          "content": "testComment",
+          "user": "Sunny",
+          "created": "2017-11-28T20:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "content": "testContent2",
+      "user": "Alice",
+      "created": "2017-11-28T20:00:00.000Z",
+      "url": "https://i.ibb.co/60NBw0q/tiger.jpg",
+      "isImage": true,
+      "comments": [
+        {
+          "id": 1,
+          "user": "Alice",
+          "content": "im commenting on myself",
+          "time": "2017-11-28T20:00:00.000Z"
+        },
+        {
+          "id": 2,
+          "user": "Alice",
+          "content": "im commenting on myself again",
+          "time": "2017-11-28T20:00:00.000Z"
+        },
+        {
+          "id": 3,
+          "user": "Bob",
+          "content": "hi Alice",
+          "time": "2018-11-28T20:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "content": "testContent3",
+      "user": "Bob",
+      "created": "2017-11-28T20:00:00.000Z",
+      "url": "https://www.youtube.com/embed/i8n1gSw_o_8",
+      "isImage": false
+    },
+    {
+      "id": 4,
+      "content": "testContent4",
+      "user": "Bob",
+      "created": "2017-11-28T20:00:00.000Z",
+      "url": "https://www.youtube.com/embed/i8n1gSw_o_8",
+      "isImage": false
+    },
+    {
+      "id": 6,
+      "content": "testContent6",
+      "user": "Alice",
+      "created": "2017-11-28T20:00:00.000Z",
+      "url": "https://i.ibb.co/60NBw0q/tiger.jpg",
+      "isImage": true
+    }
+  ],
+  "comments": [
+    {
+      "username": "justin",
+      "password": "tran",
+      "id": 3,
+      "token": "83f6iia"
+    }
+  ]
+}
