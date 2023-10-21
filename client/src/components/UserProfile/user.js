@@ -47,7 +47,7 @@ const User= (props) => {
             setIsFollowing(false);}
         }
 
-    },[username, currentUser, followers])
+    },[username, currentUser])
 
     const handleFollow = async () => {
         // axios call get the current user's data, add this user to the following list and for this user add current user to its follower list
