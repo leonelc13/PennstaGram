@@ -1,5 +1,6 @@
 import './PostList.css'
 import { Link } from 'react-router-dom';
+import React from 'react';
 
 const PostList = (props) => {
 
@@ -8,7 +9,7 @@ const PostList = (props) => {
 
     return ( 
         <div className="post-list">
-            {posts.map((post) => (
+            {posts?.map((post) => (
                 <div className="post-preview" key={post.id}>
                     <Link to = {`/post/${post.id}`}>
                         {post.isImage ?

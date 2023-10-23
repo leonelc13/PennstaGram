@@ -1,5 +1,6 @@
 import './CommentList.css'
 import { Link } from 'react-router-dom';
+import React from 'react';
 
 const CommentList = (props) => {
 
@@ -8,7 +9,7 @@ const CommentList = (props) => {
 
     return(
         <div className="comments-list">
-            {comments.map((comment) => (
+            {comments?.map((comment) => (
                 <div className="comment-preview" key = {comment.id}>
                         <p>
                             {console.log(comment.user)}

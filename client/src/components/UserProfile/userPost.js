@@ -2,6 +2,7 @@ import './user.css';
 import PostList from '../PostList';
 import useFetch from '../useFetch';
 import { useParams } from 'react-router-dom';
+import React from 'react';
   
 
 const UserPost = () => {

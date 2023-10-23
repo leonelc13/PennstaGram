@@ -5,8 +5,6 @@ import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 
-import Follow from '../Follow/Follow';
-
 const User= (props) => {
     const { username } = useParams();
     const currentUser = props.currentUser;

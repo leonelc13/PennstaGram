@@ -2,6 +2,7 @@ import '../PostList.css'
 import './ActivityFeed.css'
 import PostList from '../PostList';
 import useFetch from '../useFetch';
+import React from 'react';
 
 const ActivityFeed = (props) => {
       

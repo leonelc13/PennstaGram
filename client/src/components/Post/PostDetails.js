@@ -3,6 +3,7 @@ import useFetch from '../useFetch';
 import CommentList from '../Listing/CommentList';
 import "./PostDetails.css"
 import axios from 'axios';
+import React from 'react';
 
 const PostDetails = (props) => {
     const { id } = useParams();

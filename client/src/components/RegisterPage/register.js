@@ -4,7 +4,7 @@ import "./register.css";
 import axios from "axios";
 const { rootURL } = require('../../utils/utils');
 
-function Register(props) {
+function Register() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -56,8 +56,7 @@ function Register(props) {
 
             navigate('/login');
 
-        } catch (err) {
-        }
+        } catch (err) { /* empty */ }
 
     }, [username, password, navigate]);
 

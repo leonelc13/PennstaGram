@@ -14,7 +14,7 @@ function HomePage(props) {
             <h1>
               Welcome {user.username}!
             </h1>
-            <h3>Here's a dog!</h3>
+            <h3>a dog!</h3>
           </div>
         </div>
       </div>
