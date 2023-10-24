@@ -15,5 +15,11 @@ describe("User component", () => {
         expect(tree).toMatchSnapshot();
       });
 
+    test("displays followers and following", async () => {
+        render(<BrowserRouter><User /></BrowserRouter>);
+        const followers = getByText(/followers/i);
+        expect(followers).toBeInTheDocument();
+      });
+
 
 });

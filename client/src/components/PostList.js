@@ -5,7 +5,6 @@ import React from 'react';
 const PostList = (props) => {
 
     const posts  = props.posts;
-    // const currentUser = props.currentUser;
 
     return ( 
         <div className="post-list">

@@ -1,42 +1,39 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import useFetch from '../useFetch';
-import CommentList from '../Listing/CommentList';
-import "./PostDetails.css"
-import axios from 'axios';
 import React from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import CommentList from '../Listing/CommentList';
+import "./PostDetails.css";
+import { useState, useEffect } from 'react';
+import { getPostById, deletePost } from '../../api/posts';
 
 const PostDetails = (props) => {
     const { id } = useParams();
-    const {data: post, isLoading, error} = useFetch('http://localhost:3000/posts/' + id);
     const navigate = useNavigate();
     const currentUser = props.currentUser;
 
-    // const handleDeletePost = () => {
-    //     fetch('http://localhost:3000/posts/' + post.id, {
-    //         method: 'DELETE'
-    //     }).then(() => {
-    //         navigate('/');
-    //     })
-    // }
+    const [post, setPost] = useState(null);
+
+    useEffect(() => {
+        async function getPostWrapper(){
+            const data = await getPostById(id);
+            setPost(data);
+            return data;
+        }
+        getPostWrapper();
+    },[id]);
     
-    // use axios to detete post and then navigate to the home page
     const handleDeletePost = async () => {
         try {
-            await axios.delete(`http://localhost:3000/posts/${id}`);
+            await deletePost(id);
             navigate('/');
         } catch (err) {
             console.log(err);
         }
     }
 
-
     return (
         <div className="post-details">
-            { isLoading && <div>Loading...</div> }
-            { error && <div>{ error }</div>}
             { post && (
                 <div>
-                    {/* display the image of the post here */}
                     <div className="post-display">
                         {post.isImage ?
                                 <img className="image-video" src={ post.url } alt={ post.testContent } />
