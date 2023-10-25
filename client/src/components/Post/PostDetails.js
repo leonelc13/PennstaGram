@@ -44,7 +44,7 @@ const PostDetails = (props) => {
                         <p>posted by { post.user }</p>
                         {currentUser === post.user &&  <button onClick = { handleDeletePost } > Delete Post </button>}
                     </div>
-                    <div className= "comments">
+                    <div className= "comments" id="comments">
                         <h3> Comments </h3>
                         {/* display the comments of the post here */}
                         <CommentList comments = {post.comments} currentUser = {currentUser}/>

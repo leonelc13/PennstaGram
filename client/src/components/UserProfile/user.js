@@ -14,11 +14,11 @@ const User= (props) => {
                 <div className="links">
                     <Link to = {`/user/settings/${username}`}>Settings</Link>
                 </div>
-                <div className="userProfile">
+                <div className="userProfile" id="userProfileComponent">
                     <UserInfo currentUser = {currentUser} targetUser = {username} />
                 </div>
             </div>
-            <div className="userPost">
+            <div className="userPost" id="userPostComponent">
                 <UserPost />
             </div>
         </div>

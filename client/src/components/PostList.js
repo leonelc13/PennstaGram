@@ -9,7 +9,7 @@ const PostList = (props) => {
     return ( 
         <div className="post-list">
             {posts?.map((post) => (
-                <div className="post-preview" key={post.id}>
+                <div className="post-preview" key={post.id} id="postPreview">
                     <Link to = {`/post/${post.id}`}>
                         {post.isImage ?
                             <img className="image-video" src={post.url} alt={post.testContent} />

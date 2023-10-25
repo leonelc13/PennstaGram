@@ -24,9 +24,9 @@ const FollowButton = (props) => {
     }
 
     if (isFollowing) {
-        return (<button onClick={handleUnfollow}>Unfollow</button>);
+        return (<button onClick={handleUnfollow} id="unfollowButton">Unfollow</button>);
     } else {
-        return (<button onClick={handleFollow}>Follow</button>);
+        return (<button onClick={handleFollow} id="followButton">Follow</button>);
     }
 }
  

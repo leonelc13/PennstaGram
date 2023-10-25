@@ -21,7 +21,7 @@ const ActivityFeed = (props) => {
     },[]);
 
     return (  
-        <div className = "feed">
+        <div className = "feed" id="feedComponent">
             <h2> Activity Feed </h2>
             {posts && <PostList posts = {posts} currentUser = {currentUser}/>}
         </div>
