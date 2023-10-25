@@ -7,7 +7,7 @@ import PostDetails from "../../src/components/Post/PostDetails";
 import axios from 'axios';
 jest.mock('axios');
 
-describe("Post List", () => {
+describe("Post Detail", () => {
     test("renders correctly", () => {
         const tree = renderer.create(<BrowserRouter><PostDetails /></BrowserRouter>).toJSON();
         expect(tree).toMatchSnapshot();

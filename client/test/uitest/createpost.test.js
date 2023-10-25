@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import renderer from "react-test-renderer";
 import "@testing-library/jest-dom";
-import CreatePost from '../../src/components/Homepage/createpost'; 
+import CreatePost from '../../src/api/createpost'; 
 import axios from 'axios';
 jest.mock('axios');
 

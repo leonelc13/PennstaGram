@@ -3,8 +3,7 @@ import { Route, BrowserRouter as Router, Routes, Navigate} from 'react-router-do
 import Register from './components/RegisterPage/register';
 import Login from './components/LoginPage/login';
 import Header from './components/Header/header';
-import Profile from './components/ProfilePage/profile';
-import CreatePost from './components/Homepage/createpost'; 
+import CreatePost from './api/createpost'; 
 import './style/index.css';
 import axios from "axios";
 import User from './components/UserProfile/user';
@@ -68,7 +67,6 @@ function App() {
                     <Header {...props} />
                     <Routes>
                         <Route exact path='/' element={<ActivityFeed />} />
-                        <Route exact path='/profile/:username' element={<Profile {...props} />} />
                         <Route exact path='*' element={<Navigate to='/' />} />
                         <Route index element = {<ActivityFeed currentUser = {username}/>} /> 
                         <Route exact path ="/user/:username" element = {<User currentUser = {username}/>} />

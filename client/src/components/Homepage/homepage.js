@@ -1,6 +1,6 @@
 import { Layout } from 'antd';
 import React from 'react';
-import CreatePost from './createpost';
+import CreatePost from '../../api/createpost';
 const { Content } = Layout;
 
 function HomePage(props) {

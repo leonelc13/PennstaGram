@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import CommentList from '../Listing/CommentList';
+import CommentList from './CommentList';
 import "./PostDetails.css";
 import { useState, useEffect } from 'react';
 import { getPostById, deletePost } from '../../api/posts';

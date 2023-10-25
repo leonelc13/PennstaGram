@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from "axios";
-const { rootURL } = require('../../utils/utils');
+const { rootURL } = require('../utils/utils');
 
 function CreatePost(props) {
   const [url, setUrl] = useState('');
