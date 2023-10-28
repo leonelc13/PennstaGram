@@ -20,17 +20,17 @@ test('follow button', async () => {
     await act(async () => {
       fireEvent.click(follow);
     })
-
+    
     waitFor(() => expect(screen.queryByTestId('unfollowButton')).toBeInTheDocument());
 });
 
-// test('unfollow button', async () => {
-//     render(<BrowserRouter><FollowButton isFollowing={true} /></BrowserRouter>);
-//     const follow = screen.getByRole('button', { name: /unFollow/i });
+test('unfollow button', async () => {
+    render(<BrowserRouter><FollowButton isFollowing={true} /></BrowserRouter>);
+    const follow = screen.getByRole('button', { name: /unFollow/i });
 
-//     await act(async () => {
-//         fireEvent.click(follow);
-//     })
+    await act(async () => {
+        fireEvent.click(follow);
+    })
 
-//     waitFor(() => expect(screen.queryByTestId('followButton')).toBeInTheDocument());
-// });
+    waitFor(() => expect(screen.queryByTestId('followButton')).toBeInTheDocument());
+});

@@ -6,7 +6,6 @@ import renderer from "react-test-renderer";
 import "@testing-library/jest-dom";
 import User from "../../src/components/UserProfile/user";
 
-
 const mockUser = {
   username: 'testuser',
   userid: 'testuser',

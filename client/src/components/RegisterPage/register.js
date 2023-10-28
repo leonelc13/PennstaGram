@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import "./register.css";
-import axios from "axios";
-const { rootURL } = require('../../utils/utils');
+import { tryRegister } from '../../api/users';
+// import axios from "axios";
+// const { rootURL } = require('../../utils/utils');
 
 function Register() {
     const [username, setUsername] = useState('');
@@ -36,27 +37,7 @@ function Register() {
             return;
         }
 
-        try {
-            const response = await axios.get('http://localhost:3000/users');
-            const data = response.data;
-
-            if (data.find((user) => user.username === username)) {
-                setErrorMessage('Username is already taken');
-                return;
-            }
-
-            const postResponse = await axios.post(`${rootURL}:3000/users`, `username=${username}&password=${password}`);
-
-            const postData = postResponse.data;
-
-            if (postData.error) {
-                setErrorMessage(postData.error);
-                return;
-            }
-
-            navigate('/login');
-
-        } catch (err) { /* empty */ }
+        tryRegister(username, password, setErrorMessage, navigate);
 
     }, [username, password, navigate]);
 

@@ -28,7 +28,7 @@
       "id": "Alice",
       "username": "Alice",
       "password": "testalice",
-      "token": "dzcxms",
+      "token": "1y1tr",
       "profile": "https://cdn.pixabay.com/photo/2014/03/25/16/54/user-297566_1280.png",
       "followers": [
         "Sunny",
@@ -47,7 +47,8 @@
       "token": "",
       "profile": "https://t4.ftcdn.net/jpg/05/62/99/31/360_F_562993122_e7pGkeY8yMfXJcRmclsoIjtOoVDDgIlh.jpg",
       "followers": [
-        "Alice"
+        "Alice",
+        "test123"
       ],
       "following": []
     },
@@ -59,6 +60,24 @@
       "profile": "https://cdn.pixabay.com/photo/2014/04/03/10/32/businessman-310819_1280.png",
       "followers": [],
       "following": []
+    },
+    {
+      "username": "test123",
+      "password": "password",
+      "id": "test123",
+      "token": "hx9zfm",
+      "followers": [],
+      "following": [
+        "Sunny"
+      ]
+    },
+    {
+      "id": "hi",
+      "username": "hi",
+      "password": "hi",
+      "followers": [],
+      "following": [],
+      "token": "rljkh"
     }
   ],
   "posts": [

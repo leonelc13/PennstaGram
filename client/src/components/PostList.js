@@ -4,7 +4,21 @@ import React from 'react';
 
 const PostList = (props) => {
 
-    const posts  = props.posts;
+    const allPosts  = props.posts;
+    const userlist = props.userList;
+
+    const filterPosts = () => {
+        if (userlist?.length > 3) {
+            return allPosts.filter(
+                (post) =>
+                    userlist.includes(post.user)
+            );
+        } else {
+            return allPosts;
+        }
+    };
+
+    const posts = filterPosts();
 
     return ( 
         <div className="post-list">

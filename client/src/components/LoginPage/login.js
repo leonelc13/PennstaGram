@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Link } from 'react-router-dom';
-import axios from "axios";
 import "./login.css";
-const { rootURL } = require('../../utils/utils');
+import { tryLogin } from "../../api/users";
 
 function Login(props) {
     const [username, setUsername] = useState("");
@@ -35,36 +34,9 @@ function Login(props) {
             setErrorMessage('Missing password');
             return;
         }
-      
-        try {
-            const response = await axios.get(`${rootURL}:3000/users`, {
-                params: {
-                    username: username,
-                    password: password
-                } 
-            });
-
-            const data = response.data;
-            if (data.length === 0 || data[0].password !== password || data[0].username !== username) {
-                setErrorMessage("Sorry, we don't recognize that combination of username and password. Please try again");
-                return;
-            }
-
-            const token = Math.random().toString(36).substring(7); // simple token generation
-
-            // Now, you'd want to save this token in your db.json
-            await axios.patch(`${rootURL}:3000/users/${data[0].id}`, {
-                token: token
-            });
-
-            // Save token in local storage or cookie
-            localStorage.setItem('userToken', token);
-            
-            handleLogin(data[0]);
-        } catch (err) {
-            console.log('error', err.message);
-        }
         
+        tryLogin(username, password, setErrorMessage, handleLogin);
+
     }, [username, password, handleLogin]);
 
     useEffect(() => {

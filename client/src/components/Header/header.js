@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import './header.css'
+import { getUserById } from '../../api/users';
 /**
  * React Component for Header displayed to a logged in user
  **/
@@ -10,27 +10,20 @@ import './header.css'
 
 function Header(props) {
     const currentUser = props.user;
-
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-
     const handleLogout = () => {
         props.handleLogout();
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/users/${currentUser}`)
-        .then(response => {
-            setUser(response.data);
-            setLoading(false);
-            setError(null);
-        })
-        .catch(err => {
-            setError(err.message);
-            setLoading(false);
-        })
+    
+        async function getCurrentUserWrapper(){
+            const data = await getUserById(currentUser.id);
+            setUser(data);
+            return data;
+        }
+        getCurrentUserWrapper();
+
     },[currentUser])
 
 
@@ -61,9 +54,8 @@ function Header(props) {
                 </Link>
             </span>
             <span id="user-profile-picture-wrapper">
-                <Link to={`/user/${currentUser}`} >
-                    { loading && <div>Loading...</div> }
-                    { error  && <div>{ error }</div>}
+                <Link to={`/user/${currentUser.username}`} >
+                    {console.log(currentUser)}
                     { user && <img src={user.profile} alt=' profile-pic'></img>}
                 </Link>
             </span>

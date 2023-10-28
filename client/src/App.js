@@ -5,37 +5,29 @@ import Login from './components/LoginPage/login';
 import Header from './components/Header/header';
 import CreatePost from './api/createpost'; 
 import './style/index.css';
-import axios from "axios";
+// import axios from "axios";
 import User from './components/UserProfile/user';
 import Settings from './components/UserProfile/setting';
 import PostDetails from './components/Post/PostDetails';
 import ActivityFeed from './components/ActivityFeed/ActivityFeed'; 
-const { rootURL } = require('./utils/utils');
+import { getUserByToken } from './api/users';
+// const { rootURL } = require('./utils/utils');
 
 
 function App() {
     const [authenticated, setAuthenticated] = useState(false);
     const [username, setUsername] = useState("");
-    const [userId, setUserId] = useState(-1);
+    // const [userId, setUserId] = useState(-1);
     const [token, setToken] = useState(localStorage.getItem('userToken'));
-    const [loading, setLoading] = useState(true); // Add this line
-
+    const [loading, setLoading] = useState(true); 
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
-        if(token){
-          axios.get(`${rootURL}:3000/users`, {
-              params: { token: token }
-          }).then(response => {
-              if(response.data.length > 0) {
-                  setUsername(response.data[0].username);
-                  setUserId(response.data[0].id);
-                  setAuthenticated(true);
-              }
-              setLoading(false);
-          });
-        } else {
-            setLoading(false);
+        async function loginWrapper(){
+            const data = await getUserByToken(token, setUser, setAuthenticated, setLoading);
+            return data;
         }
+        loginWrapper();
     }, [token]);
 
     const handleLogout = () => {
@@ -52,7 +44,7 @@ function App() {
     }
 
     let props = {
-        user: username,
+        user: user,
         handleLogout: handleLogout
     };
 
@@ -68,11 +60,11 @@ function App() {
                     <Routes>
                         <Route exact path='/' element={<ActivityFeed />} />
                         <Route exact path='*' element={<Navigate to='/' />} />
-                        <Route index element = {<ActivityFeed currentUser = {username}/>} /> 
-                        <Route exact path ="/user/:username" element = {<User currentUser = {username}/>} />
+                        <Route index element = {<ActivityFeed currentUser = {user}/>} /> 
+                        <Route exact path ="/user/:username" element = {<User currentUser = {user}/>} />
                         <Route path ="/user/settings/:username" element = {<Settings currentUser = {username}/>} />
                         <Route exact path ="/post/:id" element = {<PostDetails currentUser = {username}/>} />
-                        <Route exact path ="/createpost" element = {<CreatePost userId={userId} />} />
+                        <Route exact path ="/createpost" element = {<CreatePost userId={username} />} />
                     </Routes>
                 </>
             ) : (

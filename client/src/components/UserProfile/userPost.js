@@ -5,9 +5,10 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getPostsByUser } from '../../api/posts';
 
-const UserPost = () => {
+const UserPost = (props) => {
     const { username } = useParams();
     const [posts, setPosts] = useState(null);
+    const currentUser = props.currentUser;
 
     useEffect(() => {
         async function getPostWrapper(){
@@ -20,7 +21,7 @@ const UserPost = () => {
     
     return (  
         <div className = "userPost">
-            {posts && <PostList posts = {posts}/>}
+            {posts && <PostList posts = {posts} userList = {[currentUser?.username]}/>}
         </div>
 
     );

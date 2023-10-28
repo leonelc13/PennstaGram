@@ -8,8 +8,14 @@ import { getAllPosts } from '../../api/posts';
 const ActivityFeed = (props) => {
 
     const currentUser = props.currentUser;
-    
     const [posts, setPosts] = useState(null);
+
+    let list = currentUser?.following;
+    if (list !== undefined){
+        if (!list.includes(currentUser.username)){
+            list.push(currentUser.username);
+        }
+    }
     
     useEffect(() => {
         async function getPostWrapper(){
@@ -23,7 +29,8 @@ const ActivityFeed = (props) => {
     return (  
         <div className = "feed" id="feedComponent">
             <h2> Activity Feed </h2>
-            {posts && <PostList posts = {posts} currentUser = {currentUser}/>}
+            {console.log(list)}
+            {posts && <PostList posts = {posts} userList = {list}/>}
         </div>
 
     );

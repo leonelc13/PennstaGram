@@ -1,5 +1,5 @@
 import React from 'react';
-import { followUser, unfollowUser } from '../../api/users';
+import { followUser, unfollowUser, getUserById} from '../../api/users';
 
 const FollowButton = (props) => {
     const currentUser = props.currentUser;
@@ -11,16 +11,31 @@ const FollowButton = (props) => {
             await followUser(currentUser, targetUser);
             props.setIsFollowing(true);
         }
+
+        async function getUpdatedUser() {
+            const data = await getUserById(currentUser);
+            props.setCurrentUser(data);
+        }
+
         followWrapper();
+        getUpdatedUser();
     }
 
     const handleUnfollow = async () => {
         
         async function unfollowWrapper(){
-            await unfollowUser(currentUser, targetUser);
+            const updatedUser = await unfollowUser(currentUser, targetUser);
+            console.log(updatedUser);
             props.setIsFollowing(false);
         }
+
+        async function getUpdatedUser() {
+            const data = await getUserById(currentUser);
+            props.setCurrentUser(data);
+        }
+
         unfollowWrapper();
+        getUpdatedUser();
     }
 
     if (isFollowing) {
