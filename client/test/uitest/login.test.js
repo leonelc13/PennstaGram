@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, test, expect, jest } from '@jest/globals';
 import renderer from "react-test-renderer";
 import { BrowserRouter } from 'react-router-dom';
 import "@testing-library/jest-dom";
@@ -55,7 +56,7 @@ describe('Login Functionality', () => {
     fireEvent.change(passwordInput, { target: { value: 'password' } });
     fireEvent.click(signInButton);
 
-    expect(screen.getByText(/Missing username/i)).toBeInTheDocument();
+    expect(screen.getByText(/Please enter .* username/i)).toBeInTheDocument();
   });
 
   test('displays error message for missing password', () => {
@@ -66,7 +67,7 @@ describe('Login Functionality', () => {
     fireEvent.change(usernameInput, { target: { value: 'username' } });
     fireEvent.click(signInButton);
 
-    expect(screen.getByText(/Missing password/i)).toBeInTheDocument();
+    expect(screen.getByText(/Please enter .* password/i)).toBeInTheDocument();
   });
 
   test('displays error message for missing username and password', () => {
@@ -75,7 +76,7 @@ describe('Login Functionality', () => {
 
     fireEvent.click(signInButton);
 
-    expect(screen.getByText(/Missing username and password/i)).toBeInTheDocument();
+    expect(screen.getByText(/Please enter .* username .* password/i)).toBeInTheDocument();
   });
 
   test('displays error for incorrect username and password combination', async () => {
@@ -105,7 +106,7 @@ describe('Login Functionality', () => {
     fireEvent.keyDown(usernameInput, { key: 'Enter', code: 'Enter' });
 
     // Check the error message since password is missing. This validates that pressing Enter initiated form submission
-    expect(screen.getByText(/Missing password/i)).toBeInTheDocument();
+    expect(screen.getByText(/Please enter .* password/i)).toBeInTheDocument();
   });
 
   test('successfully logs in with correct username and password', async () => {

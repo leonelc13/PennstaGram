@@ -103,14 +103,26 @@ export const checkFolloing = async (u1, u2) => {
 
 export const tryLogin = async (username, password, setErrorMessage, handleLogin ) => {
     try {
+        if (!username && !password) {
+            setErrorMessage('Please enter both a username and password');
+            return;
+          }
+        
+        if (!username) {
+            setErrorMessage('Please enter a username');
+            return;
+        }
+        
+        if (!password) {
+            setErrorMessage('Please enter a password');
+            return;
+        }
+        
         const response = await axios.post(`${rootURL}:3000/login`, `name=${username}&password=${password}`);
         handleLogin(response);
     } catch (err) {
-        if (err.response.data.error === 'Missing username and password') {
-          setErrorMessage('Missing username and password');
-        } else {
-          setErrorMessage(err.response.data.error || err.message);
-        }
+        const errorMessage = err.response?.data?.error === null ? err.response?.data?.error : err.message;
+        setErrorMessage(errorMessage);
         console.log('error', err.message);
     }
 
@@ -148,13 +160,34 @@ export const tryLogin = async (username, password, setErrorMessage, handleLogin 
 
 export const tryRegister = async (username, password, setErrorMessage, navigate) => {
     try {
+        if (!username && !password) {
+            setErrorMessage('Please enter both a username and password');
+            return;
+          }
+        
+        if (!username) {
+            setErrorMessage('Please enter a username');
+            return;
+        }
+        
+        if (!password) {
+            setErrorMessage('Please enter a password');
+            return;
+        }
+
         console.log(username);
         console.log(password);
-        await axios.post(`${rootURL}:3000/register`, `name=${username}&password=${password}`)
-        navigate('/login')
+        const response = await axios.post(`${rootURL}:3000/register`, `name=${username}&password=${password}`);
+        if (response.data.error !== null) {
+            setErrorMessage(response.data.error);
+        }
+        else {
+            navigate('/login');
+        }
     } catch (err) {
-        setErrorMessage(err.response.data.error);
-        console.log('error', err.message);
+        const errorMessage = err.response?.data?.error === null ? err.response?.data?.error : err.message;
+        setErrorMessage(errorMessage);
+        console.log('error', errorMessage);
     }
 }
 

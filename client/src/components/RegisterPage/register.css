@@ -90,6 +90,7 @@
     }
     
     .error-text {
+        color: red;
         font-size: 1rem;
         align-items: center;
         font-weight: bold;

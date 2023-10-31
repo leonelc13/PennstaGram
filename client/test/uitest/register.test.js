@@ -41,7 +41,6 @@ describe("Register component", () => {
       const passwordInput = screen.getByLabelText(/Pick a Password/i);
       const signUpButton = screen.getByRole('button', { name: /Sign Up/i });
 
-      // eslint-disable-next-line testing-library/no-unnecessary-act
       await act(async () => {
         fireEvent.change(passwordInput, { target: { value: 'newuser' } });
         fireEvent.click(signUpButton);
@@ -55,7 +54,6 @@ describe("Register component", () => {
       const usernameInput = screen.getByLabelText(/Pick a Username/i);
       const signUpButton = screen.getByRole('button', { name: /Sign Up/i });
 
-      // eslint-disable-next-line testing-library/no-unnecessary-act
       await act(async () => {
         fireEvent.change(usernameInput, { target: { value: 'newuser' } });
         fireEvent.click(signUpButton);
@@ -68,7 +66,6 @@ describe("Register component", () => {
       render(<BrowserRouter><Register /></BrowserRouter>);
       const signUpButton = screen.getByRole('button', { name: /Sign Up/i });
       
-      // eslint-disable-next-line testing-library/no-unnecessary-act
       await act(async () => {
         fireEvent.click(signUpButton);
       });
@@ -80,7 +77,6 @@ describe("Register component", () => {
       render(<BrowserRouter><Register /></BrowserRouter>);
       const signInLink = screen.getByRole('link', { name: /sign in/i });
 
-      // eslint-disable-next-line testing-library/no-unnecessary-act
       act(() => {
         fireEvent.click(signInLink);
       });
@@ -97,7 +93,6 @@ describe("Register component", () => {
       const passwordInput = screen.getByLabelText(/Pick a Password/i);
       const signUpButton = screen.getByRole('button', { name: /Sign Up/i });
       
-      // eslint-disable-next-line testing-library/no-unnecessary-act
       act(() => {
         fireEvent.change(usernameInput, { target: { value: 'username' } });
         fireEvent.change(passwordInput, { target: { value: 'newpassword' } });
@@ -108,7 +103,6 @@ describe("Register component", () => {
     test('submits form on "Enter" key press', () => {
       render(<BrowserRouter><Register /></BrowserRouter>);
 
-      // eslint-disable-next-line testing-library/no-unnecessary-act
       act(() => {
         fireEvent.keyDown(document, { key: 'Enter', code: 'Enter' });
       });
@@ -126,7 +120,6 @@ describe("Register component", () => {
       const passwordInput = screen.getByLabelText(/Pick a Password/i);
       const signUpButton = screen.getByRole('button', { name: /Sign Up/i });
       
-      // eslint-disable-next-line testing-library/no-unnecessary-act
       await act(async () => {
         fireEvent.change(usernameInput, { target: { value: 'newuser' } });
         fireEvent.change(passwordInput, { target: { value: 'password' } });
@@ -140,7 +133,8 @@ describe("Register component", () => {
     test('displays error message from server after registration attempt', async () => {
       // Mock successful GET request (no existing user) but error in POST request
       axios.get.mockResolvedValue({ data: [] });
-      axios.post.mockResolvedValue({ data: { error: 'Registration failed.' } });
+      const errorMessage = 'Registration failed.';
+      axios.post.mockResolvedValue({ data: { error: errorMessage } });
       
       render(<BrowserRouter><Register /></BrowserRouter>);
       
@@ -148,14 +142,13 @@ describe("Register component", () => {
       const passwordInput = screen.getByLabelText(/Pick a Password/i);
       const signUpButton = screen.getByRole('button', { name: /Sign Up/i });
       
-      // eslint-disable-next-line testing-library/no-unnecessary-act
       await act(async () => {
         fireEvent.change(usernameInput, { target: { value: 'newuser' } });
         fireEvent.change(passwordInput, { target: { value: 'password' } });
         fireEvent.click(signUpButton);
       });
       
-      expect(screen.getByText(/Registration failed./i)).toBeInTheDocument();
+      expect(screen.getByText(errorMessage)).toBeInTheDocument();
     });
   });
 });
