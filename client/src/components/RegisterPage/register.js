@@ -22,21 +22,6 @@ function Register() {
     const handleSubmit = useCallback (async (event) => {
         event.preventDefault();
 
-        if (!username && !password) {
-            setErrorMessage('Please enter both a username and password');
-            return;
-          }
-        
-        if (!username) {
-            setErrorMessage('Please enter a username');
-            return;
-        }
-        
-        if (!password) {
-            setErrorMessage('Please enter a password');
-            return;
-        }
-
         tryRegister(username, password, setErrorMessage, navigate);
 
     }, [username, password, navigate]);

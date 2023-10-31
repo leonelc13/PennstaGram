@@ -103,6 +103,19 @@ export const checkFolloing = async (u1, u2) => {
 
 export const tryLogin = async (username, password, setErrorMessage, handleLogin ) => {
     try {
+        const response = await axios.post(`${rootURL}:3000/login`, `name=${username}&password=${password}`);
+        handleLogin(response);
+    } catch (err) {
+        if (err.response.data.error === 'Missing username and password') {
+          setErrorMessage('Missing username and password');
+        } else {
+          setErrorMessage(err.response.data.error || err.message);
+        }
+        console.log('error', err.message);
+    }
+
+
+    /**try {
         const response = await axios.get(`${rootURL}:3000/users`, {
             params: {
                 username: username,
@@ -130,33 +143,19 @@ export const tryLogin = async (username, password, setErrorMessage, handleLogin 
 
     } catch (err) {
         console.log('error', err.message);
-    }
+    }*/
 }
 
 export const tryRegister = async (username, password, setErrorMessage, navigate) => {
     try {
-        const response = await axios.get('http://localhost:3000/users');
-        const data = response.data;
-
-        if (data.find((user) => user.username === username)) {
-            setErrorMessage('Username is already taken');
-            return;
-        }
-
-        let newUser = {"id": username, "username": username, "password": password, "followers": [], "following": []};
-
-        const postResponse = await axios.post(`${rootURL}:3000/users`, newUser);
-
-        const postData = postResponse.data;
-
-        if (postData.error) {
-            setErrorMessage(postData.error);
-            return;
-        }
-
-        navigate('/login');
-
-    } catch (err) { /* empty */ }
+        console.log(username);
+        console.log(password);
+        await axios.post(`${rootURL}:3000/register`, `name=${username}&password=${password}`)
+        navigate('/login')
+    } catch (err) {
+        setErrorMessage(err.response.data.error);
+        console.log('error', err.message);
+    }
 }
 
 export const getUserByToken = async (token, setUser, setAuthenticated, setLoading) => {

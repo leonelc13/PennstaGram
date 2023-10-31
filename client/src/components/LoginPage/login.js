@@ -19,21 +19,6 @@ function Login(props) {
 
     const handleSubmit = useCallback (async (event) => {
         event.preventDefault();
-
-        if (!username && !password) {
-            setErrorMessage('Missing username and password');
-            return;
-        }
-        
-        if (!username) {
-            setErrorMessage('Missing username');
-            return;
-        }
-        
-        if (!password) {
-            setErrorMessage('Missing password');
-            return;
-        }
         
         tryLogin(username, password, setErrorMessage, handleLogin);
 
