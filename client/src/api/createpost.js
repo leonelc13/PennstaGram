@@ -45,7 +45,7 @@ function CreatePost(props) {
         content: postContent,
         url: url,
         isImage: isImage,
-        ownerId: props.username,
+        user: props.username,
         likes: 0,
         comments: [],
         created: new Date().toISOString()
