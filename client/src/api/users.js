@@ -177,17 +177,17 @@ export const tryRegister = async (username, password, setErrorMessage, navigate)
 
         console.log(username);
         console.log(password);
-        const response = await axios.post(`${rootURL}:3000/register`, `name=${username}&password=${password}`);
-        if (response.data.error !== null) {
+        const response = await axios.post(`${jsonURL}/register`, `name=${username}&password=${password}`);
+        if (response.data.error !== undefined) {
+            console.log('Error in tryRegister response', response.data);
             setErrorMessage(response.data.error);
         }
         else {
             navigate('/login');
         }
     } catch (err) {
-        const errorMessage = err.response?.data?.error === null ? err.response?.data?.error : err.message;
+        const errorMessage = err.response?.data?.error === null ? err.message : err.response?.data?.error;
         setErrorMessage(errorMessage);
-        console.log('error', errorMessage);
     }
 }
 

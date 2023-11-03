@@ -1,7 +1,9 @@
 const { authenticateUser } = require('../utils/auth');
 const { getUser, registerUser } = require('../model/Login-RegisterDBOperations');
+const { unknownProfilePhoto } = require('../utils/utils');
 
 const RegisterRoute = async function(req, res) {
+    console.log('Registering new user');
     const { name, password } = req.body;
 
     if ((name === '') && (password === '')) {
@@ -18,6 +20,7 @@ const RegisterRoute = async function(req, res) {
     const user = await getUser(name);
     
     if (user) {
+        console.log('Register user check for already exists', user);
         res.status(401).json({error: 'User already exists'});
         return;
     }
@@ -25,7 +28,10 @@ const RegisterRoute = async function(req, res) {
     try {
         const newUser = {
             username: name,
-            password: password
+            password: password,
+            profile: unknownProfilePhoto,
+            followers: [],
+            following: []
         }
 
         await registerUser(newUser);
@@ -35,15 +41,17 @@ const RegisterRoute = async function(req, res) {
             const response = {
                 apptoken: token,
                 username: name,
-                profile_picture: ''
+                profile_picture: unknownProfilePhoto
             }
             res.status(201).send(response);
         } catch (err) {
+            console.log('Error in authentication', err);
             res.status(401).json({error: `${err.message}`});
         }
 
     } catch(err) {
-        res.status(401).json({message: 'There was an error registering this user'});
+        console.log('Error in registration', err);
+        res.status(401).json({message: err.message});
     }
 
 }
