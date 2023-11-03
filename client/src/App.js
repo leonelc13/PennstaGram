@@ -15,10 +15,10 @@ function App() {
     const [authenticated, setAuthenticated] = useState(localStorage.getItem('app-token') !== null);
     const username = useRef(null);
     const userpic = useRef(null);
-    // const [userId, setUserId] = useState(-1);
+    //const [userId, setUserId] = useState(-1);
     //const [token, setToken] = useState(localStorage.getItem('userToken'));
     //const [loading, setLoading] = useState(true); 
-   // const [user, setUser] = useState(null);
+    //const [user, setUser] = useState(null);
 
     /*useEffect(() => {
         async function loginWrapper(){
@@ -88,7 +88,7 @@ function App() {
                         <Route exact path ="/user/:username" element = {<User currentUser = {props}/>} />
                         <Route path ="/user/settings/:username" element = {<Settings currentUser = {props}/>} />
                         <Route exact path ="/post/:id" element = {<PostDetails currentUser = {props}/>} />
-                        <Route exact path ="/createpost" element = {<CreatePost userId={props} />} />
+                        <Route exact path ="/createpost" element = {<CreatePost username={props.user} />} />
                     </Routes>
                 </>
             ) : (

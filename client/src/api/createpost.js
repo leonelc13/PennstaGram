@@ -1,16 +1,28 @@
 import React, { useState } from 'react';
 import axios from "axios";
-const { rootURL } = require('../utils/utils');
+const { rootURL, serverPort } = require('../utils/utils');
 
 function CreatePost(props) {
   const [url, setUrl] = useState('');
+  const [postTitle, setPostTitle] = useState('');
+  const [postContent, setPostContent] = useState('');
   const [isImage, setIsImage] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
 
   function handleUrlChange(event) {
     setUrl(event.target.value);
     console.log('Url changed', event.target.value);
-    console.log(props.userId);
+    console.log(props.username);
+  }
+
+  function handleTitleChange(event) {
+    setPostTitle(event.target.value);
+    console.log('Title changed', event.target.value);
+  }
+
+  function handleContentChange(event) {
+    setPostContent(event.target.value);
+    console.log('Content changed', event.target.value);
   }
 
   function handleIsImageChange(event) {
@@ -28,10 +40,15 @@ function CreatePost(props) {
     }
 
     try {
-      const postResponse = await axios.post(`${rootURL}:3000/posts`, {
+      const postResponse = await axios.post(`${rootURL}:${serverPort}/posts`, {
+        title: postTitle,
+        content: postContent,
         url: url,
         isImage: isImage,
-        ownerId: props.userId
+        ownerId: props.username,
+        likes: 0,
+        comments: [],
+        created: new Date().toISOString()
       });
 
       const postData = postResponse.data;
@@ -53,6 +70,11 @@ function CreatePost(props) {
       <form className="login-form" onSubmit={handleSubmit}>
           <p className="sign-text">Create Post</p>
           {errorMessage && <p className='error-text'>{errorMessage}</p>}
+          <label htmlFor='postTitle'>Post Title</label>
+          <input id="postTitle" type="text" value={postTitle} onChange={handleTitleChange} />
+          <label htmlFor='postContent'>Post Content</label>
+          <input id="postContent" type="text" value={postContent} onChange={handleContentChange} />
+
           <label htmlFor='postUrl'>Post URL</label>
           <input id="postUrl" type="text" value={url} onChange={handleUrlChange} />
 
