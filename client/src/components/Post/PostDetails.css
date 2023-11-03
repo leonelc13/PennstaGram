@@ -40,3 +40,10 @@ div .post-display{
     margin: auto;
     padding: 10px;
 }
+
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    align-items: center;
+    font-weight: bold;
+}

@@ -46,24 +46,6 @@
   ],
   "posts": [
     {
-      "id": 1,
-      "title": "testPost",
-      "content": "testContent",
-      "url": "https://i.ibb.co/60NBw0q/tiger.jpg",
-      "isImage": true,
-      "user": "Sunny",
-      "created": "2017-11-28T20:00:00.000Z",
-      "likes": 0,
-      "comments": [
-        {
-          "id": 1,
-          "content": "testComment",
-          "user": "Sunny",
-          "created": "2017-11-28T20:00:00.000Z"
-        }
-      ]
-    },
-    {
       "id": 2,
       "content": "testContent2",
       "user": "Alice",
@@ -111,6 +93,29 @@
       "url": "www.instagram.com",
       "isImage": true,
       "ownerId": 3
+    },
+    {
+      "comments": [
+        {
+          "id": 0,
+          "content": "adfaf",
+          "user": "testUser",
+          "created": "2023-11-03T02:17:37.956Z"
+        },
+        {
+          "id": 1,
+          "content": "adfafa",
+          "user": "testUser",
+          "created": "2023-11-03T02:18:00.373Z"
+        },
+        {
+          "id": 2,
+          "content": "adfafaa",
+          "user": "testUser",
+          "created": "2023-11-03T02:22:00.394Z"
+        }
+      ],
+      "id": 8
     }
   ],
   "comments": [

@@ -41,3 +41,14 @@ export const deletePost = async (id) => {
         console.error('error', err.message);
     }
 }
+
+export const addCommentToPost = async (id, existingComments, newComment) => {
+    try {
+        existingComments.push(newComment);
+        console.log('addCommentToPost', existingComments);
+        const response = await axios.put(`${jsonURL}/posts/${id}`, {comments: existingComments});
+        return response;
+    } catch (err) {
+        console.error('error', err.message);
+    }
+}

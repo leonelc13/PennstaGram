@@ -12,7 +12,6 @@ const CommentList = (props) => {
             {comments?.map((comment) => (
                 <div className="comment-preview" key = {comment.id}>
                         <p>
-                            {console.log(comment.user)}
                             <Link to={`/user/${comment.user}`}> {comment.user} </Link>
                             said:
                         </p>

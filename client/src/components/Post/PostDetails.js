@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import CommentList from './CommentList';
 import "./PostDetails.css";
 import { useState, useEffect } from 'react';
-import { getPostById, deletePost } from '../../api/posts';
+import { getPostById, deletePost, addCommentToPost } from '../../api/posts';
 
 const PostDetails = (props) => {
     const { id } = useParams();
@@ -11,13 +11,16 @@ const PostDetails = (props) => {
     const currentUser = props.currentUser;
 
     const [post, setPost] = useState(null);
+    const [comment, setComment] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    
+    async function getPostWrapper(){
+        const data = await getPostById(id);
+        setPost(data);
+        return data;
+    }
 
-    useEffect(() => {
-        async function getPostWrapper(){
-            const data = await getPostById(id);
-            setPost(data);
-            return data;
-        }
+    useEffect(() => {    
         getPostWrapper();
     },[id]);
     
@@ -28,6 +31,39 @@ const PostDetails = (props) => {
         } catch (err) {
             console.log(err);
         }
+    }
+
+    function handleCommentChange(event) {
+        setComment(event.target.value);
+        console.log('Comment changed', event.target.value);
+    }
+    
+    async function handleCommentSubmit(event) {
+        event.preventDefault();
+        if(comment === '') {
+            setErrorMessage('Please fill out comment');
+            return;
+        }
+
+        let highestId = -1;
+        post.comments.forEach(comment => {
+            if (highestId < comment.id) {
+                highestId = comment.id;
+            }
+        });
+
+        const newComment = {
+            id: highestId + 1,
+            content: comment,
+            user: currentUser.user,
+            created: new Date().toISOString()
+        }
+        const response = await addCommentToPost(id, post.comments, newComment);
+        console.log('Added to Comments List', response);
+        if (response.status !== 200) {
+            setErrorMessage(response.data.error);
+        }
+        getPostWrapper();
     }
 
     return (
@@ -49,6 +85,12 @@ const PostDetails = (props) => {
                         <h3> Comments </h3>
                         {/* display the comments of the post here */}
                         <CommentList comments = {post.comments} currentUser = {currentUser}/>
+                        {errorMessage && <p className='error-message'>{errorMessage}</p>}
+                        <form onSubmit={handleCommentSubmit}>
+                            <label htmlFor='comment'>Comment</label>
+                            <input id="comment" type="text" value={comment} onChange={handleCommentChange} />
+                            <button type="submit">Submit</button>
+                        </form>
                     </div>
                 </div>
             )}
