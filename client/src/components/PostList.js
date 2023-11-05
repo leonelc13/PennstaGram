@@ -23,8 +23,8 @@ const PostList = (props) => {
     return ( 
         <div className="post-list">
             {posts?.map((post) => (
-                <div className="post-preview" key={post.id} id="postPreview">
-                    <Link to = {`/post/${post.id}`}>
+                <div className="post-preview" key={post._id.toString()} id="postPreview">
+                    <Link to = {`/post/${post._id.toString()}`}>
                         {post.isImage ?
                             <img className="image-video" src={post.url} alt={post.testContent} />
                             : <iframe className="image-video" title={post.title} src={post.url}></iframe>}

@@ -19,6 +19,7 @@ const LoginRoute = async function (req, res) {
     }
 
     const user = await getUser(name);
+    // console.log("in server login is returning this user", user);
     
     if (!user) {
         res.status(401).json({error: 'User does not exist'});
@@ -35,9 +36,12 @@ const LoginRoute = async function (req, res) {
     try {
         const token = authenticateUser(name);
         const response = {
+            id: user._id,
             username: user.username,
             profile_picture: user.profile_img,
-            apptoken: token
+            apptoken: token,
+            followers: user.followers,
+            following: user.following
         }
         res.status(201).send(response);
     } catch (err) {

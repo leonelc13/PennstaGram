@@ -2,8 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import "./register.css";
 import { tryRegister } from '../../api/users';
-// import axios from "axios";
-// const { rootURL } = require('../../utils/utils');
+
 
 function Register() {
     const [username, setUsername] = useState('');

@@ -17,6 +17,15 @@ const routes = require('./routes/routes');
 app.post('/login', routes.Login);
 app.post('/register', routes.Register);
 
+//Profile Page 
+app.get('/users/:username', routes.Profile.getProfileById);
+app.put('/users/:id', routes.Profile.update); 
+
+//Main feed and posts
+app.get('/posts', routes.Post.getAllPostsRoute);
+app.get('/posts/:id', routes.Post.getPostByIdRoute);
+
+
 // Profile Page
 //app.get('/profile', routes.ProfilePage.getProfileByUsername);
 

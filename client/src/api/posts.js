@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { rootURL } from "../utils/utils";
+import { rootURL, serverPort } from "../utils/utils";
 
 /**
  * This module contains HTTP calls to the userpost to the backend
  */
-const jsonURL = `${rootURL}:3000`
+const jsonURL = `${rootURL}:${serverPort}`
 
 export const getAllPosts = async () => {
     try {

@@ -18,6 +18,8 @@ const UserInfo = (props) => {
     const [following, setFollowing] = useState(null);
 
     useEffect(() => {
+        console.log("in UserInfo, current user is: ", currentUser);
+        console.log("in UserInfo, target user is: ", targetUser);
 
         async function getTargetUserWrapper(){
             const data = await getUserById(targetUser);
@@ -28,10 +30,16 @@ const UserInfo = (props) => {
         }
 
         async function getFollowingWrapper(){
-            const data = await checkFolloing(currentUser?.id, targetUser);
+            const data = await checkFolloing(currentUser?.username, targetUser);
             setIsFollowing(data);
             return data;
         }
+
+        // async function getCurrentUserWrapper(){
+        //     const data = await getUserById(currentUser?.username);
+        //     setCurrentUser(data);
+        //     return data;
+        // }
         
         // getCurrentUserWrapper();
         getTargetUserWrapper();
@@ -56,8 +64,9 @@ const UserInfo = (props) => {
             }
             { notUser?
             <> 
-            {console.log("isFollowing: " + isFollowing)}
-            <FollowButton currentUser = {currentUser.username} targetUser = {targetUser} isFollowing = {isFollowing} setIsFollowing = {setIsFollowing} setCurrentUser = {setCurrentUser}/>
+            {/* {console.log("isFollowing: " + isFollowing)} */}
+            {/* {console.log("in UserInfo currentUser username: " + currentUser?.username)} */}
+            <FollowButton currentUser = {currentUser?.username} targetUser = {targetUser} isFollowing = {isFollowing} setIsFollowing = {setIsFollowing} setCurrentUser = {setCurrentUser}/>
             </>
             : <> </> }
 

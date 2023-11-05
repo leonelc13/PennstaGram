@@ -18,7 +18,7 @@ function Header(props) {
     useEffect(() => {
     
         async function getCurrentUserWrapper(){
-            const data = await getUserById(currentUser.id);
+            const data = await getUserById(currentUser);
             setUser(data);
             return data;
         }
@@ -54,7 +54,7 @@ function Header(props) {
                 </Link>
             </span>
             <span id="user-profile-picture-wrapper">
-                <Link to={`/user/${currentUser.username}`} >
+                <Link to={`/user/${currentUser}`} >
                     {console.log(currentUser)}
                     { user && <img src={user.profile} alt=' profile-pic'></img>}
                 </Link>

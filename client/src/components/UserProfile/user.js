@@ -17,6 +17,8 @@ const User= (props) => {
                     <Link to = {`/user/settings/${username}`}>Settings</Link>
                 </div>
                 <div className="userProfile" id="userProfileComponent">
+                    { console.log("in User, target user is:", username) }
+                    { console.log ("in User, current user is:", currentUser)}
                     <UserInfo currentUser = {currentUser} targetUser = {username} setCurrentUser = {setCurrentUser}/>
                 </div>
             </div>

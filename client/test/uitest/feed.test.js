@@ -8,7 +8,7 @@ import ActivityFeed from '../../src/components/ActivityFeed/ActivityFeed';
 
 
 const mockPosts = [{
-    id: 1,
+    _id: 1,
     title: "testPost",
     content: "testContent",
     url: "https://i.ibb.co/60NBw0q/tiger.jpg",

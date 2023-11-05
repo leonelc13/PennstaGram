@@ -1,11 +1,10 @@
-const database = require('./DB');
+const { getDb } = require('./DB');
 
-const getProfileByUsername = async (name) => {
+const getUserById = async (name) => {
+    const db = getDb();
     try {
-        console.log(name);
-        let db = await database.getDb();
         const res = await db.collection('User').findOne({ username: name });
-        console.log(`User: ${JSON.stringify(res)}`);
+        // console.log(`User: ${JSON.stringify(res)}`);
         return res;
     } catch (err) {
         console.error(err);
@@ -13,58 +12,63 @@ const getProfileByUsername = async (name) => {
     }
 }
 
-const getAllQuizzes = async () => {
+const updateUser = async (userid, body) => {
+    const db = getDb();
     try {
-        let db = await database.getDb();
-        const res = await db.collection('Quiz')
-        .find()
-        .sort({ timestamp: -1 })
-        .limit(10)
-        .toArray();
+        const res = await db.collection('User').updateOne({_id: userid}, {$set: body});
         return res;
     } catch (err) {
         console.error(err);
-        return [];
+        throw new Error(`Error updating user ${userid}.`);
     }
 }
 
-const getCreatedQuizzes = async (name) => {
+const followUser = async (currentUser, targetUser) => {
+    const db = getDb();
     try {
-        let db = await database.getDb();
-        const res = await db.collection('Quiz')
-        .find({ author_name: name })
-        .sort({ timestamp: -1 })
-        .limit(10)
-        .toArray();
+        const res = await db.collection('User').updateOne({ username: currentUser }, { $push: { following: targetUser } });
         return res;
     } catch (err) {
         console.error(err);
-        return [];
+        throw new Error(`Error updating user ${currentUser}.`);
     }
 }
 
-const getFavoriteQuizzes = async (name) => {
+const unfollowUser = async (currentUser, targetUser) => {
+    const db = getDb();
     try {
-        let db = await database.getDb();
-        const res = await db.collection('Quiz')
-        .find({ upvotes: { $in: [name] } })
-        .sort({ timestamp: -1 })
-        .limit(10)
-        .toArray();
-        return res;
-    } catch (err) {
-        console.error(err);
-        return [];
+
+        //get the following list of the current user in MongoDB
+    
+        let currentFollowing = await db.collection('User').findOne({ username: currentUser }).select('following');
+        let targetFollower = await db.collection('User').findOne({ username: targetUser }).select('followers');
+        
+        //remove the target user from the following list of the current user
+        var index = currentFollowing.indexOf(targetUser);
+        if (index > -1) {
+            currentFollowing.splice(index, 1);
+        }
+        //update only the following field of the current user
+        await db.collection('User').updateOne({ username: currentUser }, { $set: { "following": currentFollowing } });
+
+        //remove the current user from the follower list of the target user
+        const follower_index = targetFollower.indexOf(currentUser);
+        if (follower_index > -1) {
+            targetFollower.splice(follower_index, 1);
+        }
+
+        //update target user 
+        await db.collection('User').updateOne({ username: targetUser }, { $set: { "followers": targetFollower } }); 
+
+    } catch (err){
+
     }
 }
-  
 
 
-const profilePageDB = {
-    getProfileByUsername: getProfileByUsername,
-    getAllQuizzes: getAllQuizzes,
-    getCreatedQuizzes: getCreatedQuizzes,
-    getFavoriteQuizzes: getFavoriteQuizzes
+module.exports = {
+    getUserById,
+    updateUser,
+    followUser,
+    unfollowUser
 }
-
-module.exports = profilePageDB;

@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { rootURL } from "../utils/utils";
+import { rootURL, serverPort } from "../utils/utils";
 
 /**
  * This module contains HTTP calls to the User information to the backend
  */
 
-const jsonURL = `${rootURL}:3000`
+const jsonURL = `${rootURL}:${serverPort}`
 
 export const getAllUsers = async () => {
     try {
@@ -37,7 +37,8 @@ export const createUser = async (user) => {
 
 export const updateUser = async (user) => {
     try {
-        const response = await axios.put(`${jsonURL}/users/${user.id}`, user);
+        // console.log('updateUser', typeof(user._id));
+        const response = await axios.put(`${jsonURL}/users/${user._id}`, user);
         return response.data;
     } catch (err) {
         console.error('error', err.message);
@@ -89,6 +90,9 @@ export const unfollowUser = async (currentUser, targetUser) => {
 
 // checks if u1 is following u2, returns a boolean
 export const checkFolloing = async (u1, u2) => {
+    console.log("in user api, u1 is: " + u1);
+    console.log("in user api, u2 is: " + u2);
+    
     try {
         const current = await getUserById(u1);
         if (current.following === null) {

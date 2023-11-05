@@ -29,7 +29,7 @@ const ActivityFeed = (props) => {
     return (  
         <div className = "feed" id="feedComponent">
             <h2> Activity Feed </h2>
-            {console.log(list)}
+            {/* {console.log("current user: " + currentUser.username)} */}
             {posts && <PostList posts = {posts} userList = {list}/>}
         </div>
 
