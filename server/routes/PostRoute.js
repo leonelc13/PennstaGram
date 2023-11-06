@@ -1,65 +1,71 @@
-const {getAllPosts, getPostById, getPostsByUser, deletePost} = require('../model/PostDB');
+const {getAllPosts, getPostById, getPostsByUser, deletePost, createPost} = require('../model/PostDB');
 const {ObjectId} = require('mongodb');
 
 const getAllPostsRoute = async (req, res) => {
-    try{
-        const posts = await getAllPosts();
-
-        res.status(200).json(posts);
-        return res;
-    } catch(err){
-        console.log('Error in getting posts', err);
-        res.status(404).json({message: err.message});
-        return res;
+    
+    const posts = await getAllPosts();
+    if (!posts) {
+        return res.status(404).send({error: 'Posts do not exist'});
     }
+    return res.status(200).send(posts);
 
 };
 
 const getPostByIdRoute = async (req, res) => {
+    if (!ObjectId.isValid(req.params.id)) {
+        return res.status(404).send({error: 'Post does not exist'});
+    }
+
     const id = new ObjectId(req.params.id);
     // console.log('in PostRoute', id);
-    try{
-        const post = await getPostById(id);
-        res.status(200).json(post);
-        return res;
-    } catch(err){
-        console.log('Error in getting post', err);
-        res.status(404).json({message: err.message});
-        return res;
+    const post = await getPostById(id);
+    if (!post) {
+        return res.status(404).send({error: 'Post does not exist'});
     }
+    return res.status(200).send(post);
 };
 
-const getPostsByUserRoute = async (req, res) => {
-    const username = req.params.username;
-    try{
-        const posts = await getPostsByUser(username);
-        res.status(200).json(posts);
-        return res;
-    } catch(err){
-        console.log('Error in getting posts', err);
-        res.status(404).json({message: err.message});
-        return res;
-    }
-};
+// const getPostsByUserRoute = async (req, res) => {
+//     const username = req.params.username;
+//     const posts = await getPostsByUser(username);
+//     if (!posts) {
+//         return res.status(404).send({error: 'Posts do not exist'});
+//     }
+//     console.log("in PostRoute, getPostsByUserRoute", posts)
+//     return res.status(200).send(posts);
+// };
 
 const deletePostRoute = async (req, res) => {
-    const id = req.params.id;
-    try{
-        const post = await deletePost(id);
-        res.status(200).json(post);
-        return res;
-    } catch(err){
-        console.log('Error in deleting post', err);
-        res.status(404).json({message: err.message});
-        return res;
+    if (!ObjectId.isValid(req.params.id)) {
+        return res.status(404).send({error: 'Post does not exist'});
     }
+
+    const id = new ObjectId(req.params.id);
+    const post = await deletePost(id);
+    if (!post) {
+        return res.status(404).send({error: 'Post does not exist'});
+    }
+    return res.status(200).send(post);
 };
+
+const createPostRoute = async (req, res) => {
+    const post = req.body;
+    if (!post.hasOwnProperty('user') || !post.hasOwnProperty('content') || !post.hasOwnProperty('isImage') || !post.hasOwnProperty('url')) {
+        return res.status(401).send({error: 'Post creation failed'});}
+    const newPost = await createPost(post);
+    if (!newPost) {
+        return res.status(401).send({error: 'Post creation failed'});
+    }
+    return res.status(201).send(newPost);
+
+}
 
 const PostRoutes = {
     getAllPostsRoute: getAllPostsRoute,
     getPostByIdRoute: getPostByIdRoute,
-    getPostsByUserRoute: getPostsByUserRoute,
-    deletePostRoute: deletePostRoute
+    deletePostRoute: deletePostRoute,
+    createPostRoute: createPostRoute
+    //getPostsByUserRoute: getPostsByUserRoute,
 }
 
 module.exports = PostRoutes;

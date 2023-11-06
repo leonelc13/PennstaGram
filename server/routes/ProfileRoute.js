@@ -1,20 +1,16 @@
 const { getUserById, updateUser } = require('../model/ProfilePageDB');
 const {ObjectId} = require('mongodb');
+// const routes = require('./routes/Routes');
 
 const getProfileById = async (req, res) => {
     // console.log("checking out profile page");
     // console.log("req.params", req.params);
     const username  = req.params.username;
-
-    try{
-        const user = await getUserById(username);
-        res.status(200).json(user);
-        // console.log("user", user);
-        return res;
-    } catch(err){
-        console.log('Error in getting user', err);
-        res.status(404).json({message: err.message});
+    const user = await getUserById(username);
+    if (!user) {
+        return res.status(404).send({error: 'User does not exist'});
     }
+    return res.status(200).send(user)
 };
 
 const updateUserRoute = async (req, res) => {
@@ -26,15 +22,13 @@ const updateUserRoute = async (req, res) => {
         profile: req.body.profile,
         followers: req.body.followers,
         following: req.body.following}
-    try{
-        const user = await updateUser(userid, newUser);
-        res.status(200).json(user);
-        return res;
-    } catch(err){
-        console.log('Error in updating user', err);
-        res.status(404).json({message: err.message});
-        return res;
+    
+    const user = await updateUser(userid, newUser);
+    if (!user) {
+        return res.status(401).send({error: 'User update failed'});
     }
+    return res.status(200).send(user)
+
 };
 
 

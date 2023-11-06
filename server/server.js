@@ -25,8 +25,8 @@ app.put('/users/:id', routes.Profile.update);
 app.get('/posts', routes.Post.getAllPostsRoute);
 app.get('/posts/:id', routes.Post.getPostByIdRoute);
 
+// create Post?
+app.post('/posts', routes.Post.createPostRoute);
 
-// Profile Page
-//app.get('/profile', routes.ProfilePage.getProfileByUsername);
 
 module.exports = app;

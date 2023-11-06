@@ -52,3 +52,12 @@ export const addCommentToPost = async (id, existingComments, newComment) => {
         console.error('error', err.message);
     }
 }
+
+export const createPost = async (post) => {
+    try {
+        const response = await axios.post(`${jsonURL}/posts`, post);
+        return response.data;
+    } catch (err) {
+        console.error('error', err.message);
+    }
+}

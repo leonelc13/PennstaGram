@@ -22,17 +22,6 @@ const getPostById = async (id) => {
     }
 }
 
-const getPostsByUser = async (username) => {
-    const db = getDb();
-    try {
-        const res = await db.collection('Posts').find({ username: username }).toArray();
-        return res;
-    } catch (err) {
-        console.error(err);
-        throw new Error(`Error finding posts for user ${username}.`);
-    }
-}
-
 const deletePost = async (id) => {
     const db = getDb();
     try {
@@ -41,6 +30,18 @@ const deletePost = async (id) => {
     } catch (err) {
         console.error(err);
         throw new Error(`Error deleting post ${id}.`);
+    }
+}
+
+const createPost = async (post) => {
+    const db = getDb();
+    //check if the post has all the required fields
+    try {
+        const res = await db.collection('Posts').insertOne(post);
+        return res;
+    } catch (err) {
+        console.error(err);
+        throw new Error(`Error adding post.`);
     }
 }
 
@@ -59,7 +60,8 @@ const deletePost = async (id) => {
 module.exports = {
     getAllPosts,
     getPostById,
-    getPostsByUser,
     deletePost,
+    createPost
+    // getPostsByUser,
     // addCommentToPost
 }
