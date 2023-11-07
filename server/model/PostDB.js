@@ -45,6 +45,17 @@ const createPost = async (post) => {
     }
 }
 
+const updatePost = async (id, post) => {
+    const db = getDb();
+    try {
+        const res = await db.collection('Posts').findOneAndUpdate({ _id: id }, { $set: post }, { returnNewDocument: true, returnDocument: 'after'});
+        return res;
+    } catch (err) {
+        console.error(err);
+        throw new Error(`Error updating post ${id}.`);
+    }
+}
+
 // const addCommentToPost = async (id, existingComments, newComment) => {
 //     const db = getDb();
 //     try {
@@ -61,7 +72,8 @@ module.exports = {
     getAllPosts,
     getPostById,
     deletePost,
-    createPost
+    createPost,
+    updatePost
     // getPostsByUser,
     // addCommentToPost
 }

@@ -1,3 +1,11 @@
+.post-details{
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    margin: auto;
+    padding: 10px;
+}
+
 div .post-display{
     width: 400px;
     height: 400px;
@@ -24,15 +32,6 @@ div .post-display{
     background-color: aliceblue;
 }
 
-.post-content button {
-    margin-left: auto;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #ccc;
-    cursor: pointer;
-}
-
 .comments{
     display: flex;
     flex-direction: column;
@@ -46,4 +45,25 @@ div .post-display{
     font-size: 0.9rem;
     align-items: center;
     font-weight: bold;
+}
+
+.deleteButton{
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    margin: auto;
+    padding: 10px;
+}
+
+.deleteButton button{
+    align-self: right;
+    margin-left: auto;
+    background-color: #3498db;
+    color: white; 
+    border: none;
+    padding: 10px;
+    border-radius: 5px; 
+    font-size: 14px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease;
 }

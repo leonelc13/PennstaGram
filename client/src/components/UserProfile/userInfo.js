@@ -34,14 +34,7 @@ const UserInfo = (props) => {
             setIsFollowing(data);
             return data;
         }
-
-        // async function getCurrentUserWrapper(){
-        //     const data = await getUserById(currentUser?.username);
-        //     setCurrentUser(data);
-        //     return data;
-        // }
         
-        // getCurrentUserWrapper();
         getTargetUserWrapper();
         getFollowingWrapper();
 
