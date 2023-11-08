@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import axios from "axios";
-const { rootURL, serverPort } = require('../utils/utils');
+import { createPost } from '../../api/posts';
 
 function CreatePost(props) {
   const [url, setUrl] = useState('');
@@ -31,8 +30,6 @@ function CreatePost(props) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    console.log(isImage, url);
-    console.log(typeof(isImage));
 
     if (!url) {
       setErrorMessage('Missing media to post');
@@ -40,7 +37,7 @@ function CreatePost(props) {
     }
 
     try {
-      const postResponse = await axios.post(`${rootURL}:${serverPort}/posts`, {
+      const postData = await createPost({
         title: postTitle,
         content: postContent,
         url: url,
@@ -50,8 +47,6 @@ function CreatePost(props) {
         comments: [],
         created: new Date().toISOString()
       });
-
-      const postData = postResponse.data;
 
       if (postData.error) {
           setErrorMessage(postData.error);

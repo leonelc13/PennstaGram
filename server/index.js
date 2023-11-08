@@ -8,8 +8,7 @@ const SERVER_PORT = 3000;
 const app = require('./server');
 //const socketServer = require('./socketServer');
 require('dotenv').config();
-const db = require('./model/DB');
- 
+const db = require('./model/DB'); 
  
 //const searchTrie = require('./SearchTrie');
 

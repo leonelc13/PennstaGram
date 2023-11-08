@@ -90,9 +90,6 @@ export const unfollowUser = async (currentUser, targetUser) => {
 
 // checks if u1 is following u2, returns a boolean
 export const checkFolloing = async (u1, u2) => {
-    console.log("in user api, u1 is: " + u1);
-    console.log("in user api, u2 is: " + u2);
-    
     try {
         const current = await getUserById(u1);
         if (current.following === null) {

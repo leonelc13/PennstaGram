@@ -14,20 +14,19 @@ const PostDetails = (props) => {
 
     const { id } = useParams();
     const navigate = useNavigate();
-    const currentUser = props.currentUser;
+    const currentUser = props.currentUsername;
 
     const [post, setPost] = useState(null); 
 
     // const [comment, setComment] = useState('');
     // const [errorMessage, setErrorMessage] = useState('');
-    
-    async function getPostWrapper(){
-        const data = await getPostById(id);
-        setPost(data);
-        // return data;
-    }
 
     useEffect(() => {
+        async function getPostWrapper(){
+            const data = await getPostById(id);
+            setPost(data);
+            // return data;
+        }
         getPostWrapper();
     },[id]);
     
@@ -77,12 +76,13 @@ const PostDetails = (props) => {
         <div className="post-details">
             { post && (
                 <div>
+                    {console.log('post.user', post.user)}
+                    {console.log('props.currentUser', props.currentUser)}        
                     <PostView post={post} />
 
                     <div className='deleteButton'>
                         {currentUser === post.user &&  <button onClick={handleDeletePost}> Delete Post </button>}
-                    </div>
-                    
+                    </div>            
                     {currentUser === post.user &&
                     <div className='editPostSection'>
                         <EditPost post={post} currentUser={currentUser} setPost={setPost}/>

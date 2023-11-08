@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import renderer from "react-test-renderer";
 import "@testing-library/jest-dom";
-import CreatePost from '../../src/api/createpost'; 
+import CreatePost from '../../src/components/Post/CreatePost';
 import axios from 'axios';
 jest.mock('axios');
 
@@ -25,7 +25,6 @@ describe("Register component", () => {
       render(<BrowserRouter><CreatePost /></BrowserRouter>);
       const signUpButton = screen.getByRole('button', { name: /Submit/i });
 
-      // eslint-disable-next-line testing-library/no-unnecessary-act
       await act(async () => {
         fireEvent.click(signUpButton);
       });
