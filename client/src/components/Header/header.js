@@ -55,7 +55,6 @@ function Header(props) {
             </span>
             <span id="user-profile-picture-wrapper">
                 <Link to={`/user/${currentUser}`} >
-                    {console.log(currentUser)}
                     { user && <img src={user.profile} alt=' profile-pic'></img>}
                 </Link>
             </span>

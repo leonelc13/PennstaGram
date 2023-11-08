@@ -7,6 +7,7 @@ import { getAllPosts } from '../../api/posts';
 
 const ActivityFeed = (props) => {
 
+    //should be passed in posts as props? I dont think so? 
     const currentUser = props.currentUser;
     const [posts, setPosts] = useState(null);
 
@@ -30,7 +31,7 @@ const ActivityFeed = (props) => {
         <div className = "feed" id="feedComponent">
             <h2> Activity Feed </h2>
             {/* {console.log("current user: " + currentUser.username)} */}
-            {posts && <PostList posts = {posts} userList = {list}/>}
+            {posts && <PostList posts = {posts} userList = {list} currentUser={props.currentUser}/>}
         </div>
 
     );

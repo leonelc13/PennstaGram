@@ -1,4 +1,4 @@
-const {getAllPosts, getPostById, getPostsByUser, deletePost, createPost} = require('../model/PostDB');
+const {getAllPosts, getPostById, getPostsByUser, deletePost, createPost, updatePost} = require('../model/PostDB');
 const {ObjectId} = require('mongodb');
 
 const getAllPostsRoute = async (req, res) => {
@@ -58,13 +58,28 @@ const createPostRoute = async (req, res) => {
     }
     return res.status(201).send(newPost);
 
+};
+
+const updatePostRoute = async (req, res) => {
+    if (!ObjectId.isValid(req.params.id)) {
+        return res.status(404).send({error: 'Post does not exist'});
+    }
+    const id = new ObjectId(req.params.id);
+    const post = req.body;
+    const updatedPost = await updatePost(id, post);
+    if (!updatedPost) {
+        return res.status(401).send({error: 'Post update failed'});
+    }
+    return res.status(200).send(updatedPost);
 }
+
 
 const PostRoutes = {
     getAllPostsRoute: getAllPostsRoute,
     getPostByIdRoute: getPostByIdRoute,
     deletePostRoute: deletePostRoute,
-    createPostRoute: createPostRoute
+    createPostRoute: createPostRoute,
+    updatePostRoute: updatePostRoute
     //getPostsByUserRoute: getPostsByUserRoute,
 }
 

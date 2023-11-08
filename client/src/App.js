@@ -82,7 +82,7 @@ function App() {
                         <Route index element = {<ActivityFeed currentUser = {user}/>} /> 
                         <Route exact path ="/user/:username" element = {<User currentUser = {user}/>} />
                         <Route path ="/user/settings/:username" element = {<Settings currentUser = {user}/>} />
-                        <Route exact path ="/post/:id" element = {<PostDetails currentUser = {user}/>} />
+                        <Route exact path ="/post/:id" element = {<PostDetails currentUser = {props.user}/>} />
                         <Route exact path ="/createpost" element = {<CreatePost username={props.user} />} />
                     </Routes>
                 </>
