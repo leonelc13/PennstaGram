@@ -107,80 +107,18 @@ export const checkFolloing = async (u1, u2) => {
 
 export const tryLogin = async (username, password, setErrorMessage, handleLogin ) => {
     try {
-        if (!username && !password) {
-            setErrorMessage('Please enter both a username and password');
-            return;
-          }
-        
-        if (!username) {
-            setErrorMessage('Please enter a username');
-            return;
-        }
-        
-        if (!password) {
-            setErrorMessage('Please enter a password');
-            return;
-        }
         
         const response = await axios.post(`${rootURL}:3000/login`, `name=${username}&password=${password}`);
         handleLogin(response);
     } catch (err) {
-        const errorMessage = err.response?.data?.error === null ? err.response?.data?.error : err.message;
+        const errorMessage = err.response?.data?.error || 'An error occurred. Please try again.';
         setErrorMessage(errorMessage);
-        console.log('error', err.message);
+        console.log('error', errorMessage);
     }
-
-
-    /**try {
-        const response = await axios.get(`${rootURL}:3000/users`, {
-            params: {
-                username: username,
-                password: password
-            } 
-        });
-
-        const data = response.data;
-        if (data.length === 0 || data[0].password !== password || data[0].username !== username) {
-            setErrorMessage("Sorry, we don't recognize that combination of username and password. Please try again");
-            return;
-        }
-
-        const token = Math.random().toString(36).substring(7); // simple token generation
-
-        // Now, you'd want to save this token in your db.json
-        await axios.patch(`${rootURL}:3000/users/${data[0].id}`, {
-            token: token
-        });
-
-        // Save token in local storage or cookie
-        localStorage.setItem('userToken', token);
-        
-        handleLogin(data[0]);
-
-    } catch (err) {
-        console.log('error', err.message);
-    }*/
 }
 
 export const tryRegister = async (username, password, setErrorMessage, navigate) => {
     try {
-        if (!username && !password) {
-            setErrorMessage('Please enter both a username and password');
-            return;
-          }
-        
-        if (!username) {
-            setErrorMessage('Please enter a username');
-            return;
-        }
-        
-        if (!password) {
-            setErrorMessage('Please enter a password');
-            return;
-        }
-
-        console.log(username);
-        console.log(password);
         const response = await axios.post(`${jsonURL}/register`, `name=${username}&password=${password}`);
         if (response.data.error !== undefined) {
             console.log('Error in tryRegister response', response.data);
@@ -190,8 +128,9 @@ export const tryRegister = async (username, password, setErrorMessage, navigate)
             navigate('/login');
         }
     } catch (err) {
-        const errorMessage = err.response?.data?.error === null ? err.message : err.response?.data?.error;
+        const errorMessage = err.response?.data?.error || 'An error occurred. Please try again.';
         setErrorMessage(errorMessage);
+        console.log('error', errorMessage);
     }
 }
 

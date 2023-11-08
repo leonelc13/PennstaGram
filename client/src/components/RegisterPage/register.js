@@ -1,48 +1,33 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import "./register.css";
 import { tryRegister } from '../../api/users';
+import { useUserAuth } from '../../utils/AuthContainer';
 
 
 function Register() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
+    const {
+        username,
+        password,
+        errorMessage,
+        handleUsernameChange,
+        handlePasswordChange,
+        handleSubmit,
+    } = useUserAuth();
+
     const navigate = useNavigate();
 
-    const handleUsernameChange = (event) => {
-        setUsername(event.target.value);
-    };
-
-    const handlePasswordChange = (event) => {
-        setPassword(event.target.value);
-    };
-
-    const handleSubmit = useCallback (async (event) => {
-        event.preventDefault();
-
+    
+    const registerSubmit = (event) => handleSubmit(event, (username, password, setErrorMessage) => {
         tryRegister(username, password, setErrorMessage, navigate);
+    });
 
-    }, [username, password, navigate]);
-
-    useEffect(() => {
-        const handleKeyDown = (event) => {
-        if (event.key === 'Enter') {
-            handleSubmit(event);
-        }
-        };
-
-        document.addEventListener("keydown", handleKeyDown);
-        return () => {
-        document.removeEventListener("keydown", handleKeyDown);
-        }
-    }, [handleSubmit]);
 
     return (
         <div className='register-container'>
         <h1 className='header-text'>Penn<span className="Buzz">Connect</span></h1>
         {errorMessage && <p className='error-text'>{errorMessage}</p>}
-        <form className="register-form" onSubmit={handleSubmit}>
+        <form className="register-form" onSubmit={registerSubmit}>
             <p className="title-text">Sign Up</p>
             <p className="login-text">
             Or <Link to="/login" className='url-text'>Sign In</Link> to your account
