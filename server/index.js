@@ -8,16 +8,14 @@ const SERVER_PORT = 3000;
 const app = require('./server');
 //const socketServer = require('./socketServer');
 require('dotenv').config();
-const db = require('./model/DB');
-const { databaseUrl } = require('./utils/utils');
- 
+const db = require('./model/DB'); 
  
 //const searchTrie = require('./SearchTrie');
 
 
 
 console.log("Attempting to connect to MongoDB ");
-db.connect(databaseUrl, async (err) => {
+db.connect(process.env.DATABASE_URL, async (err) => {
     if (err) {
         console.error('Failed to connect to database:', err);
         process.exit(1);
@@ -29,7 +27,7 @@ db.connect(databaseUrl, async (err) => {
 
 const server = app.listen(SERVER_PORT, async () => {
     console.log('Server running on port', SERVER_PORT);
-    await db.connect(databaseUrl, async (err) => {
+    await db.connect(process.env.DATABASE_URL, async (err) => {
         if (err) {
             console.error('Failed to connect to MongoDB:', err);
             process.exit(1);
