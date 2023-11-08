@@ -1,48 +1,32 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React from "react";
 import { Link } from 'react-router-dom';
 import "./login.css";
 import { tryLogin } from "../../api/users";
+import { useUserAuth } from '../../utils/AuthContainer';
 
 function Login(props) {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
+    const {
+        username,
+        password,
+        errorMessage,
+        handleUsernameChange,
+        handlePasswordChange,
+        handleSubmit,
+    } = useUserAuth();
+
     const { handleLogin } = props;
 
-    const handleUsernameChange = (event) => {
-        setUsername(event.target.value);
-    };
 
-    const handlePasswordChange = (event) => {
-        setPassword(event.target.value);
-    };
-
-    const handleSubmit = useCallback (async (event) => {
-        event.preventDefault();
-        
+    const loginSubmit = (event) => handleSubmit(event, (username, password, setErrorMessage) => {
         tryLogin(username, password, setErrorMessage, handleLogin);
-
-    }, [username, password, handleLogin]);
-
-    useEffect(() => {
-        const handleKeyDown = (event) => {
-        if (event.key === 'Enter') {
-            handleSubmit(event);
-        }
-        };
-
-        document.addEventListener("keydown", handleKeyDown);
-        return () => {
-        document.removeEventListener("keydown", handleKeyDown);
-        }
-    }, [handleSubmit]);
+    });
 
     return (
         <div className="login-container">
         <h1 className="heading-text">Penn<span className="buzz-text">Connect</span></h1>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-        <form className="login-form" onSubmit={handleSubmit}>
+        <form className="login-form" onSubmit={loginSubmit}>
             <p className="sign-text">Sign In</p>
             <p className="registration-text">
                 Or <Link to="/register" className="sign-up-text">Sign Up</Link> to make your own account
