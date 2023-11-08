@@ -4,18 +4,14 @@ import PostList from '../PostList';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { getAllPosts } from '../../api/posts';
+import { getUserById } from '../../api/users';
 
 const ActivityFeed = (props) => {
 
-    const currentUser = props.currentUser;
+    //should be passed in posts as props? I dont think so? 
+    const [currentUser, setCurrentUser] = useState(null);
     const [posts, setPosts] = useState(null);
 
-    let list = currentUser?.following;
-    if (list !== undefined){
-        if (!list.includes(currentUser.username)){
-            list.push(currentUser.username);
-        }
-    }
     
     useEffect(() => {
         async function getPostWrapper(){
@@ -23,17 +19,24 @@ const ActivityFeed = (props) => {
             setPosts(data);
             return data;
         }
+        async function getCurrentUserWrapper(){
+            const data = await getUserById(props.currentUsername);
+            setCurrentUser(data);
+            return data;
+        }
+
         getPostWrapper();
+        getCurrentUserWrapper();
     },[]);
 
+    if (currentUser!== null){
     return (  
         <div className = "feed" id="feedComponent">
             <h2> Activity Feed </h2>
-            {/* {console.log("current user: " + currentUser.username)} */}
-            {posts && <PostList posts = {posts} userList = {list}/>}
+            {posts && <PostList posts = {posts} currentUser={currentUser}/>}
         </div>
 
-    );
+    );}
 }
 
  

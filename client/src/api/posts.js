@@ -61,3 +61,12 @@ export const createPost = async (post) => {
         console.error('error', err.message);
     }
 }
+
+export const editPostById = async (id, post) => {
+    try {
+        const response = await axios.put(`${jsonURL}/posts/${id}`, post);
+        return response.data.value;
+    } catch (err) {
+        console.error('error', err.message);
+    }
+}

@@ -14,7 +14,6 @@ const getProfileById = async (req, res) => {
 };
 
 const updateUserRoute = async (req, res) => {
-    console.log("in Profile Route, request body", typeof(req.body));
     const userid = new ObjectId(req.params.id);
     const newUser = {
         username: req.body.username,

@@ -6,28 +6,15 @@ import Header from './components/Header/header';
 import CreatePost from './api/createpost'; 
 import './style/index.css';
 import User from './components/UserProfile/user';
-import Settings from './components/UserProfile/setting';
 import PostDetails from './components/Post/PostDetails';
 import ActivityFeed from './components/ActivityFeed/ActivityFeed'; 
-import { getUserById } from './api/users';
-import { useEffect } from 'react';
 
 
 function App() {
     const [authenticated, setAuthenticated] = useState(localStorage.getItem('app-token') !== null);
     const username = useRef(null);
     const userpic = useRef(null);
-    const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        async function getUserWrapper(){
-            const data = await getUserById(localStorage.getItem('user'));
-            setUser(data);
-            console.log("in app, current user is: ", data);
-            return data;
-        }
-        getUserWrapper();
-    }, [authenticated]);
 
     const handleLogout = () => {
         localStorage.removeItem('app-token');
@@ -57,11 +44,6 @@ function App() {
 
     }
 
-    /**let props = {
-        user: user,
-        handleLogout: handleLogout
-    };*/
-
     let props = {
         user_profile_picture: localStorage.getItem('user-profile-picture'),
         user: localStorage.getItem('user'),
@@ -77,12 +59,11 @@ function App() {
                 <>
                     <Header {...props} />
                     <Routes>
-                        <Route exact path='/' element={<ActivityFeed currentUser = {user}/>} />
+                        <Route exact path='/' element={<ActivityFeed currentUsername = {props.user}/>} />
                         <Route exact path='*' element={<Navigate to='/' />} />
-                        <Route index element = {<ActivityFeed currentUser = {user}/>} /> 
-                        <Route exact path ="/user/:username" element = {<User currentUser = {user}/>} />
-                        <Route path ="/user/settings/:username" element = {<Settings currentUser = {user}/>} />
-                        <Route exact path ="/post/:id" element = {<PostDetails currentUser = {user}/>} />
+                        <Route index element = {<ActivityFeed currentUsername = {props.user}/>} /> 
+                        <Route exact path ="/user/:username" element = {<User currentUsername = {props.user}/>} />
+                        <Route exact path ="/post/:id" element = {<PostDetails currentUsername = {props.user}/>} />
                         <Route exact path ="/createpost" element = {<CreatePost username={props.user} />} />
                     </Routes>
                 </>
