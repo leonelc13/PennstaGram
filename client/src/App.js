@@ -3,7 +3,7 @@ import { Route, BrowserRouter as Router, Routes, Navigate} from 'react-router-do
 import Register from './components/RegisterPage/register';
 import Login from './components/LoginPage/login';
 import Header from './components/Header/header';
-import CreatePost from './api/createpost'; 
+import CreatePost from './components/Post/CreatePost'; 
 import './style/index.css';
 import User from './components/UserProfile/user';
 import PostDetails from './components/Post/PostDetails';

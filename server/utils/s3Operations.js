@@ -4,8 +4,6 @@ const { S3 } = require("@aws-sdk/client-s3");
 // dotenv helps manage environment variables
 require('dotenv').config();
 
-const fs = require('fs');
-
 // The name of the bucket that you have created
 const BUCKET_NAME = 'pennbuzz';
 
