@@ -29,7 +29,7 @@ const uploadFile = async (fileContent, fileName) => {
 
   // Uploading files to the bucket
 
- const data = await  new Upload({
+ const data = await new Upload({
      client: s3,
      params
  }).done();

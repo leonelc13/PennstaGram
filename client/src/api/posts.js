@@ -53,12 +53,25 @@ export const addCommentToPost = async (id, existingComments, newComment) => {
     }
 }
 
+export const s3Upload = async (file) => {
+    try {
+        const response = await axios.post(`${jsonURL}/s3Upload`, file);
+        return response.data;
+    }  catch (err) {
+        console.error('error', err);
+        const errorMessage = err.response?.data?.error ? err.response.data.error : err.message;
+        return {error: errorMessage};
+    }
+}
+
 export const createPost = async (post) => {
     try {
         const response = await axios.post(`${jsonURL}/posts`, post);
         return response.data;
     } catch (err) {
-        console.error('error', err.message);
+        console.error('error', err);
+        const errorMessage = err.response?.data?.error ? err.response.data.error : err.message;
+        return {error: errorMessage};
     }
 }
 

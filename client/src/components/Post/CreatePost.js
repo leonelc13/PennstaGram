@@ -1,18 +1,12 @@
 import React, { useState } from 'react';
-import { createPost } from '../../api/posts';
+import { createPost, s3Upload } from '../../api/posts';
 
 function CreatePost(props) {
-  const [url, setUrl] = useState('');
   const [postTitle, setPostTitle] = useState('');
   const [postContent, setPostContent] = useState('');
   const [isImage, setIsImage] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
-
-  function handleUrlChange(event) {
-    setUrl(event.target.value);
-    console.log('Url changed', event.target.value);
-    console.log(props.username);
-  }
+  const [file, setFile] = useState(null);
 
   function handleTitleChange(event) {
     setPostTitle(event.target.value);
@@ -28,19 +22,35 @@ function CreatePost(props) {
     setIsImage(event.target.value === 'true'); // to maintain boolean value instead of string
   }
 
+  function handleFileChange(event) {
+    setFile(event.target.files[0]);
+  }
+
   async function handleSubmit(event) {
     event.preventDefault();
 
-    if (!url) {
+    if (!file) {
       setErrorMessage('Missing media to post');
       return;
     }
 
+    console.log(file);
+
+    const formData = new FormData();
+    formData.append('file', file);
+
     try {
+      const s3Url = await s3Upload(formData);
+      console.log(s3Url);
+      if (s3Url.error) {
+        setErrorMessage(s3Url.error);
+        return;
+      }
+
       const postData = await createPost({
         title: postTitle,
         content: postContent,
-        url: url,
+        url: s3Url.message,
         isImage: isImage,
         user: props.username,
         likes: 0,
@@ -49,14 +59,16 @@ function CreatePost(props) {
       });
 
       if (postData.error) {
-          setErrorMessage(postData.error);
-          return;
+        setErrorMessage(postData.error);
+        return;
       }
 
       setErrorMessage('Post Submitted!');
 
     } catch (err) {
-        setErrorMessage(err.response.data.error);
+        const errorMessage = err.response?.data?.error ? err.response.data.error : err.message;
+        console.log(errorMessage);
+        setErrorMessage(errorMessage);
     }
   }
 
@@ -69,9 +81,15 @@ function CreatePost(props) {
           <input id="postTitle" type="text" value={postTitle} onChange={handleTitleChange} />
           <label htmlFor='postContent'>Post Content</label>
           <input id="postContent" type="text" value={postContent} onChange={handleContentChange} />
-
-          <label htmlFor='postUrl'>Post URL</label>
-          <input id="postUrl" type="text" value={url} onChange={handleUrlChange} />
+          <div>
+            File:
+            <input
+              id="upld"
+              type="file"
+              name="someFiles"
+              onChange={handleFileChange}
+            />
+          </div>
 
           <label htmlFor='isImageTrue'><input type="radio" name="isImage" id="isImageTrue" value={true} required onChange={handleIsImageChange} defaultChecked={true}/> Image</label> <br />
           <label htmlFor='isImageFalse'><input data-testid="isImageFalse" type="radio" name="isImage" id="isImageFalse" value={false} required onChange={handleIsImageChange} /> Video</label>
