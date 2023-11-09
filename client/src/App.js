@@ -43,11 +43,11 @@ function App() {
     }
   };
 
-  const props = {
-    user_profile_picture: localStorage.getItem('user-profile-picture'),
-    user: localStorage.getItem('user'),
-    handleLogout,
-  };
+  // const props = {
+  //   user_profile_picture: localStorage.getItem('user-profile-picture'),
+  //   user: localStorage.getItem('user'),
+  //   handleLogout,
+  // };
 
   const pic = localStorage.getItem('user-profile-picture');
   const user = localStorage.getItem('user');
@@ -60,12 +60,12 @@ function App() {
         <>
           <Header user_profile_picture={pic} currentUser={user} handleLogout={handleLogout} />
           <Routes>
-            <Route exact path="/" element={<ActivityFeed currentUsername={props.user} />} />
+            <Route exact path="/" element={<ActivityFeed currentUsername={user} />} />
             <Route exact path="*" element={<Navigate to="/" />} />
-            <Route index element={<ActivityFeed currentUsername={props.user} />} />
-            <Route exact path="/user/:username" element={<User currentUsername={props.user} />} />
-            <Route exact path="/post/:id" element={<PostDetails currentUsername={props.user} />} />
-            <Route exact path="/createpost" element={<CreatePost username={props.user} />} />
+            <Route index element={<ActivityFeed currentUsername={user} />} />
+            <Route exact path="/user/:username" element={<User currentUsername={user} />} />
+            <Route exact path="/post/:id" element={<PostDetails currentUsername={user} />} />
+            <Route exact path="/createpost" element={<CreatePost username={user} />} />
           </Routes>
         </>
       ) : (

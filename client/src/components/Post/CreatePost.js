@@ -85,7 +85,7 @@ function CreatePost(props) {
         <label htmlFor="postContent">
           Post Content
           <div className="content">
-            <textarea id="postContent" type="text" value={postContent} onChange={handleContentChange} />
+            <textarea id="postContent" type="text" style={{ height: 50, width: 400, left: 0 }} value={postContent} onChange={handleContentChange} />
           </div>
         </label>
         <div>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './user.css';
-import { Link } from 'react-router-dom';
 import FollowButton from './Follow';
 import { checkFolloing, getUserById } from '../../api/users';
 
@@ -34,9 +33,7 @@ function UserInfo(props) {
   if (targetUser !== null) {
     return (
       <div className="profileData">
-        <Link to={`/user/${targetUser}`}>
-          {targetUser && <img className="profilePic" src={targetUser?.profile} alt="" />}
-        </Link>
+        {targetUser && <img className="profilePic" src={targetUser?.profile} alt="" />}
         <div className="profileText">
           <h2 className="username">{targetUser.username}</h2>
           <p> Bio </p>

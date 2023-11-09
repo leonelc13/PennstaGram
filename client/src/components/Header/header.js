@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './header.css';
 import { getUserById } from '../../api/users';
+import Bar from '../SearchBar/Bar';
+
 /**
  * React Component for Header displayed to a logged in user
  * */
@@ -34,7 +36,8 @@ function Header(props) {
           </span>
         </Link>
       </span>
-      <input type="text" id="search-input" placeholder="Search for Users" />
+      {/* <input type="text" id="search-input" placeholder="Search for Users" /> */}
+      <Bar currentUser={currentUser} />
       <span className="navbar-text">
         <Link to="/">
           Main Activity

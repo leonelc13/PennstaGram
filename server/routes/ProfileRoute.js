@@ -1,4 +1,4 @@
-const { getUserById, updateUser } = require('../model/ProfilePageDB');
+const { getUserById, updateUser, getAllUsers } = require('../model/ProfilePageDB');
 const {ObjectId} = require('mongodb');
 // const routes = require('./routes/Routes');
 
@@ -30,9 +30,18 @@ const updateUserRoute = async (req, res) => {
 
 };
 
+const getAllProfiles = async (req, res) => {
+    const users = await getAllUsers();
+    if (!users) {
+        return res.status(401).send({error: 'No users found'});
+    }
+    return res.status(200).send(users)
+};
+
 
 const ProfileRoutes = {
     getProfileById: getProfileById,
-    update: updateUserRoute
+    update: updateUserRoute,
+    getAllProfiles: getAllProfiles
 }
 module.exports = ProfileRoutes;

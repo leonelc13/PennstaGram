@@ -6,13 +6,10 @@ div .container{
     align-items: center;
 }
 
-textarea{
-    width: 100%;
+div .container label{
+    width: 400px;
     height: 100px;
-    resize: none;
-    border: 1px solid #ccc;
-    outline: none;
-    font-size: 12px;
-    font-family: 'Roboto', sans-serif;
-    padding: 5px;
+    background: #fff;
+    border-radius: 10px;
+    position: relative;
 }

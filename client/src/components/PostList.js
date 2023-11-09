@@ -7,26 +7,26 @@ function PostList(props) {
   const { currentUser } = props;
   const { posts } = props;
 
-  // const filterPosts = () => {
-  //     //checks if the post user is in the current user's following list
-  //     //or if the post user is the current user
-  //     const posts = allPosts?.filter((post) => {
-  //         if(currentUser?.username === post.user){
-  //             return true;
-  //         }
-  //         if(currentUser?.following){
-  //             return currentUser?.following.includes(post.user);
-  //         }
-  //         return false;
-  //     });
-  //     return posts;
-  // }
+  const filterPosts = () => {
+    // checks if the post user is in the current user's following list
+    // or if the post user is the current user
+    const result = posts?.filter((post) => {
+      if (currentUser?.username === post.user) {
+        return true;
+      }
+      if (currentUser?.following) {
+        return currentUser?.following.includes(post.user);
+      }
+      return false;
+    });
+    return result;
+  };
 
-  // const posts = filterPosts();
+  const newPosts = filterPosts();
 
   return (
     <div className="post-list">
-      {posts?.map((post) => (
+      {newPosts?.map((post) => (
         <div className="post-preview" key={post._id.toString()} id="postPreview">
           <Link to={`/post/${post._id.toString()}`} currentUsername={currentUser?.username}>
             {post.isImage

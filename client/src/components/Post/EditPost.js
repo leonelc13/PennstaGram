@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 import './EditPost.css';
 import { editPostById, s3Upload } from '../../api/posts';
 
-// in props there should be currentUser and post
-// route post/:id/edit
 function EditPost(props) {
   const { setPost } = props;
   const { post } = props;

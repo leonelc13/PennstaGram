@@ -22,6 +22,7 @@ app.post('/register', jsonBodyParser, routes.Register);
 
 //Profile Page 
 app.get('/users/:username', jsonBodyParser, routes.Profile.getProfileById);
+app.get('/users', jsonBodyParser, routes.Profile.getAllProfiles);
 app.put('/users/:id', jsonBodyParser, routes.Profile.update); 
 
 //Main feed and posts

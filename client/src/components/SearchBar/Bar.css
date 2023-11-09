@@ -1,0 +1,19 @@
+.result-list{
+    width: 100%;
+    background-color: white;
+    display:flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    border-radius: 10px;
+    max-height: 60px;
+    font-size: 15px;
+    overflow-y: scroll;
+}
+
+.result-preview{
+    padding: 2px;
+    border: 1px solid black;
+}
+.result-preview:hover{
+    background-color: seashell;
+}

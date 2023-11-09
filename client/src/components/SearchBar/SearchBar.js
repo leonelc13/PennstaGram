@@ -1,28 +1,26 @@
-/* eslint-disable */
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-function SearchBar() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const navigate = useNavigate();
+function SearchBar(props) {
+  const [input, setInput] = useState('');
+  const { setSearchResults } = props;
+  const { allUsers } = props;
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    if (searchTerm.trim()) {
-      navigate(`/profile/${searchTerm.trim()}`);
+  const filterData = (val) => {
+    if (val === '') {
+      return null;
     }
+    const filteredData = allUsers?.filter((user) => user.username.startsWith(val));
+    return filteredData;
+  };
+
+  const handleOnChange = (e) => {
+    setInput(e.target.value);
+    const data = filterData(e.target.value);
+    setSearchResults(data);
   };
 
   return (
-    <form onSubmit={handleSearchSubmit}>
-      <input 
-        type="text"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        placeholder="Search users..."
-      />
-      <button type="submit">Search</button>
-    </form>
+    <input type="text" id="search-input" placeholder="Search for Users" value={input} onChange={handleOnChange} />
   );
 }
 
