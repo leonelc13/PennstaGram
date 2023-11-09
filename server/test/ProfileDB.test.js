@@ -1,9 +1,7 @@
 const request = require('supertest');
 const { app, closeServer } = require('../index');
 const { connect, getDb } = require('../model/DB');
-const { getUserById, updateUser, followUser, unfollowUser } = require('../model/ProfilePageDB');
 const { registerUser } = require('../model/Login-RegisterDBOperations');
-const { get } = require('http');
 
 require('dotenv').config();
 
