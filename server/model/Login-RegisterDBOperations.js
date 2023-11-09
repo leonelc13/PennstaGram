@@ -1,28 +1,28 @@
 const { getDb } = require('./DB');
 
-
-const getUser = async(name) => {
-    const db = getDb();
-    try {
-        const result = await db.collection('User').findOne({username: name});
-        return result;
-    } catch (err) {
-        console.log(`error: ${err.message}`);
-    }
+const getUser = async (name) => {
+  const db = getDb();
+  try {
+    const result = await db.collection('User').findOne({ username: name });
+    return result;
+  } catch (err) {
+    // console.log(`error: ${err.message}`);
+    return err;
+  }
 };
 
 const registerUser = async (newUser) => {
-    const db = getDb();
-    try {
-        const result = await db.collection('User').insertOne(newUser);
-        return result;
-
-    } catch (err) {
-        console.log(err);
-    }
+  const db = getDb();
+  try {
+    const result = await db.collection('User').insertOne(newUser);
+    return result;
+  } catch (err) {
+    // console.log(err);
+    return err;
+  }
 };
 
 module.exports = {
-    getUser,
-    registerUser
-}
+  getUser,
+  registerUser,
+};
