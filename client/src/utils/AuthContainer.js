@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 
+// eslint-disable-next-line import/prefer-default-export
 export const useUserAuth = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
