@@ -81,4 +81,24 @@ describe ('Activity Feed Tests', () => {
         expect(response.statusCode).toBe(401);
     });
 
+    test('delete post', async () => {
+        const response = await request(app).delete(`/posts/${testPosts._id}`);
+        expect(response.statusCode).toBe(200);
+    });
+
+    test('delete invalid post', async () => {
+        const response = await request(app).delete(`/posts/123`);
+        expect(response.statusCode).toBe(404);
+    });
+
+    test('update post', async () => {
+        const response = await request(app).put(`/posts/${testPosts._id}`).send(testPosts);
+        expect(response.statusCode).toBe(200);
+    });
+
+    test('update invalid post', async () => {
+        const response = await request(app).put(`/posts/123`).send(testPosts);
+        expect(response.statusCode).toBe(404);
+    });
+
 });

@@ -1,85 +1,91 @@
 import axios from 'axios';
-import { rootURL, serverPort } from "../utils/utils";
+import { rootURL, serverPort } from '../utils/utils';
 
 /**
  * This module contains HTTP calls to the userpost to the backend
  */
-const jsonURL = `${rootURL}:${serverPort}`
+const jsonURL = `${rootURL}:${serverPort}`;
 
 export const getAllPosts = async () => {
-    try {
-        const response = await axios.get(`${jsonURL}/posts`);
-        return response.data;
-    } catch (err) {
-        console.error('error', err.message);
-    }
-}
+  try {
+    const response = await axios.get(`${jsonURL}/posts`);
+    return response.data;
+  } catch (err) {
+    // console.error('error', err.message);
+    return err.message;
+  }
+};
 
-export const getPostById = async (id) =>{
-    try {
-        const response = await axios.get(`${jsonURL}/posts/${id}`);
-        return response.data;
-    } catch (err) {
-        console.error('error', err.message);
-    }
-}
+export const getPostById = async (id) => {
+  try {
+    const response = await axios.get(`${jsonURL}/posts/${id}`);
+    return response.data;
+  } catch (err) {
+    // console.error('error', err.message);
+    return err.message;
+  }
+};
 
 export const getPostsByUser = async (username) => {
-    try {
-        const response = await axios.get(`${jsonURL}/posts?user=${username}`);
-        return response.data;
-    } catch (err) {
-        console.error('error', err.message);
-    }
-}
+  try {
+    const response = await axios.get(`${jsonURL}/posts?user=${username}`);
+    return response.data;
+  } catch (err) {
+    // console.error('error', err.message);
+    return err.message;
+  }
+};
 
 export const deletePost = async (id) => {
-    try {
-        const response = await axios.delete(`${jsonURL}/posts/${id}`);
-        return response.data;
-    } catch (err) {
-        console.error('error', err.message);
-    }
-}
+  try {
+    const response = await axios.delete(`${jsonURL}/posts/${id}`);
+    return response.data;
+  } catch (err) {
+    // console.error('error', err.message);
+    return err.message;
+  }
+};
 
 export const addCommentToPost = async (id, existingComments, newComment) => {
-    try {
-        existingComments.push(newComment);
-        console.log('addCommentToPost', existingComments);
-        const response = await axios.put(`${jsonURL}/posts/${id}`, {comments: existingComments});
-        return response;
-    } catch (err) {
-        console.error('error', err.message);
-    }
-}
+  try {
+    existingComments.push(newComment);
+    // console.log('addCommentToPost', existingComments);
+    const response = await axios.put(`${jsonURL}/posts/${id}`, { comments: existingComments });
+    return response;
+  } catch (err) {
+    // console.error('error', err.message);
+    return err.message;
+  }
+};
 
 export const s3Upload = async (file) => {
-    try {
-        const response = await axios.post(`${jsonURL}/s3Upload`, file);
-        return response.data;
-    }  catch (err) {
-        console.error('error', err);
-        const errorMessage = err.response?.data?.error ? err.response.data.error : err.message;
-        return {error: errorMessage};
-    }
-}
+  try {
+    const response = await axios.post(`${jsonURL}/s3Upload`, file);
+    return response.data;
+  } catch (err) {
+    // console.error('error', err);
+    const errorMessage = err.response?.data?.error ? err.response.data.error : err.message;
+    return { error: errorMessage };
+  }
+};
 
 export const createPost = async (post) => {
-    try {
-        const response = await axios.post(`${jsonURL}/posts`, post);
-        return response.data;
-    } catch (err) {
-        console.error('error', err);
-        const errorMessage = err.response?.data?.error ? err.response.data.error : err.message;
-        return {error: errorMessage};
-    }
-}
+  try {
+    const response = await axios.post(`${jsonURL}/posts`, post);
+    return response.data;
+  } catch (err) {
+    // console.error('error', err);
+    const errorMessage = err.response?.data?.error ? err.response.data.error : err.message;
+    return { error: errorMessage };
+  }
+};
 
 export const editPostById = async (id, post) => {
-    try {
-        const response = await axios.put(`${jsonURL}/posts/${id}`, post);
-        return response.data.value;
-    } catch (err) {
-        console.error('error', err.message);
-    }
-}
+  try {
+    const response = await axios.put(`${jsonURL}/posts/${id}`, post);
+    return response.data.value;
+  } catch (err) {
+    // console.error('error', err.message);
+    return err.message;
+  }
+};

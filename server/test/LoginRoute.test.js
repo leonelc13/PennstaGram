@@ -1,6 +1,6 @@
 const request = require('supertest');
 const { app, closeServer } = require('../index');
-const { connect, getDb } = require('../model/db');
+const { connect, getDb } = require('../model/DB');
 
 require('dotenv').config();
 

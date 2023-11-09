@@ -1,48 +1,49 @@
 import React from 'react';
-import { followUser, unfollowUser, getUserById} from '../../api/users';
+import { followUser, unfollowUser, getUserById } from '../../api/users';
 
-const FollowButton = (props) => {
-    const currentUser = props.currentUser;
-    const targetUser = props.targetUser;
-    const isFollowing = props.isFollowing;
+function FollowButton(props) {
+  const { currentUser } = props;
+  const { targetUser } = props;
+  const { isFollowing } = props;
+  const { setIsFollowing } = props;
+  const { setCurrentUser } = props;
 
-    const handleFollow = async () => {
-        async function followWrapper(){
-            await followUser(currentUser, targetUser);
-            props.setIsFollowing(true);
-        }
-
-        async function getUpdatedUser() {
-            const data = await getUserById(currentUser);
-            props.setCurrentUser(data);
-        }
-
-        followWrapper();
-        getUpdatedUser();
+  const handleFollow = async () => {
+    async function followWrapper() {
+      await followUser(currentUser, targetUser);
+      setIsFollowing(true);
     }
 
-    const handleUnfollow = async () => {
-        
-        async function unfollowWrapper(){
-            const updatedUser = await unfollowUser(currentUser, targetUser);
-            console.log(updatedUser);
-            props.setIsFollowing(false);
-        }
-
-        async function getUpdatedUser() {
-            const data = await getUserById(currentUser);
-            props.setCurrentUser(data);
-        }
-
-        unfollowWrapper();
-        getUpdatedUser();
+    async function getUpdatedUser() {
+      const data = await getUserById(currentUser);
+      setCurrentUser(data);
     }
 
-    if (isFollowing) {
-        return (<button onClick={handleUnfollow} id="unfollowButton">Unfollow</button>);
-    } else {
-        return (<button onClick={handleFollow} id="followButton">Follow</button>);
+    followWrapper();
+    getUpdatedUser();
+  };
+
+  const handleUnfollow = async () => {
+    async function unfollowWrapper() {
+      const updatedUser = await unfollowUser(currentUser, targetUser);
+      // console.log(updatedUser);
+      setIsFollowing(false);
+      return updatedUser;
     }
+
+    async function getUpdatedUser() {
+      const data = await getUserById(currentUser);
+      setCurrentUser(data);
+    }
+
+    unfollowWrapper();
+    getUpdatedUser();
+  };
+
+  if (isFollowing) {
+    return (<button type="button" onClick={handleUnfollow} id="unfollowButton">Unfollow</button>);
+  }
+  return (<button type="button" onClick={handleFollow} id="followButton">Follow</button>);
 }
- 
+
 export default FollowButton;

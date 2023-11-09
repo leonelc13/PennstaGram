@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import './CreatePost.css';
 import { createPost, s3Upload } from '../../api/posts';
 
 function CreatePost(props) {
+  const { username } = props;
   const [postTitle, setPostTitle] = useState('');
   const [postContent, setPostContent] = useState('');
   const [isImage, setIsImage] = useState(true);
@@ -10,12 +12,12 @@ function CreatePost(props) {
 
   function handleTitleChange(event) {
     setPostTitle(event.target.value);
-    console.log('Title changed', event.target.value);
+    // console.log('Title changed', event.target.value);
   }
 
   function handleContentChange(event) {
     setPostContent(event.target.value);
-    console.log('Content changed', event.target.value);
+    // console.log('Content changed', event.target.value);
   }
 
   function handleIsImageChange(event) {
@@ -34,14 +36,14 @@ function CreatePost(props) {
       return;
     }
 
-    console.log(file);
+    // console.log(file);
 
     const formData = new FormData();
     formData.append('file', file);
 
     try {
       const s3Url = await s3Upload(formData);
-      console.log(s3Url);
+      // console.log(s3Url);
       if (s3Url.error) {
         setErrorMessage(s3Url.error);
         return;
@@ -51,11 +53,11 @@ function CreatePost(props) {
         title: postTitle,
         content: postContent,
         url: s3Url.message,
-        isImage: isImage,
-        user: props.username,
+        isImage,
+        user: username,
         likes: 0,
         comments: [],
-        created: new Date().toISOString()
+        created: new Date().toISOString(),
       });
 
       if (postData.error) {
@@ -64,36 +66,51 @@ function CreatePost(props) {
       }
 
       setErrorMessage('Post Submitted!');
-
     } catch (err) {
-        const errorMessage = err.response?.data?.error ? err.response.data.error : err.message;
-        console.log(errorMessage);
-        setErrorMessage(errorMessage);
+      const newErrorMessage = err.response?.data?.error ? err.response.data.error : err.message;
+      // console.log(errorMessage);
+      setErrorMessage(newErrorMessage);
     }
   }
 
   return (
-    <div>
+    <div className="container">
       <form className="login-form" onSubmit={handleSubmit}>
-          <p className="sign-text">Create Post</p>
-          {errorMessage && <p className='error-text'>{errorMessage}</p>}
-          <label htmlFor='postTitle'>Post Title</label>
+        <p className="sign-text">Create Post</p>
+        {errorMessage && <p className="error-text">{errorMessage}</p>}
+        <label htmlFor="postTitle">
+          Post Title
           <input id="postTitle" type="text" value={postTitle} onChange={handleTitleChange} />
-          <label htmlFor='postContent'>Post Content</label>
-          <input id="postContent" type="text" value={postContent} onChange={handleContentChange} />
-          <div>
-            File:
-            <input
-              id="upld"
-              type="file"
-              name="someFiles"
-              onChange={handleFileChange}
-            />
+        </label>
+        <label htmlFor="postContent">
+          Post Content
+          <div className="content">
+            <textarea id="postContent" type="text" value={postContent} onChange={handleContentChange} />
           </div>
+        </label>
+        <div>
+          File:
+          <input
+            id="upld"
+            type="file"
+            name="someFiles"
+            onChange={handleFileChange}
+          />
+        </div>
 
-          <label htmlFor='isImageTrue'><input type="radio" name="isImage" id="isImageTrue" value={true} required onChange={handleIsImageChange} defaultChecked={true}/> Image</label> <br />
-          <label htmlFor='isImageFalse'><input data-testid="isImageFalse" type="radio" name="isImage" id="isImageFalse" value={false} required onChange={handleIsImageChange} /> Video</label>
-          <button type="submit" className="login-button">Submit</button>
+        <label htmlFor="isImageTrue">
+          <input type="radio" name="isImage" id="isImageTrue" value required onChange={handleIsImageChange} defaultChecked />
+          {' '}
+          Image
+        </label>
+        {' '}
+        <br />
+        <label htmlFor="isImageFalse">
+          <input data-testid="isImageFalse" type="radio" name="isImage" id="isImageFalse" value={false} required onChange={handleIsImageChange} />
+          {' '}
+          Video
+        </label>
+        <button type="submit" className="login-button">Submit</button>
       </form>
     </div>
   );
