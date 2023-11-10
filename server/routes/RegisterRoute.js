@@ -2,7 +2,7 @@ const { authenticateUser } = require('../utils/auth');
 const { getUser, registerUser } = require('../model/Login-RegisterDBOperations');
 const { unknownProfilePhoto } = require('../utils/utils');
 
-const RegisterRoute = async function (req, res) {
+const RegisterRoute = async (req, res) => {
   // console.log('Registering new user');
   const { name, password } = req.body;
 

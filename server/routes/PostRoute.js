@@ -105,6 +105,17 @@ const updatePostRoute = async (req, res) => {
   return {};
 };
 
+// const getPostsByUserRoute = async (req, res) => {
+//   // console.log("getPostsByUserRoute", req.params);
+//   const { username } = req.params;
+//   const posts = await getPostsByUser(username);
+//   if (!posts) {
+//     return res.status(404).send({ error: 'Posts do not exist' });
+//   }
+//   // console.log('in PostRoute, getPostsByUserRoute', posts);
+//   return res.status(200).send(posts);
+// };
+
 const s3UploadRoute = async (req, res) => {
   // console.log(req.method, req.originalUrl);
   const form = formidable({});
@@ -138,7 +149,6 @@ const s3UploadRoute = async (req, res) => {
   });
 };
 
-
 const PostRoutes = {
   getAllPostsRoute,
   getPostByIdRoute,
@@ -146,6 +156,7 @@ const PostRoutes = {
   createPostRoute,
   updatePostRoute,
   s3UploadRoute,
+  // getPostsByUserRoute,
   // getPostsByUserRoute: getPostsByUserRoute,
 };
 

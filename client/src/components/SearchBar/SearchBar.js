@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { getAllUsers } from '../../api/users';
 
 function SearchBar(props) {
   const [input, setInput] = useState('');
+  const [allUsers, setAllUsers] = useState(null);
   const { setSearchResults } = props;
-  const { allUsers } = props;
+  // const { allUsers } = props;
+
+  useEffect(() => {
+    async function getSearchResultsWrapper() {
+      const data = await getAllUsers();
+      setAllUsers(data);
+      return data;
+    }
+    getSearchResultsWrapper();
+  }, [input]);
 
   const filterData = (val) => {
     if (val === '') {
       return null;
     }
+    // console.log(allUsers);
     const filteredData = allUsers?.filter((user) => user.username.startsWith(val));
     return filteredData;
   };

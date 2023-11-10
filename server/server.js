@@ -4,37 +4,37 @@
 
 const express = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+
 const app = express();
 app.use(cors());
-app.use(express.urlencoded({ 
-    limit: '2mb',
-    extended: true,
-    parameterLimit: 100000 
+app.use(express.urlencoded({
+  limit: '2mb',
+  extended: true,
+  parameterLimit: 100000,
 }));
 
 const jsonBodyParser = bodyParser.json();
 
-const routes = require('./routes/routes');
+const routes = require('./routes/Routes');
 
 app.post('/login', jsonBodyParser, routes.Login);
 app.post('/register', jsonBodyParser, routes.Register);
 
-//Profile Page 
+// Profile Page
 app.get('/users/:username', jsonBodyParser, routes.Profile.getProfileById);
 app.get('/users', jsonBodyParser, routes.Profile.getAllProfiles);
-app.put('/users/:id', jsonBodyParser, routes.Profile.update); 
+app.put('/users/:id', jsonBodyParser, routes.Profile.update);
 
-//Main feed and posts
+// Main feed and posts
 app.get('/posts', routes.Post.getAllPostsRoute);
 app.get('/posts/:id', routes.Post.getPostByIdRoute);
 app.put('/posts/:id', routes.Post.updatePostRoute);
 app.delete('/posts/:id', routes.Post.deletePostRoute);
+// app.get('/posts?user=:username', routes.Post.getPostsByUserRoute);
 
 // create Post?
 app.post('/posts', routes.Post.createPostRoute);
 app.post('/s3Upload', routes.Post.s3UploadRoute);
-
-
 
 module.exports = app;

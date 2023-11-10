@@ -1,7 +1,7 @@
 const { authenticateUser } = require('../utils/auth');
 const { getUser } = require('../model/Login-RegisterDBOperations');
 
-const LoginRoute = async function (req, res) {
+const LoginRoute = async (req, res) => {
   const { name, password } = req.body;
 
   if ((name === '') && (password === '')) {
