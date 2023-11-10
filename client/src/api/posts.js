@@ -89,3 +89,15 @@ export const editPostById = async (id, post) => {
     return err.message;
   }
 };
+
+export const updatePostLikesAndLikedBy = async (id, likesCount, usersLiked) => {
+  try {
+    const response = await axios.put(`${jsonURL}/posts/${id}`, {
+      likes: likesCount,
+      likedBy: usersLiked,
+    });
+    return response.data;
+  } catch (err) {
+    return err.message;
+  }
+};

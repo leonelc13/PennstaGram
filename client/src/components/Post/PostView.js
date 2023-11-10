@@ -1,7 +1,36 @@
 import React from 'react';
+import { updatePostLikesAndLikedBy } from '../../api/posts';
 
 function PostView(props) {
-  const { post } = props;
+  const { post, currentUsername, setPost } = props;
+
+  const handleLikeOrUnlike = async () => {
+    try {
+      let updatedLikes = post.likes;
+      let updatedLikedBy = [...post.likedBy];
+      const userIndex = updatedLikedBy.indexOf(currentUsername);
+      if (userIndex !== -1) {
+        updatedLikes -= 1;
+        updatedLikedBy = updatedLikedBy.filter((user) => user !== currentUsername);
+      } else {
+        updatedLikes += 1;
+        updatedLikedBy = [...updatedLikedBy, currentUsername];
+      }
+
+      // eslint-disable-next-line no-underscore-dangle
+      const updatedPostResponse = await updatePostLikesAndLikedBy(post._id, updatedLikes, updatedLikedBy);
+      if (updatedPostResponse && updatedPostResponse.value) {
+        setPost((prevPost) => ({
+          ...prevPost,
+          likes: updatedPostResponse.value.likes,
+          likedBy: updatedPostResponse.value.likedBy,
+        }));
+      }
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log(err.message);
+    }
+  };
 
   return (
     <div>
@@ -18,6 +47,12 @@ function PostView(props) {
           { post.user }
         </p>
       </div>
+      <button type="button" onClick={handleLikeOrUnlike}>
+        {post.likedBy.includes(currentUsername) ? '♥' : '♡'}
+        {post.likes}
+        {' '}
+        likes
+      </button>
     </div>
   );
 }

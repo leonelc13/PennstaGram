@@ -37,7 +37,7 @@ function PostDetails(props) {
     <div className="post-details">
       { post && (
         <div>
-          <PostView post={post} />
+          <PostView post={post} currentUsername={currentUser} setPost={setPost} />
 
           <div className="deleteButton">
             {currentUser === post.user && <button type="button" onClick={handleDeletePost}> Delete Post </button>}

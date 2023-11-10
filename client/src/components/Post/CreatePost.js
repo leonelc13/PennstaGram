@@ -56,6 +56,7 @@ function CreatePost(props) {
         isImage,
         user: username,
         likes: 0,
+        likedBy: [],
         comments: [],
         created: new Date().toISOString(),
       });

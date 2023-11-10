@@ -131,6 +131,7 @@ const s3UploadRoute = async (req, res) => {
     });
 }
 
+
 const PostRoutes = {
     getAllPostsRoute: getAllPostsRoute,
     getPostByIdRoute: getPostByIdRoute,
