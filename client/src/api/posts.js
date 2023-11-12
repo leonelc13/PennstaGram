@@ -6,8 +6,20 @@ import { rootURL, serverPort } from '../utils/utils';
  */
 const jsonURL = `${rootURL}:${serverPort}`;
 
+const setHeaders = () => {
+  axios.defaults.headers.common.Authorization = localStorage.getItem('app-token');
+};
+
+/** const reAuthenticate = (status) => {
+  if (status === 401) {
+    localStorage.removeItem('app-token');
+    window.location.reload(true);
+  }
+}; */
+
 export const getAllPosts = async () => {
   try {
+    setHeaders();
     const response = await axios.get(`${jsonURL}/posts`);
     return response.data;
   } catch (err) {
@@ -18,6 +30,7 @@ export const getAllPosts = async () => {
 
 export const getPostById = async (id) => {
   try {
+    setHeaders();
     const response = await axios.get(`${jsonURL}/posts/${id}`);
     return response.data;
   } catch (err) {
@@ -28,6 +41,7 @@ export const getPostById = async (id) => {
 
 export const getPostsByUser = async (username) => {
   try {
+    setHeaders();
     const response = await axios.get(`${jsonURL}/posts?user=${username}`);
     return response.data;
   } catch (err) {
@@ -38,16 +52,19 @@ export const getPostsByUser = async (username) => {
 
 export const deletePost = async (id) => {
   try {
+    setHeaders();
     const response = await axios.delete(`${jsonURL}/posts/${id}`);
     return response.data;
   } catch (err) {
     // console.error('error', err.message);
+    // reAuthenticate(401);
     return err.message;
   }
 };
 
 export const addCommentToPost = async (id, existingComments, newComment) => {
   try {
+    setHeaders();
     existingComments.push(newComment);
     // console.log('addCommentToPost', existingComments);
     const response = await axios.put(`${jsonURL}/posts/${id}`, { comments: existingComments });
@@ -71,6 +88,7 @@ export const s3Upload = async (file) => {
 
 export const createPost = async (post) => {
   try {
+    setHeaders();
     const response = await axios.post(`${jsonURL}/posts`, post);
     return response.data;
   } catch (err) {
@@ -82,6 +100,7 @@ export const createPost = async (post) => {
 
 export const editPostById = async (id, post) => {
   try {
+    setHeaders();
     const response = await axios.put(`${jsonURL}/posts/${id}`, post);
     return response.data.value;
   } catch (err) {
@@ -92,6 +111,7 @@ export const editPostById = async (id, post) => {
 
 export const updatePostLikesAndLikedBy = async (id, likesCount, usersLiked) => {
   try {
+    setHeaders();
     const response = await axios.put(`${jsonURL}/posts/${id}`, {
       likes: likesCount,
       likedBy: usersLiked,

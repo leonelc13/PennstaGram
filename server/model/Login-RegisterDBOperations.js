@@ -22,7 +22,25 @@ const registerUser = async (newUser) => {
   }
 };
 
+const updateUserLoginAttempts = async (username, failedLoginAttempts, lockUntil) => {
+  const db = getDb();
+  try {
+    const updateData = {
+      $set: {
+        failedLoginAttempts: failedLoginAttempts,
+        lockUntil: lockUntil
+      }
+    };
+    const result = await db.collection('User').updateOne({ username: username }, updateData);
+    return result;
+  } catch (err) {
+    console.error('Error updating user login attempts:', err.message);
+    return err;
+  }
+};
+
 module.exports = {
   getUser,
   registerUser,
+  updateUserLoginAttempts
 };

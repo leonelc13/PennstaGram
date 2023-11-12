@@ -1,5 +1,5 @@
 const { authenticateUser } = require('../utils/auth');
-const { getUser } = require('../model/Login-RegisterDBOperations');
+const { getUser, updateUserLoginAttempts } = require('../model/Login-RegisterDBOperations');
 
 const LoginRoute = async (req, res) => {
   const { name, password } = req.body;
@@ -25,12 +25,26 @@ const LoginRoute = async (req, res) => {
     return {};
   }
 
+  if (user.lockUntil && user.lockUntil > new Date()) {
+    return res.status(401).json({ error: 'Account is locked for 10 minutes' });
+  }
+
   const isPasswordMatch = password === user.password;
 
   if (!isPasswordMatch) {
+    user.failedLoginAttempts = (user.failedLoginAttempts || 0) + 1;
+
+    if (user.failedLoginAttempts >= 3) {
+      user.lockUntil = new Date(Date.now() + 10 * 60 * 1000); // Lock account for 10 minutes
+      user.failedLoginAttempts = 0; // Reset attempts
+    }
+
+    await updateUserLoginAttempts(name, user.failedLoginAttempts, user.lockUntil);
     res.status(401).json({ error: 'Password does not match our records' });
-    return {};
+    return;
   }
+
+  await updateUserLoginAttempts(name, 0, null);
 
   try {
     const token = authenticateUser(name);

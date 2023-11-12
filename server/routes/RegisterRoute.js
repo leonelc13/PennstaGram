@@ -1,4 +1,3 @@
-const { authenticateUser } = require('../utils/auth');
 const { getUser, registerUser } = require('../model/Login-RegisterDBOperations');
 const { unknownProfilePhoto } = require('../utils/utils');
 
@@ -32,14 +31,14 @@ const RegisterRoute = async (req, res) => {
       profile: unknownProfilePhoto,
       followers: [],
       following: [],
+      failedLoginAttempts: 0,
+      lockUntil: null
     };
 
     await registerUser(newUser);
 
     try {
-      const token = authenticateUser(name);
       const response = {
-        apptoken: token,
         username: name,
         profile_picture: unknownProfilePhoto,
       };

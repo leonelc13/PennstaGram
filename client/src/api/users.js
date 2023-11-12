@@ -6,9 +6,20 @@ import { rootURL, serverPort } from '../utils/utils';
  */
 
 const jsonURL = `${rootURL}:${serverPort}`;
+const setHeaders = () => {
+  axios.defaults.headers.common.Authorization = localStorage.getItem('app-token');
+};
+
+/** const reAuthenticate = (status) => {
+  if (status === 401) {
+    localStorage.removeItem('app-token');
+    window.location.reload(true);
+  }
+}; */
 
 export const getAllUsers = async () => {
   try {
+    setHeaders();
     const response = await axios.get(`${jsonURL}/users`);
     return response.data;
   } catch (err) {
@@ -19,6 +30,7 @@ export const getAllUsers = async () => {
 
 export const getUserById = async (id) => {
   try {
+    setHeaders();
     const response = await axios.get(`${jsonURL}/users/${id}`);
     return response.data;
   } catch (err) {
@@ -29,6 +41,7 @@ export const getUserById = async (id) => {
 
 export const createUser = async (user) => {
   try {
+    setHeaders();
     const response = await axios.post(
       `${jsonURL}/users`,
       `id=${user.username}&username=${user.username}&password=${user.password}&email=${user.email}&followers=${[]}&following=${[]}`,
@@ -42,6 +55,7 @@ export const createUser = async (user) => {
 
 export const updateUser = async (user) => {
   try {
+    setHeaders();
     // console.log('updateUser', typeof(user._id));
     // eslint-disable-next-line no-underscore-dangle
     const response = await axios.put(`${jsonURL}/users/${user._id}`, user);
@@ -54,6 +68,7 @@ export const updateUser = async (user) => {
 
 export const followUser = async (currentUser, targetUser) => {
   try {
+    setHeaders();
     const current = await getUserById(currentUser);
     const target = await getUserById(targetUser);
     if (current.following === null && target.followers === null) {
@@ -74,6 +89,7 @@ export const followUser = async (currentUser, targetUser) => {
 
 export const unfollowUser = async (currentUser, targetUser) => {
   try {
+    setHeaders();
     const current = await getUserById(currentUser);
     const target = await getUserById(targetUser);
     const currentFollowing = current.following;
@@ -98,6 +114,7 @@ export const unfollowUser = async (currentUser, targetUser) => {
 // checks if u1 is following u2, returns a boolean
 export const checkFolloing = async (u1, u2) => {
   try {
+    setHeaders();
     const current = await getUserById(u1);
     if (current.following === null) {
       return false;
