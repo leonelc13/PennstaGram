@@ -71,7 +71,9 @@ const createPostRoute = async (req, res) => {
       return {};
     }
 
+    // eslint-disable-next-line max-len
     // if (!post.prototype.hasOwnProperty.call('user') || !post.prototype.hasOwnProperty.call('content')
+    // eslint-disable-next-line max-len
     // || !post.prototype.hasOwnProperty.call('isImage') || !post.prototype.hasOwnProperty.call('url')) {
     if (!post.user || !post.content || !post.isImage || !post.url) {
       return res.status(401).send({ error: 'New post is missing some properties' });
