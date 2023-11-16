@@ -6,6 +6,7 @@ const { uploadFile } = require('../utils/s3Operations');
 const {
   getAllPosts, getPostById, deletePost, createPost, updatePost,
 } = require('../model/PostDB');
+const { verifyUser } = require('../utils/auth');
 
 const getAllPostsRoute = async (req, res) => {
   // console.log(req.method, req.originalUrl);
@@ -48,11 +49,15 @@ const deletePostRoute = async (req, res) => {
   }
 
   const id = new ObjectId(req.params.id);
-  const post = await deletePost(id);
-  if (!post) {
-    return res.status(404).send({ error: 'Post does not exist' });
+
+  if (await verifyUser(req.headers.authorization)) {
+    const post = await deletePost(id);
+    if (!post) {
+      return res.status(404).send({ error: 'Post does not exist' });
+    }
+    return res.status(200).send(post);
   }
-  return res.status(200).send(post);
+  return res.status(401).send({ error: 'Failed Authentication' });
 };
 
 const createPostRoute = async (req, res) => {
