@@ -66,8 +66,9 @@ const createPostRoute = async (req, res) => {
       return {};
     }
 
-    if (!post.prototype.hasOwnProperty.call('user') || !post.prototype.hasOwnProperty.call('content')
-     || !post.prototype.hasOwnProperty.call('isImage') || !post.prototype.hasOwnProperty.call('url')) {
+    // if (!post.prototype.hasOwnProperty.call('user') || !post.prototype.hasOwnProperty.call('content')
+    // || !post.prototype.hasOwnProperty.call('isImage') || !post.prototype.hasOwnProperty.call('url')) {
+    if (!post.user || !post.content || !post.isImage || !post.url) {
       return res.status(401).send({ error: 'New post is missing some properties' });
     }
 
@@ -118,7 +119,7 @@ const updatePostRoute = async (req, res) => {
 
 const s3UploadRoute = async (req, res) => {
   // console.log(req.method, req.originalUrl);
-  const form = formidable({});
+  const form = new formidable.IncomingForm();
   form.parse(req, (err, fields, files) => {
     if (err) {
       // console.log(err);
@@ -130,7 +131,8 @@ const s3UploadRoute = async (req, res) => {
     let cacheBuffer = Buffer.alloc(0);
 
     // create a stream from the virtual path of the uploaded file
-    const fStream = fs.createReadStream(files.file.filepath);
+    // console.log(' s3 uploading: ', files.file[0].filepath);
+    const fStream = fs.createReadStream(files.file[0].filepath);
 
     fStream.on('data', (chunk) => {
       // fill the buffer with data from the uploaded file
@@ -139,7 +141,7 @@ const s3UploadRoute = async (req, res) => {
 
     fStream.on('end', async () => {
       // send buffer to AWS - The url of the object is returned
-      const s3URL = await uploadFile(cacheBuffer, files.file.originalFilename);
+      const s3URL = await uploadFile(cacheBuffer, files.file[0].originalFilename);
       // console.log('end', cacheBuffer.length);
 
       // You can store the URL in mongoDB along with the rest of the data
