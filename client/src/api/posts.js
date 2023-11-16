@@ -7,15 +7,15 @@ import { rootURL, serverPort } from '../utils/utils';
 const jsonURL = `${rootURL}:${serverPort}`;
 
 const setHeaders = () => {
-  axios.defaults.headers.common.Authorization = localStorage.getItem('app-token');
+  axios.defaults.headers.common.Authorization = (localStorage.getItem('app-token') !== null) ? localStorage.getItem('app-token') : null;
 };
 
-/** const reAuthenticate = (status) => {
+const reAuthenticate = (status) => {
   if (status === 401) {
     localStorage.removeItem('app-token');
     window.location.reload(true);
   }
-}; */
+};
 
 export const getAllPosts = async () => {
   try {
@@ -54,8 +54,10 @@ export const deletePost = async (id) => {
   try {
     setHeaders();
     const response = await axios.delete(`${jsonURL}/posts/${id}`);
+    reAuthenticate(response.status);
     return response.data;
   } catch (err) {
+    reAuthenticate(401);
     // console.error('error', err.message);
     // reAuthenticate(401);
     return err.message;

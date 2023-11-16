@@ -17,6 +17,7 @@ const authenticateUser = (userid) => {
 const verifyUser = async (token) => {
 
     try {
+        console.log('User being verified');
         const decoded = jwt.verify(token, process.env.KEY);
         const user = await getUser(decoded.username);
         if (!user) {
