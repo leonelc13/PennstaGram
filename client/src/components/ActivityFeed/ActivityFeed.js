@@ -18,7 +18,6 @@ function ActivityFeed(props) {
   const isMounted = useRef(false);
 
   const fetchPosts = async () => {
-    console.log(page);
     if (!hasMore || !fetchCompleted.current) return;
     fetchCompleted.current = false; // Indicate fetch started
     const newPosts = await getAllPosts(page);

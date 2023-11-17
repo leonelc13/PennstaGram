@@ -8,8 +8,6 @@ const getAllPosts = async (page, limit) => {
       .skip((page - 1) * limit)
       .limit(limit)
       .toArray();
-    console.log(page);
-    console.log(res);
     return res;
   } catch (err) {
     throw new Error('Error finding all posts.');
