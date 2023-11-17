@@ -1,12 +1,17 @@
 const { getDb } = require('./DB');
 
-const getAllPosts = async () => {
+const getAllPosts = async (page, limit) => {
   const db = getDb();
   try {
-    const res = await db.collection('Posts').find().toArray();
+    const res = await db.collection('Posts')
+      .find()
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .toArray();
+    console.log(page);
+    console.log(res);
     return res;
   } catch (err) {
-    // console.error(err);
     throw new Error('Error finding all posts.');
   }
 };

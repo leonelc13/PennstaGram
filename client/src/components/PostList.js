@@ -24,11 +24,13 @@ function PostList(props) {
 
   const newPosts = filterPosts();
 
+  const uniquePosts = Array.from(new Map(newPosts.map((post) => [post._id, post])).values());
+
   return (
     <div className="post-list">
-      {newPosts?.map((post) => (
+      {uniquePosts?.map((post) => (
         <div className="post-preview" key={post._id.toString()} id="postPreview">
-          <Link to={`/post/${post._id.toString()}`} currentUsername={currentUser?.username}>
+          <Link to={`/post/${post._id.toString()}`}>
             {post.isImage
               ? <img className="image-video" src={post.url} alt={post.testContent} />
               : <iframe className="image-video" title={post.title} src={post.url} />}

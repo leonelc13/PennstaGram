@@ -9,12 +9,18 @@ const {
 const { verifyUser } = require('../utils/auth');
 
 const getAllPostsRoute = async (req, res) => {
-  // console.log(req.method, req.originalUrl);
-  const posts = await getAllPosts();
-  if (!posts) {
-    return res.status(404).send({ error: 'Posts do not exist' });
+  const page = parseInt(req.query.page, 10) || 1;
+  const limit = parseInt(req.query.limit, 10) || 10;
+
+  try {
+    const posts = await getAllPosts(page, limit);
+    if (!posts) {
+      return res.status(404).send({ error: 'Posts do not exist' });
+    }
+    return res.status(200).send(posts);
+  } catch (error) {
+    return res.status(500).send({ error: 'Internal Server Error' });
   }
-  return res.status(200).send(posts);
 };
 
 const getPostByIdRoute = async (req, res) => {

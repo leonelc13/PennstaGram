@@ -17,10 +17,11 @@ const reAuthenticate = (status) => {
   }
 };
 
-export const getAllPosts = async () => {
+export const getAllPosts = async (page, limit = 5) => {
   try {
+    console.log(page);
     setHeaders();
-    const response = await axios.get(`${jsonURL}/posts`);
+    const response = await axios.get(`${jsonURL}/posts`, { params: { page, limit } });
     return response.data;
   } catch (err) {
     // console.error('error', err.message);
