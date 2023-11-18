@@ -1,0 +1,12 @@
+.comment {
+    margin: 20px;
+    padding: 20px;
+    background-color: #f8f9fa; /* Light background color for the comment section */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .comment h3 {
+    color: #343a40; /* Dark color for the heading */
+    margin-bottom: 15px;
+  }  

@@ -9,7 +9,7 @@
     padding: 0.75em;
     z-index: 1;
     border-bottom: 0.5px solid rgb(78, 78, 78);
-    background-color: white;
+    background-color: #f8f9fa;
 }
 
 #pennbuzz-name {
@@ -23,7 +23,7 @@
 
 
 #search-input {
-    border: 1px solid #FF0606;
+    border: 1px solid #98a6fe;
     border-radius: 25px;
     padding: 10px;
     margin-right: 10px;
@@ -31,14 +31,33 @@
 }
 
 #search-input::placeholder {
-    color: #FF0606;
+    color: #5f73f8;
 }
 
 .navbar-text {
+    margin: 0 10px;
     font-weight: bold;
+    color: #343a40;
+    display: inline-block;
+    background-color: #98a6fe;
+    padding: 10px 20px;
+    border-radius: 25px;
+}
+
+.navbar-text a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s;
+  }
+
+.navbar-text a:hover {
+    color: red;
 }
 
 #user-profile-picture-wrapper {
+    display: inline-block;
+    background-color: #98a6fe;
+    padding: 5px;
     margin-right: 0%;
     border-radius: 50%;
     width: 2.5em;
@@ -116,4 +135,9 @@ a {
     cursor: pointer;
     border-radius: 25px;
     border: 1px solid #FF0606;
+    transition: background-color 0.3s;
 }
+
+.logout_button:hover {
+    background-color: #c82333; /* Darker shade for hover effect */
+  }
