@@ -14,9 +14,9 @@ export const useUserAuth = () => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = useCallback((event, authAction) => {
+  const handleSubmit = useCallback((event, authAction, extraArgs = []) => {
     event.preventDefault();
-    authAction(username, password, setErrorMessage);
+    authAction(username, password, setErrorMessage, ...extraArgs);
   }, [username, password]);
 
   return {

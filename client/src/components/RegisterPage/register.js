@@ -16,10 +16,7 @@ function Register() {
 
   const navigate = useNavigate();
 
-  const registerSubmit = (event) => handleSubmit(event, (setErrorMessage) => {
-    tryRegister(username, password, setErrorMessage, navigate);
-  });
-
+  const registerSubmit = (event) => handleSubmit(event, tryRegister, [navigate]);
   return (
     <div className="register-container">
       <h1 className="header-text">

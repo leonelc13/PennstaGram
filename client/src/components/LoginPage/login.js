@@ -16,9 +16,9 @@ function Login(props) {
 
   const { handleLogin } = props;
 
-  const loginSubmit = (event) => handleSubmit(event, (name, pwd, setErrorMessage) => {
-    tryLogin(name, pwd, setErrorMessage, handleLogin);
-  });
+  const loginSubmit = (event) => {
+    handleSubmit(event, tryLogin, [handleLogin]);
+  };
 
   return (
     <div className="login-container">
