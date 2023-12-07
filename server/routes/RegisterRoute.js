@@ -16,6 +16,32 @@ const RegisterRoute = async (req, res) => {
     return;
   }
 
+  const validateCredentials = () => {
+    const errors = [];
+
+    if (name.length < 5 || name.length > 10) {
+      errors.push('Username must be between 5 and 10 characters.');
+    }
+    if (!/^[^a-zA-Z]/.test(name)) {
+      errors.push('Username cannot start with a letter.');
+    }
+
+    if (password.length < 5 || password.length > 10) {
+      errors.push('Password must be between 5 and 10 characters.');
+    }
+    if (!/[!@#$%^&*(),.?":{}|<>0-9]/.test(password)) {
+      errors.push('Password must contain at least one special character or number.');
+    }
+    return errors;
+  };
+
+  const validationErrors = validateCredentials(name, password);
+
+  if (validationErrors.length > 0) {
+    res.status(400).json({ error: validationErrors.join(' ') });
+    return;
+  }
+
   const user = await getUser(name);
 
   if (user) {
@@ -32,7 +58,7 @@ const RegisterRoute = async (req, res) => {
       followers: [],
       following: [],
       failedLoginAttempts: 0,
-      lockUntil: null
+      lockUntil: null,
     };
 
     await registerUser(newUser);
