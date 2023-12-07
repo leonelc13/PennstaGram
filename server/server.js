@@ -41,6 +41,6 @@ app.post('/posts', routes.Post.createPostRoute);
 app.post('/s3Upload', routes.Post.s3UploadRoute);
 
 app.get('*', (req, res) => {
-  res.senFile(path.join(__dirname, '../client/build/index.html'));
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
 module.exports = app;
