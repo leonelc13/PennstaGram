@@ -27,11 +27,11 @@ const updateUserLoginAttempts = async (username, failedLoginAttempts, lockUntil)
   try {
     const updateData = {
       $set: {
-        failedLoginAttempts: failedLoginAttempts,
-        lockUntil: lockUntil
-      }
+        failedLoginAttempts,
+        lockUntil,
+      },
     };
-    const result = await db.collection('User').updateOne({ username: username }, updateData);
+    const result = await db.collection('User').updateOne({ username }, updateData);
     return result;
   } catch (err) {
     console.error('Error updating user login attempts:', err.message);
@@ -42,5 +42,5 @@ const updateUserLoginAttempts = async (username, failedLoginAttempts, lockUntil)
 module.exports = {
   getUser,
   registerUser,
-  updateUserLoginAttempts
+  updateUserLoginAttempts,
 };

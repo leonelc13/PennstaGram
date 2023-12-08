@@ -24,13 +24,6 @@ function App() {
     window.location.reload(true);
   };
 
-  /** const handleLogin = (response) => {
-        console.log(response.username);
-        setUsername(response.username);
-        setAuthenticated(true);
-        setToken(localStorage.getItem('userToken'));
-    } */
-
   const handleLogin = (response) => {
     const { apptoken, username: usernameValue, profilePicture } = response.data;
     username.current = usernameValue;
@@ -43,16 +36,8 @@ function App() {
     }
   };
 
-  // const props = {
-  //   user_profile_picture: localStorage.getItem('user-profile-picture'),
-  //   user: localStorage.getItem('user'),
-  //   handleLogout,
-  // };
-
   const pic = localStorage.getItem('user-profile-picture');
   const user = localStorage.getItem('user');
-
-  // if (authenticated) console.log("META PROPS ", props);
 
   return (
     <Router>
@@ -71,7 +56,7 @@ function App() {
       ) : (
         <Routes>
           <Route exact path="/login" element={<Login handleLogin={handleLogin} />} />
-          <Route exact path="/register" element={<Register handleLogin={handleLogin} />} />
+          <Route exact path="/register" element={<Register />} />
           <Route exact path="*" element={<Navigate to="/login" />} />
         </Routes>
       )}

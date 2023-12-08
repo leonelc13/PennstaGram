@@ -5,6 +5,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const app = express();
 app.use(cors());
@@ -17,6 +18,8 @@ app.use(express.urlencoded({
 const jsonBodyParser = bodyParser.json();
 
 const routes = require('./routes/Routes');
+
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.post('/login', jsonBodyParser, routes.Login);
 app.post('/register', jsonBodyParser, routes.Register);
@@ -37,4 +40,7 @@ app.delete('/posts/:id', routes.Post.deletePostRoute);
 app.post('/posts', routes.Post.createPostRoute);
 app.post('/s3Upload', routes.Post.s3UploadRoute);
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
 module.exports = app;

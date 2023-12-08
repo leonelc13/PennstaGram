@@ -16,9 +16,9 @@ function Login(props) {
 
   const { handleLogin } = props;
 
-  const loginSubmit = (event) => handleSubmit(event, (name, pwd, setErrorMessage) => {
-    tryLogin(name, pwd, setErrorMessage, handleLogin);
-  });
+  const loginSubmit = (event) => {
+    handleSubmit(event, tryLogin, [handleLogin]);
+  };
 
   return (
     <div className="login-container">
@@ -37,13 +37,13 @@ function Login(props) {
           {' '}
           to make your own account
         </p>
-        <div>
+        <div className="input-wrapper">
           <label className="inputs-text" htmlFor="username" id="Usernametitle">
             Username
             <input type="text" className="login-inputs" value={username} id="username" onChange={handleUsernameChange} />
           </label>
         </div>
-        <div>
+        <div className="input-wrapper">
           <label className="inputs-text" htmlFor="password" id="Passwordtitle">
             Password
             <input type="password" className="login-inputs" value={password} id="password" onChange={handlePasswordChange} />

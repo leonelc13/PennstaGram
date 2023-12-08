@@ -26,7 +26,7 @@ const LoginRoute = async (req, res) => {
   }
 
   if (user.lockUntil && user.lockUntil > new Date()) {
-    return res.status(401).json({ error: 'Account is locked for 10 minutes' });
+    return res.status(401).json({ error: 'Account is locked for 2 minutes' });
   }
 
   const isPasswordMatch = password === user.password;
@@ -35,13 +35,12 @@ const LoginRoute = async (req, res) => {
     user.failedLoginAttempts = (user.failedLoginAttempts || 0) + 1;
 
     if (user.failedLoginAttempts >= 3) {
-      user.lockUntil = new Date(Date.now() + 10 * 60 * 1000); // Lock account for 10 minutes
+      user.lockUntil = new Date(Date.now() + 2 * 60 * 1000); // Lock account for 10 minutes
       user.failedLoginAttempts = 0; // Reset attempts
     }
 
     await updateUserLoginAttempts(name, user.failedLoginAttempts, user.lockUntil);
-    res.status(401).json({ error: 'Password does not match our records' });
-    return;
+    return res.status(401).json({ error: 'Password does not match our records' });
   }
 
   await updateUserLoginAttempts(name, 0, null);

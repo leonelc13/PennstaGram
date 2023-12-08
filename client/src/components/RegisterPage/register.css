@@ -38,10 +38,10 @@
     padding-bottom: 25px;
     padding-right: 0px;
     padding-left: 0px;
-    margin: 20px 28px 20px;
+    margin: 20px 28px 20px 0px;
     border: none;
     background-color: #fff;
-    width: 85%;
+    width: 100%;
     box-sizing: border-box;
     border: 1px solid black;
     line-height: 30px;
@@ -103,5 +103,39 @@
         font-weight: bold;
 
     }
+
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    
+    
+    .tooltip {
+      position: absolute;
+      top: 50%;
+      left: 100%; /* Place it to the right of the input field */
+      transform: translate(10px, -50%); /* Adjust position and center vertically */
+      background-color: #f9f9f9;
+      border: 1px solid #d3d3d3;
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Optional shadow */
+      z-index: 100;
+      width: 250px; /* Fixed width */
+      max-width: 300px; /* Maximum width */
+      box-sizing: border-box; /* Include padding and border in the width */
+    }
+    
+    .tooltip ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .tooltip ul li {
+      margin-bottom: 5px;
+    }
+
     
   
