@@ -8,5 +8,5 @@ module.exports = {
   serverPort,
   rootURL,
   socketURL,
-  unknownProfilePhoto
-}
+  unknownProfilePhoto,
+};
