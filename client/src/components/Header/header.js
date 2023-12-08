@@ -44,11 +44,6 @@ function Header(props) {
         </Link>
       </span>
       <span className="navbar-text">
-        <Link to="/chat">
-          Chats
-        </Link>
-      </span>
-      <span className="navbar-text">
         <Link to="/createpost">
           Create Post
         </Link>

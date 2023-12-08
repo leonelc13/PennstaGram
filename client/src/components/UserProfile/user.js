@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './user.css';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import UserPost from './userPost';
 import UserInfo from './userInfo';
 import { getUserById } from '../../api/users';
@@ -37,14 +37,12 @@ function User(props) {
         {/* {console.log(`target user: ${username}`)}
         {console.log(`current user: ${currentUser}`)} */}
         <div className="userHeader">
-          <div className="links">
-            <Link to={`/user/settings/${username}`}>Settings</Link>
-          </div>
           <div className="userProfile" id="userProfileComponent">
             <UserInfo currentUser={currentUser} targetUsername={username} setCurrentUser={setCurrentUser} />
           </div>
         </div>
         <div className="userPost" id="userPostComponent">
+          <h2 className="userPostsHeader">Posts:</h2>
           <UserPost currentUser={currentUser} setCurrentUser={setCurrentUser} allPosts={posts} />
         </div>
       </div>
