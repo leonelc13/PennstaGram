@@ -1,10 +1,15 @@
 {
-    "scripts": {
-        "start": "node server/index.js",
-        "heroku-postbuild": "cd server && npm install && cd ../client && npm install && npm run build"
-    },
-
-    "engines": {
-        "node": "20.5.1" 
-    }
+  "dependencies": {
+    "formidable": "^3.5.1",
+    "mongodb": "^6.2.0",
+    "mongoose": "^8.0.0",
+    "react-infinite-scroll-component": "^6.1.0"
+  }
+  "scripts": {
+      "start": "node server/index.js",
+      "heroku-postbuild": "cd server && npm install && cd ../client && npm install && npm run build"
+  },
+  "engines": {
+      "node": "20.5.1" 
+  }
 }

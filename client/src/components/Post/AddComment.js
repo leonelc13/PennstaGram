@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPostById, addCommentToPost } from '../../api/posts';
+import './AddComment.css';
 
 function AddComment(props) {
   const { id } = useParams();
