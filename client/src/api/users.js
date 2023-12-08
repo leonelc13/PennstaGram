@@ -128,7 +128,7 @@ export const checkFolloing = async (u1, u2) => {
 
 export const tryLogin = async (username, password, setErrorMessage, handleLogin) => {
   try {
-    const response = await axios.post(`${rootURL}:3000/login`, `name=${username}&password=${password}`);
+    const response = await axios.post(`${jsonURL}/login`, `name=${username}&password=${password}`);
     handleLogin(response);
   } catch (err) {
     const errorMessage = err.response?.data?.error || 'An error occurred. Please try again.';
