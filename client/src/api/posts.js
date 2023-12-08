@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { rootURL, serverPort } from '../utils/utils';
+import { rootURL } from '../utils/utils';
 
 /**
  * This module contains HTTP calls to the userpost to the backend
  */
-const jsonURL = `${rootURL}:${serverPort}`;
+const jsonURL = `${rootURL}`;
 
 const setHeaders = () => {
   axios.defaults.headers.common.Authorization = (localStorage.getItem('app-token') !== null) ? localStorage.getItem('app-token') : null;

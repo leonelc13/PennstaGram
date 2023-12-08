@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { rootURL, PORT } from '../utils/utils';
+import { rootURL } from '../utils/utils';
 
 /**
  * This module contains HTTP calls to the User information to the backend
  */
 
-const jsonURL = `${rootURL}:${PORT}`;
+const jsonURL = `${rootURL}`;
 const setHeaders = () => {
   axios.defaults.headers.common.Authorization = localStorage.getItem('app-token');
 };
