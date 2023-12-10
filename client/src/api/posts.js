@@ -42,7 +42,7 @@ export const getPostById = async (id) => {
 export const getPostsByUser = async (username) => {
   try {
     setHeaders();
-    const response = await axios.get(`${jsonURL}/posts?user=${username}`);
+    const response = await axios.get(`${jsonURL}/posts/byUser/${username}`);
     return response.data;
   } catch (err) {
     // console.error('error', err.message);

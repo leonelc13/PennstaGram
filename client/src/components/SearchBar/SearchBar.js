@@ -21,6 +21,7 @@ function SearchBar(props) {
       return null;
     }
     // console.log(allUsers);
+    // console.log(allUsers?.map((user) => user.username));
     const filteredData = allUsers?.filter((user) => user.username.startsWith(val));
     return filteredData;
   };

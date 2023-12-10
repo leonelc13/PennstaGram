@@ -4,7 +4,7 @@ const fs = require('fs');
 const formidable = require('formidable');
 const { uploadFile } = require('../utils/s3Operations');
 const {
-  getAllPosts, getPostById, deletePost, createPost, updatePost,
+  getAllPosts, getPostById, deletePost, createPost, updatePost, getPostsByUser,
 } = require('../model/PostDB');
 const { verifyUser } = require('../utils/auth');
 
@@ -119,16 +119,17 @@ const updatePostRoute = async (req, res) => {
   return {};
 };
 
-// const getPostsByUserRoute = async (req, res) => {
-//   // console.log("getPostsByUserRoute", req.params);
-//   const { username } = req.params;
-//   const posts = await getPostsByUser(username);
-//   if (!posts) {
-//     return res.status(404).send({ error: 'Posts do not exist' });
-//   }
-//   // console.log('in PostRoute, getPostsByUserRoute', posts);
-//   return res.status(200).send(posts);
-// };
+const getPostsByUserRoute = async (req, res) => {
+  // console.log("getPostsByUserRoute", req.params);
+  const { username } = req.params;
+  const posts = await getPostsByUser(username);
+  // console.log('params', req);
+  if (!posts) {
+    return res.status(404).send({ error: 'Posts do not exist' });
+  }
+  // console.log('in PostRoute, getPostsByUserRoute', posts);
+  return res.status(200).send(posts);
+};
 
 const s3UploadRoute = async (req, res) => {
   // console.log(req.method, req.originalUrl);
@@ -171,7 +172,7 @@ const PostRoutes = {
   createPostRoute,
   updatePostRoute,
   s3UploadRoute,
-  // getPostsByUserRoute,
+  getPostsByUserRoute,
   // getPostsByUserRoute: getPostsByUserRoute,
 };
 

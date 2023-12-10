@@ -59,16 +59,17 @@ const updatePost = async (id, post) => {
   }
 };
 
-// const getPostsByUser = async (username) => {
-//   const db = getDb();
-//   try {
-//     const res = await db.collection('Posts').find({ user: username }).toArray();
-//     return res;
-//   } catch (err) {
-//     // console.error(err);
-//     throw new Error(`Error finding posts by user ${username}.`);
-//   }
-// };
+const getPostsByUser = async (username) => {
+  console.log('called');
+  const db = getDb();
+  try {
+    const res = await db.collection('Posts').find({ user: username }).toArray();
+    return res;
+  } catch (err) {
+    // console.error(err);
+    throw new Error(`Error finding posts by user ${username}.`);
+  }
+};
 
 module.exports = {
   getAllPosts,
@@ -76,6 +77,6 @@ module.exports = {
   deletePost,
   createPost,
   updatePost,
-  // getPostsByUser,
+  getPostsByUser,
   // addCommentToPost
 };

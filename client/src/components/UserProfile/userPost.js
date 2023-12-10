@@ -10,21 +10,12 @@ function UserPost(props) {
   const { allPosts } = props;
   const { currentUser } = props;
 
-  // useEffect(() => {
-  //   async function getPostWrapper() {
-  //     const data = await getPostsByUser(username);
-  //     setPosts(data);
-  //     return data;
-  //   }
-  //   getPostWrapper();
-  // }, [username]);
   const posts = allPosts.filter((post) => post.user === username);
 
   return (
     <div className="userPost">
       {posts && <PostList posts={posts} currentUser={currentUser} />}
     </div>
-
   );
 }
 

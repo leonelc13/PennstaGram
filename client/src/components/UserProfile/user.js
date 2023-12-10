@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import UserPost from './userPost';
 import UserInfo from './userInfo';
 import { getUserById } from '../../api/users';
-import { getAllPosts } from '../../api/posts';
+import { getAllPosts, getPostsByUser } from '../../api/posts';
 
 function User(props) {
   const { username } = useParams();
@@ -13,6 +13,7 @@ function User(props) {
   const { currentUsername } = props;
   const [currentUser, setCurrentUser] = useState(null);
   const [posts, setPosts] = useState(null);
+  const [userPosts, setUserPosts] = useState(null);
 
   useEffect(() => {
     async function getCurrentUserWrapper() {
@@ -27,15 +28,22 @@ function User(props) {
       return data;
     }
 
+    async function getUserPostsWrapper() {
+      const data = await getPostsByUser(username);
+      setUserPosts(data);
+      return data;
+    }
+
+    getUserPostsWrapper();
     getCurrentUserWrapper();
     getPostWrapper();
   }, [username]);
 
-  if (currentUser !== null && posts !== null) {
+  if (currentUser !== null && posts !== null && userPosts !== null) {
     return (
       <div className="user">
         {/* {console.log(`target user: ${username}`)}
-        {console.log(`current user: ${currentUser}`)} */}
+        {console.log(`userposts: ${userPosts}`)} */}
         <div className="userHeader">
           <div className="userProfile" id="userProfileComponent">
             <UserInfo currentUser={currentUser} targetUsername={username} setCurrentUser={setCurrentUser} />
@@ -43,7 +51,7 @@ function User(props) {
         </div>
         <div className="userPost" id="userPostComponent">
           <h2 className="userPostsHeader">Posts:</h2>
-          <UserPost currentUser={currentUser} setCurrentUser={setCurrentUser} allPosts={posts} />
+          <UserPost currentUser={currentUser} setCurrentUser={setCurrentUser} allPosts={userPosts} />
         </div>
       </div>
     );
