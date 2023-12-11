@@ -4,8 +4,9 @@ const fs = require('fs');
 const formidable = require('formidable');
 const { uploadFile } = require('../utils/s3Operations');
 const {
-  getAllPosts, getPostById, deletePost, createPost, updatePost, getPostsByUser,
+  getAllPosts, getPostById, deletePost, createPost, updatePost, getPostsByUser, getHiddenPostByUser,
 } = require('../model/PostDB');
+const { getUserById } = require('../model/ProfilePageDB');
 const { verifyUser } = require('../utils/auth');
 
 const getAllPostsRoute = async (req, res) => {
@@ -24,7 +25,6 @@ const getAllPostsRoute = async (req, res) => {
 };
 
 const getPostByIdRoute = async (req, res) => {
-  // console.log(req.method, req.originalUrl);
   if (!ObjectId.isValid(req.params.id)) {
     return res.status(404).send({ error: 'Post does not exist' });
   }
@@ -37,16 +37,6 @@ const getPostByIdRoute = async (req, res) => {
   }
   return res.status(200).send(post);
 };
-
-// const getPostsByUserRoute = async (req, res) => {
-//     const username = req.params.username;
-//     const posts = await getPostsByUser(username);
-//     if (!posts) {
-//         return res.status(404).send({error: 'Posts do not exist'});
-//     }
-//     console.log("in PostRoute, getPostsByUserRoute", posts)
-//     return res.status(200).send(posts);
-// };
 
 const deletePostRoute = async (req, res) => {
   // console.log(req.method, req.originalUrl);
@@ -77,10 +67,6 @@ const createPostRoute = async (req, res) => {
       return {};
     }
 
-    // eslint-disable-next-line max-len
-    // if (!post.prototype.hasOwnProperty.call('user') || !post.prototype.hasOwnProperty.call('content')
-    // eslint-disable-next-line max-len
-    // || !post.prototype.hasOwnProperty.call('isImage') || !post.prototype.hasOwnProperty.call('url')) {
     if (!post.user || !post.content || !post.isImage || !post.url) {
       return res.status(401).send({ error: 'New post is missing some properties' });
     }
@@ -131,6 +117,18 @@ const getPostsByUserRoute = async (req, res) => {
   return res.status(200).send(posts);
 };
 
+const getHiddenPostByUserRoute = async (req, res) => {
+  console.log('called the fuck');
+  const { username } = req.params;
+  const user = await getUserById(username);
+  console.log(user);
+  const posts = await getHiddenPostByUser(user);
+  if (!posts) {
+    return res.status(404).send({ error: 'Posts do not exist' });
+  }
+  return res.status(200).send(posts);
+};
+
 const s3UploadRoute = async (req, res) => {
   // console.log(req.method, req.originalUrl);
   const form = new formidable.IncomingForm();
@@ -173,6 +171,7 @@ const PostRoutes = {
   updatePostRoute,
   s3UploadRoute,
   getPostsByUserRoute,
+  getHiddenPostByUserRoute,
   // getPostsByUserRoute: getPostsByUserRoute,
 };
 

@@ -59,6 +59,7 @@ const RegisterRoute = async (req, res) => {
       following: [],
       failedLoginAttempts: 0,
       lockUntil: null,
+      hiddenPosts: [],
     };
 
     await registerUser(newUser);

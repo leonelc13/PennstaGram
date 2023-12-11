@@ -4,6 +4,8 @@ import './PostDetails.css';
 import PostView from './PostView';
 import Comment from './Comment';
 import EditPost from './EditPost';
+import HideButton from './HideButton';
+import { getUserById } from '../../api/users';
 import { getPostById, deletePost } from '../../api/posts';
 
 // single post item should be passed in as props, so that we dont need to fetch it again
@@ -14,14 +16,21 @@ function PostDetails(props) {
   const currentUser = currentUsername;
 
   const [post, setPost] = useState(null);
+  const [user, setUser] = useState(null);
 
   const updatePost = async () => {
     const data = await getPostById(id);
     setPost(data);
   };
 
+  const getUser = async () => {
+    const data = await getUserById(currentUsername);
+    setUser(data);
+  };
+
   useEffect(() => {
     updatePost();
+    getUser();
   }, [id]);
 
   const handleDeletePost = async () => {
@@ -35,9 +44,12 @@ function PostDetails(props) {
 
   return (
     <div className="post-details">
-      { post && (
+      { post && user && (
         <div>
           <PostView post={post} currentUsername={currentUser} setPost={setPost} />
+          <div className="hideButton">
+            <HideButton currentUser={user} id={id} setUser={setUser} />
+          </div>
 
           <div className="deleteButton">
             {currentUser === post.user && <button type="button" onClick={handleDeletePost}> Delete Post </button>}

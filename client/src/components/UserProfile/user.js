@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import UserPost from './userPost';
 import UserInfo from './userInfo';
 import { getUserById } from '../../api/users';
-import { getAllPosts, getPostsByUser } from '../../api/posts';
+import { getPostsByUser } from '../../api/posts';
 
 function User(props) {
   const { username } = useParams();
@@ -12,19 +12,12 @@ function User(props) {
   // get current user object
   const { currentUsername } = props;
   const [currentUser, setCurrentUser] = useState(null);
-  const [posts, setPosts] = useState(null);
   const [userPosts, setUserPosts] = useState(null);
 
   useEffect(() => {
     async function getCurrentUserWrapper() {
       const data = await getUserById(currentUsername);
       setCurrentUser(data);
-      return data;
-    }
-
-    async function getPostWrapper() {
-      const data = await getAllPosts();
-      setPosts(data);
       return data;
     }
 
@@ -36,14 +29,13 @@ function User(props) {
 
     getUserPostsWrapper();
     getCurrentUserWrapper();
-    getPostWrapper();
   }, [username]);
 
-  if (currentUser !== null && posts !== null && userPosts !== null) {
+  if (currentUser !== null && userPosts !== null) {
     return (
       <div className="user">
         {/* {console.log(`target user: ${username}`)}
-        {console.log(`userposts: ${userPosts}`)} */}
+        {console.log(`hidden: ${hiddenPosts}`)} */}
         <div className="userHeader">
           <div className="userProfile" id="userProfileComponent">
             <UserInfo currentUser={currentUser} targetUsername={username} setCurrentUser={setCurrentUser} />

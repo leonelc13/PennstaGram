@@ -21,6 +21,7 @@ const updateUserRoute = async (req, res) => {
     profile: req.body.profile,
     followers: req.body.followers,
     following: req.body.following,
+    hiddenPosts: req.body.hiddenPosts,
   };
 
   const user = await updateUser(userid, newUser);

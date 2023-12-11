@@ -17,6 +17,8 @@ function ActivityFeed(props) {
   const fetchCompleted = useRef(true);
   const isMounted = useRef(false);
 
+  const filter = true;
+
   const fetchPosts = async () => {
     if (!hasMore || !fetchCompleted.current) return;
     fetchCompleted.current = false; // Indicate fetch started
@@ -56,7 +58,7 @@ function ActivityFeed(props) {
             )}
             scrollThreshold="40px"
           >
-            <PostList posts={posts} currentUser={currentUser} />
+            <PostList posts={posts} currentUser={currentUser} filter={filter} />
           </InfiniteScroll>
         )}
       </div>

@@ -39,6 +39,17 @@ export const getPostById = async (id) => {
   }
 };
 
+export const getHiddenPostByUser = async (username) => {
+  try {
+    setHeaders();
+    const response = await axios.get(`${jsonURL}/posts/hidden/${username}`);
+    return response.data;
+  } catch (err) {
+    // console.error('error', err.message);
+    return err.message;
+  }
+};
+
 export const getPostsByUser = async (username) => {
   try {
     setHeaders();

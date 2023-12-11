@@ -1,4 +1,5 @@
 const { getDb } = require('./DB');
+const { ObjectId } = require('mongodb');
 
 const getAllPosts = async (page, limit) => {
   const db = getDb();
@@ -60,7 +61,6 @@ const updatePost = async (id, post) => {
 };
 
 const getPostsByUser = async (username) => {
-  console.log('called');
   const db = getDb();
   try {
     const res = await db.collection('Posts').find({ user: username }).toArray();
@@ -71,6 +71,19 @@ const getPostsByUser = async (username) => {
   }
 };
 
+const getHiddenPostByUser = async (user) => {
+  const db = getDb();
+  try {
+    const idList = user.hiddenPosts;
+    const objectIdList = idList.map((idString) => new ObjectId(idString));
+    const res = await db.collection('Posts').find({ _id: { $in: objectIdList } }).toArray();
+    return res;
+  } catch (err) {
+    // console.error(err);
+    throw new Error('Error finding hidden posts by user.');
+  }
+};
+
 module.exports = {
   getAllPosts,
   getPostById,
@@ -78,5 +91,6 @@ module.exports = {
   createPost,
   updatePost,
   getPostsByUser,
+  getHiddenPostByUser,
   // addCommentToPost
 };

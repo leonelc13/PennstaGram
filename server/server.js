@@ -35,6 +35,7 @@ app.get('/posts/:id', routes.Post.getPostByIdRoute);
 app.put('/posts/:id', routes.Post.updatePostRoute);
 app.delete('/posts/:id', routes.Post.deletePostRoute);
 app.get('/posts/byUser/:username', routes.Post.getPostsByUserRoute);
+app.get('/posts/hidden/:username', routes.Post.getHiddenPostByUserRoute);
 
 // create Post?
 app.post('/posts', routes.Post.createPostRoute);
