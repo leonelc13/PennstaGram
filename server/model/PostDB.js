@@ -16,6 +16,16 @@ const getAllPosts = async (page, limit) => {
   }
 };
 
+const getAllPostIds = async () => {
+  const db = getDb();
+  try {
+    const res = await db.collection('Posts').find({}, { projection: { _id: 1 } }).toArray();
+    return res;
+  } catch (err) {
+    throw new Error('Error finding all post ids.');
+  }
+};
+
 const getFeed = async (user, page, limit) => {
   const db = getDb();
   try {
@@ -116,5 +126,6 @@ module.exports = {
   getPostsByUser,
   getHiddenPostByUser,
   getFeed,
+  getAllPostIds,
   // addCommentToPost
 };

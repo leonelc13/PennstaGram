@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PostList from '../PostList';
 import { getUserById } from '../../api/users';
-import { getHiddenPostByUser } from '../../api/posts';
+import { getHiddenPostByUser, getAllPostIds } from '../../api/posts';
 
 function HiddenPost(props) {
   const { currentUsername } = props;
@@ -16,7 +16,13 @@ function HiddenPost(props) {
       setCurrentUser(data);
 
       const hiddenPostsData = await getHiddenPostByUser(currentUsername);
-      setHiddenPosts(hiddenPostsData);
+      const allPostIds = await getAllPostIds();
+
+      // check if hidden post id is in all ids
+      // eslint-disable-next-line no-underscore-dangle
+      const filteredHiddenPosts = hiddenPostsData.filter((hiddenPost) => allPostIds?.some((post) => post._id === hiddenPost._id));
+
+      setHiddenPosts(filteredHiddenPosts);
       return data;
     }
 

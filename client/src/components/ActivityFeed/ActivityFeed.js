@@ -23,13 +23,20 @@ function ActivityFeed(props) {
   const fetchPosts = async () => {
     if (!hasMore || !fetchCompleted.current) return;
     fetchCompleted.current = false; // Indicate fetch started
-    // const newPosts = await getAllPosts(page);
+
     const newPosts = await getFeed(currentUsername, page);
-    // const allPosts = [...prevPosts, ...newPosts];
 
     setPosts((prevPosts) => {
-      const updatedPost = [...prevPosts, ...newPosts];
-      return updatedPost;
+      // check if newPost already exist in prevPosts, if so do not include it
+      // eslint-disable-next-line no-underscore-dangle
+      const filteredNewPosts = newPosts.filter((newPost) => !prevPosts.some((prevPost) => prevPost._id === newPost._id));
+      const allPosts = [...prevPosts, ...filteredNewPosts];
+
+      const sortByDate = (a, b) => new Date(b.created) - new Date(a.created);
+
+      // Sort prevPosts by date in descending order
+      const sortedPosts = allPosts.sort(sortByDate);
+      return sortedPosts;
     });
 
     setPage((prevPage) => prevPage + 1);
@@ -47,11 +54,10 @@ function ActivityFeed(props) {
       }
     }
     initialize();
-    setInterval(() => {
-      // console.log(posts[0]);
+    setInterval(async () => {
       setPage(1);
-      fetchPosts();
-    }, 2000);
+      await fetchPosts();
+    }, 5000);
   }, [posts]);
 
   if (currentUser !== null) {

@@ -5,7 +5,7 @@ const formidable = require('formidable');
 const { uploadFile } = require('../utils/s3Operations');
 const {
   getAllPosts, getPostById, deletePost, createPost, updatePost, getPostsByUser, getHiddenPostByUser,
-  getFeed,
+  getFeed, getAllPostIds,
 } = require('../model/PostDB');
 const { getUserById } = require('../model/ProfilePageDB');
 const { verifyUser } = require('../utils/auth');
@@ -18,6 +18,18 @@ const getAllPostsRoute = async (req, res) => {
     const posts = await getAllPosts(page, limit);
     if (!posts) {
       return res.status(404).send({ error: 'Posts do not exist' });
+    }
+    return res.status(200).send(posts);
+  } catch (error) {
+    return res.status(500).send({ error: 'Internal Server Error' });
+  }
+};
+
+const getAllPostIdsRoute = async (req, res) => {
+  try {
+    const posts = await getAllPostIds();
+    if (!posts) {
+      return res.status(404).send({ error: 'Some error occured' });
     }
     return res.status(200).send(posts);
   } catch (error) {
@@ -138,10 +150,8 @@ const getPostsByUserRoute = async (req, res) => {
 };
 
 const getHiddenPostByUserRoute = async (req, res) => {
-  console.log('called the fuck');
   const { username } = req.params;
   const user = await getUserById(username);
-  console.log(user);
   const posts = await getHiddenPostByUser(user);
   if (!posts) {
     return res.status(404).send({ error: 'Posts do not exist' });
@@ -193,6 +203,7 @@ const PostRoutes = {
   getPostsByUserRoute,
   getHiddenPostByUserRoute,
   getFeedRoute,
+  getAllPostIdsRoute,
   // getPostsByUserRoute: getPostsByUserRoute,
 };
 

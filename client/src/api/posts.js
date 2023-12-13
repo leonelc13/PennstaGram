@@ -28,6 +28,17 @@ export const getAllPosts = async (page, limit = 5) => {
   }
 };
 
+export const getAllPostIds = async () => {
+  try {
+    setHeaders();
+    const response = await axios.get(`${jsonURL}/postIds`);
+    return response.data;
+  } catch (err) {
+    // console.error('error', err.message);
+    return err.message;
+  }
+};
+
 export const getFeed = async (username, page, limit = 5) => {
   try {
     setHeaders();
