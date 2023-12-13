@@ -11,12 +11,12 @@ function UserPost(props) {
   const { currentUser } = props;
   const filter = false;
 
-  const posts = allPosts.filter((post) => post.user === username);
+  // const posts = allPosts.filter((post) => post.user === username);
 
   return (
     <div>
       <div className="userPost">
-        {posts && <PostList posts={posts} currentUser={currentUser} filter={filter} />}
+        {allPosts && <PostList posts={allPosts} currentUser={currentUser} filter={filter} />}
       </div>
       <div className="hiddenPosts">
         <Link to={`/user/${username}/hidden`}>Hidden Posts</Link>

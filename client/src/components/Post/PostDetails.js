@@ -29,8 +29,13 @@ function PostDetails(props) {
   };
 
   useEffect(() => {
-    updatePost();
-    getUser();
+    // updatePost();
+    // getUser();
+
+    setInterval(() => {
+      updatePost();
+      getUser();
+    }, 1000);
   }, [id]);
 
   const handleDeletePost = async () => {
@@ -47,9 +52,12 @@ function PostDetails(props) {
       { post && user && (
         <div>
           <PostView post={post} currentUsername={currentUser} setPost={setPost} />
+          {currentUser !== post.user
+          && (
           <div className="hideButton">
             <HideButton currentUser={user} id={id} setUser={setUser} />
           </div>
+          )}
 
           <div className="deleteButton">
             {currentUser === post.user && <button type="button" onClick={handleDeletePost}> Delete Post </button>}

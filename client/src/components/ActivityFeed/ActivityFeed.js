@@ -4,7 +4,8 @@ import React, { useEffect, useState, useRef } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import InfiniteScroll from 'react-infinite-scroll-component';
 import PostList from '../PostList';
-import { getAllPosts } from '../../api/posts';
+// delete get ALL posts
+import { getFeed } from '../../api/posts';
 import { getUserById } from '../../api/users';
 
 function ActivityFeed(props) {
@@ -22,8 +23,15 @@ function ActivityFeed(props) {
   const fetchPosts = async () => {
     if (!hasMore || !fetchCompleted.current) return;
     fetchCompleted.current = false; // Indicate fetch started
-    const newPosts = await getAllPosts(page);
-    setPosts((prevPosts) => [...prevPosts, ...newPosts]);
+    // const newPosts = await getAllPosts(page);
+    const newPosts = await getFeed(currentUsername, page);
+    // const allPosts = [...prevPosts, ...newPosts];
+
+    setPosts((prevPosts) => {
+      const updatedPost = [...prevPosts, ...newPosts];
+      return updatedPost;
+    });
+
     setPage((prevPage) => prevPage + 1);
     setHasMore(newPosts.length > 0);
     fetchCompleted.current = true; // Indicate fetch completed
@@ -39,7 +47,12 @@ function ActivityFeed(props) {
       }
     }
     initialize();
-  }, []);
+    setInterval(() => {
+      // console.log(posts[0]);
+      setPage(1);
+      fetchPosts();
+    }, 2000);
+  }, [posts]);
 
   if (currentUser !== null) {
     return (

@@ -33,15 +33,16 @@ function AddComment(props) {
       return;
     }
 
-    let highestId = -1;
-    post.comments.forEach(() => {
-      if (highestId < comment.id) {
-        highestId = comment.id;
-      }
-    });
+    // let highestId = -1;
+    // post.comments.forEach(() => {
+    //   if (highestId < comment.id) {
+    //     highestId = comment.id;
+    //   }
+    // });
+    const commentLength = post.comments.length;
 
     const newComment = {
-      id: highestId + 1,
+      id: commentLength + 1,
       content: comment,
       user: currentUser,
       created: new Date().toISOString(),

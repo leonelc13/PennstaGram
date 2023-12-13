@@ -29,7 +29,12 @@ function User(props) {
 
     getUserPostsWrapper();
     getCurrentUserWrapper();
-  }, [username]);
+
+    setInterval(() => {
+      getUserPostsWrapper();
+      getCurrentUserWrapper();
+    }, 1000);
+  }, []);
 
   if (currentUser !== null && userPosts !== null) {
     return (

@@ -37,6 +37,8 @@ app.delete('/posts/:id', routes.Post.deletePostRoute);
 app.get('/posts/byUser/:username', routes.Post.getPostsByUserRoute);
 app.get('/posts/hidden/:username', routes.Post.getHiddenPostByUserRoute);
 
+app.get('/feed/:username', routes.Post.getFeedRoute);
+
 // create Post?
 app.post('/posts', routes.Post.createPostRoute);
 app.post('/s3Upload', routes.Post.s3UploadRoute);

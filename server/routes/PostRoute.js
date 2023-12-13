@@ -5,6 +5,7 @@ const formidable = require('formidable');
 const { uploadFile } = require('../utils/s3Operations');
 const {
   getAllPosts, getPostById, deletePost, createPost, updatePost, getPostsByUser, getHiddenPostByUser,
+  getFeed,
 } = require('../model/PostDB');
 const { getUserById } = require('../model/ProfilePageDB');
 const { verifyUser } = require('../utils/auth');
@@ -15,6 +16,25 @@ const getAllPostsRoute = async (req, res) => {
 
   try {
     const posts = await getAllPosts(page, limit);
+    if (!posts) {
+      return res.status(404).send({ error: 'Posts do not exist' });
+    }
+    return res.status(200).send(posts);
+  } catch (error) {
+    return res.status(500).send({ error: 'Internal Server Error' });
+  }
+};
+
+const getFeedRoute = async (req, res) => {
+  const { username } = req.params;
+  const page = parseInt(req.query.page, 10) || 1;
+  const limit = parseInt(req.query.limit, 10) || 10;
+
+  // console.log('getFeedRoute', username, page, limit);
+
+  try {
+    const user = await getUserById(username);
+    const posts = await getFeed(user, page, limit);
     if (!posts) {
       return res.status(404).send({ error: 'Posts do not exist' });
     }
@@ -172,6 +192,7 @@ const PostRoutes = {
   s3UploadRoute,
   getPostsByUserRoute,
   getHiddenPostByUserRoute,
+  getFeedRoute,
   // getPostsByUserRoute: getPostsByUserRoute,
 };
 
