@@ -25,22 +25,35 @@ const LoginRoute = async (req, res) => {
     return {};
   }
 
+  const lockout = 'Account is locked for 2 minutes';
+
   if (user.lockUntil && user.lockUntil > new Date()) {
-    return res.status(401).json({ error: 'Account is locked for 2 minutes' });
+    const timeLeft = user.lockUntil - new Date();
+    const secondsLeft = Math.ceil(timeLeft / 1000);
+    const minutesLeft = Math.floor(secondsLeft / 60);
+    const seconds = secondsLeft % 60;
+    const lockoutMessage = `Account is locked. Try again in ${minutesLeft} minute(s) and ${seconds} second(s).`;
+    return res.status(401).json({ error: lockoutMessage });
   }
 
   const isPasswordMatch = password === user.password;
+
+  let warningMessage;
 
   if (!isPasswordMatch) {
     user.failedLoginAttempts = (user.failedLoginAttempts || 0) + 1;
 
     if (user.failedLoginAttempts >= 3) {
-      user.lockUntil = new Date(Date.now() + 2 * 60 * 1000); // Lock account for 10 minutes
-      user.failedLoginAttempts = 0; // Reset attempts
+      user.lockUntil = new Date(Date.now() + 2 * 60 * 1000);
+      user.failedLoginAttempts = 0;
+      await updateUserLoginAttempts(name, user.failedLoginAttempts, user.lockUntil);
+      return res.status(401).json({ error: lockout });
     }
 
+    warningMessage = `Incorrect password. You have ${3 - user.failedLoginAttempts} attempt(s) left before being locked out.`;
+
     await updateUserLoginAttempts(name, user.failedLoginAttempts, user.lockUntil);
-    return res.status(401).json({ error: 'Password does not match our records' });
+    return res.status(401).json({ error: warningMessage });
   }
 
   await updateUserLoginAttempts(name, 0, null);
