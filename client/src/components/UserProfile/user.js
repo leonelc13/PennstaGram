@@ -15,28 +15,27 @@ function User(props) {
   const [userPosts, setUserPosts] = useState(null);
 
   useEffect(() => {
-    async function getCurrentUserWrapper() {
-      const data = await getUserById(currentUsername);
-      setCurrentUser(data);
-      return data;
-    }
+    // Fetch user information and posts initially
+    const fetchData = async () => {
+      try {
+        const user = await getUserById(currentUsername);
+        setCurrentUser(user);
 
-    async function getUserPostsWrapper() {
-      const data = await getPostsByUser(username);
-      // console.log(data);
-      setUserPosts(null);
-      setUserPosts(data);
-      return data;
-    }
+        const posts = await getPostsByUser(username);
+        setUserPosts(posts);
+      } catch (error) {
+        // Handle errors
+        // console.error(error);
+      }
+    };
 
-    getUserPostsWrapper();
-    getCurrentUserWrapper();
+    fetchData();
 
-    setInterval(() => {
-      getUserPostsWrapper();
-      getCurrentUserWrapper();
-    }, 1000);
-  }, [username]);
+    // Set up an interval to periodically fetch data
+    const intervalId = setInterval(fetchData, 1000);
+
+    return () => clearInterval(intervalId);
+  }, [currentUsername, username]);
 
   if (currentUser !== null && userPosts !== null) {
     return (

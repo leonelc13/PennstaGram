@@ -31,7 +31,7 @@ function HiddenPost(props) {
 
   if (currentUser !== null && hiddenPosts !== null) {
     return (
-      <div className="hiddenPosts">
+      <div className="hiddenPosts" data-testid="post-list">
         <PostList posts={hiddenPosts} currentUser={currentUser} filter={filter} />
       </div>
     );

@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React from 'react';
 import { expect, test } from '@jest/globals';
 import { BrowserRouter } from 'react-router-dom';

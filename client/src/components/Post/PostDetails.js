@@ -29,14 +29,16 @@ function PostDetails(props) {
   };
 
   useEffect(() => {
-    // updatePost();
-    // getUser();
-
-    setInterval(() => {
+    const updateInterval = setInterval(() => {
       updatePost();
       getUser();
     }, 1000);
-  }, [id]);
+
+    // Clear the interval when the component is unmounted
+    return () => clearInterval(updateInterval);
+
+    // The dependency array ensures that the effect runs only when id or currentUsername changes
+  }, [id, currentUsername]);
 
   const handleDeletePost = async () => {
     try {
