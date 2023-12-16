@@ -85,7 +85,9 @@ const createPost = async (post) => {
 const updatePost = async (id, post) => {
   const db = getDb();
   try {
-    const res = await db.collection('Posts').findOneAndUpdate({ _id: id }, { $set: post }, { returnNewDocument: true, returnDocument: 'after' });
+    // console.log('updatePost', post._id);
+    const { _id, ...modifiedPost } = post;
+    const res = await db.collection('Posts').findOneAndUpdate({ _id: id }, { $set: modifiedPost }, { returnNewDocument: true, returnDocument: 'after' });
     return res;
   } catch (err) {
     // console.error(err);

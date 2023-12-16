@@ -28,6 +28,11 @@ function ActivityFeed(props) {
 
     setPosts((prevPosts) => {
       // check if newPost already exist in prevPosts, if so do not include it
+      // console.log('newPosts', newPosts);
+      // check if newPost is an array
+      if (!Array.isArray(newPosts)) {
+        return prevPosts;
+      }
       // eslint-disable-next-line no-underscore-dangle
       const filteredNewPosts = newPosts.filter((newPost) => !prevPosts.some((prevPost) => prevPost._id === newPost._id));
       const allPosts = [...prevPosts, ...filteredNewPosts];

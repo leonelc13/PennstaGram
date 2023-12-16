@@ -23,6 +23,8 @@ function User(props) {
 
     async function getUserPostsWrapper() {
       const data = await getPostsByUser(username);
+      // console.log(data);
+      setUserPosts(null);
       setUserPosts(data);
       return data;
     }
@@ -34,13 +36,13 @@ function User(props) {
       getUserPostsWrapper();
       getCurrentUserWrapper();
     }, 1000);
-  }, []);
+  }, [username]);
 
   if (currentUser !== null && userPosts !== null) {
     return (
       <div className="user">
         {/* {console.log(`target user: ${username}`)}
-        {console.log(`hidden: ${hiddenPosts}`)} */}
+        {console.log(`hidden: ${userPosts}`)} */}
         <div className="userHeader">
           <div className="userProfile" id="userProfileComponent">
             <UserInfo currentUser={currentUser} targetUsername={username} setCurrentUser={setCurrentUser} />
