@@ -10,8 +10,8 @@
 .user .userHeader{
     padding: 20px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: right;
+    justify-content: right;
     max-width: 800px;
     margin:0 auto;
 
