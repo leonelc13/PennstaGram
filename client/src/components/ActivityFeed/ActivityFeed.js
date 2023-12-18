@@ -4,7 +4,8 @@ import React, { useEffect, useState, useRef } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import InfiniteScroll from 'react-infinite-scroll-component';
 import PostList from '../PostList';
-import { getAllPosts } from '../../api/posts';
+// delete get ALL posts
+import { getFeed } from '../../api/posts';
 import { getUserById } from '../../api/users';
 
 function ActivityFeed(props) {
@@ -17,11 +18,32 @@ function ActivityFeed(props) {
   const fetchCompleted = useRef(true);
   const isMounted = useRef(false);
 
+  const filter = true;
+
   const fetchPosts = async () => {
     if (!hasMore || !fetchCompleted.current) return;
     fetchCompleted.current = false; // Indicate fetch started
-    const newPosts = await getAllPosts(page);
-    setPosts((prevPosts) => [...prevPosts, ...newPosts]);
+
+    const newPosts = await getFeed(currentUsername, page);
+
+    setPosts((prevPosts) => {
+      // check if newPost already exist in prevPosts, if so do not include it
+      // console.log('newPosts', newPosts);
+      // check if newPost is an array
+      if (!Array.isArray(newPosts)) {
+        return prevPosts;
+      }
+      // eslint-disable-next-line no-underscore-dangle
+      const filteredNewPosts = newPosts.filter((newPost) => !prevPosts.some((prevPost) => prevPost._id === newPost._id));
+      const allPosts = [...prevPosts, ...filteredNewPosts];
+
+      const sortByDate = (a, b) => new Date(b.created) - new Date(a.created);
+
+      // Sort prevPosts by date in descending order
+      const sortedPosts = allPosts.sort(sortByDate);
+      return sortedPosts;
+    });
+
     setPage((prevPage) => prevPage + 1);
     setHasMore(newPosts.length > 0);
     fetchCompleted.current = true; // Indicate fetch completed
@@ -37,7 +59,11 @@ function ActivityFeed(props) {
       }
     }
     initialize();
-  }, []);
+    setInterval(async () => {
+      setPage(1);
+      await fetchPosts();
+    }, 5000);
+  }, [posts]);
 
   if (currentUser !== null) {
     return (
@@ -56,7 +82,7 @@ function ActivityFeed(props) {
             )}
             scrollThreshold="40px"
           >
-            <PostList posts={posts} currentUser={currentUser} />
+            <PostList posts={posts} currentUser={currentUser} filter={filter} />
           </InfiniteScroll>
         )}
       </div>

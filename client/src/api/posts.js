@@ -28,6 +28,28 @@ export const getAllPosts = async (page, limit = 5) => {
   }
 };
 
+export const getAllPostIds = async () => {
+  try {
+    setHeaders();
+    const response = await axios.get(`${jsonURL}/postIds`);
+    return response.data;
+  } catch (err) {
+    // console.error('error', err.message);
+    return err.message;
+  }
+};
+
+export const getFeed = async (username, page, limit = 5) => {
+  try {
+    setHeaders();
+    const response = await axios.get(`${jsonURL}/feed/${username}`, { params: { page, limit } });
+    return response.data;
+  } catch (err) {
+    // console.error('error', err.message);
+    return err.message;
+  }
+};
+
 export const getPostById = async (id) => {
   try {
     setHeaders();
@@ -39,10 +61,21 @@ export const getPostById = async (id) => {
   }
 };
 
+export const getHiddenPostByUser = async (username) => {
+  try {
+    setHeaders();
+    const response = await axios.get(`${jsonURL}/posts/hidden/${username}`);
+    return response.data;
+  } catch (err) {
+    // console.error('error', err.message);
+    return err.message;
+  }
+};
+
 export const getPostsByUser = async (username) => {
   try {
     setHeaders();
-    const response = await axios.get(`${jsonURL}/posts?user=${username}`);
+    const response = await axios.get(`${jsonURL}/posts/byUser/${username}`);
     return response.data;
   } catch (err) {
     // console.error('error', err.message);

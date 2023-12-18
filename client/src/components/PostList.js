@@ -6,11 +6,23 @@ import React from 'react';
 function PostList(props) {
   const { currentUser } = props;
   const { posts } = props;
+  const { filter } = props;
 
   const filterPosts = () => {
     // checks if the post user is in the current user's following list
     // or if the post user is the current user
-    const result = posts?.filter((post) => {
+    if (!filter) {
+      return posts;
+    }
+
+    const notHidden = posts?.filter((post) => {
+      if (currentUser?.hiddenPosts) {
+        return !currentUser?.hiddenPosts.includes(post._id.toString());
+      }
+      return true;
+    });
+
+    const result = notHidden?.filter((post) => {
       if (currentUser?.username === post.user) {
         return true;
       }

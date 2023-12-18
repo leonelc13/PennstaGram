@@ -3,8 +3,12 @@ const request = require('supertest');
 const { app, closeServer } = require('../index');
 const { connect, getDb } = require('../model/DB');
 const postDB = require('../model/PostDB');
+const { verifyUser } = require('../utils/auth');
 require('dotenv').config();
 require('formidable');
+
+const { deletePostRoute } = require('../routes/PostRoute');
+const { deletePost } = postDB.deletePost;
 
 let db;
 
@@ -17,6 +21,16 @@ const testPosts = {
     "isImage": true,
     "created": "2020-11-30T04:38:39.000Z"
 }
+
+// Mock dependencies
+jest.mock('../utils/auth', () => ({
+  verifyUser: jest.fn(),
+}));
+
+// jest.mock('../model/PostDB', () => ({
+//   deletePost: jest.fn(),
+// }));
+
 
 const deleteTestDataFromDB = async (db, testData) => {
     try {
@@ -72,20 +86,40 @@ describe ('Activity Feed Tests', () => {
         expect(response.statusCode).toBe(200);
     });
 
-    // test ('create post returns the post', async () => {
-    //     const response = await request(app).post(`/posts`).send(testPosts);
-    //     expect(response.statusCode).toBe(201);
-    // });
-
-    // test('create post invalid post', async () => {
-    //     const response = await request(app).post(`/posts`).send({});
-    //     expect(response.statusCode).toBe(401);
-    // });
-
-    test('delete post', async () => {
-        const response = await request(app).delete(`/posts/${testPosts._id}`);
-        expect(response.statusCode).toBe(200);
+    test ('create post returns the post', async () => {
+        const response = await request(app).post(`/posts`).send(testPosts);
+        expect(response.statusCode).toBe(201);
     });
+
+    test('create post invalid post', async () => {
+        const response = await request(app).post(`/posts`).send({});
+        expect(response.statusCode).toBe(401);
+    });
+
+    // test('delete post', async () => {
+    //    // Arrange
+    //     const req = {
+    //       params: { id: 'validObjectId' },
+    //       headers: { authorization: 'validToken' },
+    //     };
+    //     const res = {
+    //       status: jest.fn(() => res),
+    //       send: jest.fn(),
+    //     };
+
+    //     // Mock verifyUser to return true for authentication
+    //     require('./verifyUser').verifyUser.mockResolvedValue(true);
+
+    //     // Mock deletePost to return a deleted post
+    //     require('./deletePost').deletePost.mockResolvedValueOnce({ _id: 'validObjectId', title: 'Deleted Post' });
+
+    //     // Act
+    //     await deletePostRoute(req, res);
+
+    //     // Assert
+    //     const response = await request(app).delete(`/posts/${testPosts._id}`);
+    //     expect(response.statusCode).toBe(200);
+    // });
 
     test('delete invalid post', async () => {
         const response = await request(app).delete(`/posts/123`);

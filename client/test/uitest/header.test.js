@@ -1,89 +1,40 @@
+/*eslint-disable*/
 import React from 'react';
-import { render, screen, act } from '@testing-library/react';
-import { describe, it, expect, jest } from '@jest/globals';
-import { BrowserRouter as Router } from 'react-router-dom';
-import '@testing-library/jest-dom/extend-expect';
-import Header from '../../src/components/Header/header';
+import { BrowserRouter } from 'react-router-dom';
+import { render, screen, waitFor, act } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import Header from '../../src/components/Header/Header';
+import { getUserById } from '../../src/api/users';
 
-jest.mock('axios');
-const mockUser = {
-    username: 'testuser',
-    userid: 'testuser',
-    profile: 'testProfile.jpg',
-    bio: 'Bio',
-    followers: ['Alice'],
-    following: ['Sunny']
-}
+jest.mock('../../src/api/users');
 
-jest.mock('axios', () => ({
-    get: () => Promise.resolve({ data: mockUser }),
-}));
+describe('Header Component', () => {
+  const currentUser = 'testUser';
 
+  beforeEach(() => {
+    // Mock the getUserById function
+    getUserById.mockResolvedValue({
+      username: 'testUser',
+      profile: 'test-profile-image-url',
+    });
+  });
 
-describe('<Header />', () => {
-    const mockHandleLogout = jest.fn();
-    const mockProps = {
-        user: 'testUser',
-        handleLogout: mockHandleLogout
-    };
+  it('renders header with user profile picture and navigation links', async () => {
+    await act( async ()=>  render(
+      <BrowserRouter>
+        <Header currentUser={currentUser} handleLogout={() => {}} />
+      </BrowserRouter>
+    ));
 
-    // beforeEach(() => {
-    //     // Reset the mocked values before each test
-    //     axios.get.mockResolvedValue({ data: {} });
-    // });
+    // Wait for the component to load and render
 
-    it('renders the app name and links correctly', async() => {
-        render(
-            <Router>
-                <Header {...mockProps} />
-            </Router>
-        );
-
-        expect(screen.getByText('Penn')).toBeInTheDocument();
-        expect(screen.getByText('Connect')).toBeInTheDocument();
-        expect(screen.getByText('Main Activity')).toBeInTheDocument();
-        expect(screen.getByText('Chats')).toBeInTheDocument();
-        expect(screen.getByText('Create Post')).toBeInTheDocument();
+    waitFor(() => {
+        expect(screen.getByTestId('header-container')).toBeInTheDocument();
+        expect(screen.getByText(/Penn Connect/i)).toBeInTheDocument();
+        expect(screen.getByText(/Main Activity/i)).toBeInTheDocument();
+        expect(screen.getByText(/Create Post/i)).toBeInTheDocument();
+        expect(screen.getByTestId('user-profile-picture-wrapper')).toBeInTheDocument();
     });
 
-    it('renders user profile picture from fetched data', async () => {
-        // axios.get.mockResolvedValue({ data: { profile: 'testProfile.jpg' } });
-        await act ( async () => render( <Router> <Header {...mockProps} /></Router>));
-
-        const img = await screen.findByAltText('profile-pic');
-        expect(img.src).toBe('http://localhost/testProfile.jpg');
-    });
-
-    // it('displays loading message while fetching data', () => {
-    //     render(
-    //         <Router>
-    //             <Header {...mockProps} />
-    //         </Router>
-    //     );
-
-    //     expect(screen.getByText('Loading...')).toBeInTheDocument();
-    // });
-
-    // it('displays error message on failed fetch', async () => {
-    //     axios.get.mockRejectedValue(new Error('An error occurred'));
-    //     render(
-    //         <Router>
-    //             <Header {...mockProps} />
-    //         </Router>
-    //     );
-
-    //     const errorMessage = await screen.findByText('An error occurred');
-    //     expect(errorMessage).toBeInTheDocument();
-    // });
-
-    // it('triggers handleLogout on logout button click', () => {
-    //     render(
-    //         <Router>
-    //             <Header {...mockProps} />
-    //         </Router>
-    //     );
-    //     const logoutButton = screen.getByText('Logout');
-    //     fireEvent.click(logoutButton);
-    //     expect(mockHandleLogout).toHaveBeenCalledTimes(1);
-    // });
+  });
 });

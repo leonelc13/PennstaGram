@@ -42,7 +42,7 @@ function UserInfo(props) {
               <p>
                 {' '}
                 Followers:
-                { Object.keys(targetUser.followers).length }
+                { Object.keys(targetUser?.followers).length }
               </p>
             )}
           { targetUser.following === null ? <p> Following: 0 </p>

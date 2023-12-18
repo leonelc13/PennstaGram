@@ -1,6 +1,6 @@
 import './user.css';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import PostList from '../PostList';
 // import { getPostsByUser } from '../../api/posts';
 
@@ -9,22 +9,19 @@ function UserPost(props) {
   // const [posts, setPosts] = useState(null);
   const { allPosts } = props;
   const { currentUser } = props;
+  const filter = false;
 
-  // useEffect(() => {
-  //   async function getPostWrapper() {
-  //     const data = await getPostsByUser(username);
-  //     setPosts(data);
-  //     return data;
-  //   }
-  //   getPostWrapper();
-  // }, [username]);
-  const posts = allPosts.filter((post) => post.user === username);
+  // const posts = allPosts.filter((post) => post.user === username);
 
   return (
-    <div className="userPost">
-      {posts && <PostList posts={posts} currentUser={currentUser} />}
+    <div>
+      <div className="userPost">
+        {allPosts && <PostList posts={allPosts} currentUser={currentUser} filter={filter} />}
+      </div>
+      <div className="hiddenPosts">
+        <Link to={`/user/${username}/hidden`}>Hidden Posts</Link>
+      </div>
     </div>
-
   );
 }
 

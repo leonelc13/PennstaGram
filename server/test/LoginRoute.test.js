@@ -24,10 +24,7 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  const db = getDb();
   try {
-    await deleteTestDataFromDB(db, 'testuser');
-    await deleteTestDataFromDB(db, 'newuser');
     await closeServer();
   } catch (err) {
     return err;
@@ -84,3 +81,51 @@ describe('POST /login', () => {
     expect(loginResponse.body).toHaveProperty('apptoken');
   });
 });
+
+// Additional utility to simulate failed login attempts
+const simulateFailedLogins = async (username, password, times) => {
+  for (let attempt = 1; attempt < times; attempt++) {
+    await request(app)
+      .post('/login')
+      .send({ name: username, password });
+  }
+};
+
+describe('POST /login lockout tests', () => {
+  const username = 'testUser';
+  const wrongPassword = 'wrongPass';
+
+  test('returns warning message after first failed login attempt', async () => {
+    await simulateFailedLogins(username, wrongPassword, 1);
+
+    const response = await request(app)
+      .post('/login')
+      .send({ name: username, password: wrongPassword });
+
+    expect(response.status).toBe(401);
+    expect(response.body.error).toMatch(/Incorrect password. You have 2 attempt\(s\) left before being locked out./);
+  });
+
+  test('locks account after third failed login attempt', async () => {
+    await simulateFailedLogins(username, wrongPassword, 2);
+
+    const response = await request(app)
+      .post('/login')
+      .send({ name: username, password: wrongPassword });
+
+    expect(response.status).toBe(401);
+    expect(response.body.error).toMatch(/Account is locked for 2 minutes/);
+  });
+
+  test('shows remaining lockout time after fourth failed attempt', async () => {
+    await simulateFailedLogins(username, wrongPassword, 1);
+
+    const response = await request(app)
+      .post('/login')
+      .send({ name: username, password: wrongPassword });
+
+    expect(response.status).toBe(401);
+    expect(response.body.error).toMatch(/Try again in/);
+  });
+});
+

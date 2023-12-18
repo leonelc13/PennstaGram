@@ -66,6 +66,41 @@ export const updateUser = async (user) => {
   }
 };
 
+export const addHiddenPost = async (user, postId) => {
+  try {
+    setHeaders();
+    const currentUser = await getUserById(user);
+    // if this current post is not in user.hiddenPosts, or it is null, add it
+    if (currentUser.hiddenPosts === null || !currentUser.hiddenPosts.includes(postId)) {
+      currentUser.hiddenPosts.push(postId);
+    }
+    const response = await updateUser(currentUser);
+    return response.data;
+  } catch (err) {
+    // console.error('error', err.message);
+    return err.message;
+  }
+};
+
+export const removeHiddenPost = async (user, postId) => {
+  try {
+    setHeaders();
+    const currentUser = await getUserById(user);
+    // if this current post is in user.hiddenPosts, remove it
+    if (currentUser.hiddenPosts !== null && currentUser.hiddenPosts.includes(postId)) {
+      const index = currentUser.hiddenPosts.indexOf(postId);
+      if (index > -1) {
+        currentUser.hiddenPosts.splice(index, 1);
+      }
+    }
+    const response = await updateUser(currentUser);
+    return response.data;
+  } catch (err) {
+    // console.error('error', err.message);
+    return err.message;
+  }
+};
+
 export const followUser = async (currentUser, targetUser) => {
   try {
     setHeaders();

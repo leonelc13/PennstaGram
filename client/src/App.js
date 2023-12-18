@@ -10,6 +10,7 @@ import './style/index.css';
 import User from './components/UserProfile/user';
 import PostDetails from './components/Post/PostDetails';
 import ActivityFeed from './components/ActivityFeed/ActivityFeed';
+import HiddenPost from './components/UserProfile/hiddenPosts';
 
 function App() {
   const [authenticated, setAuthenticated] = useState(localStorage.getItem('app-token') !== null);
@@ -49,6 +50,7 @@ function App() {
             <Route exact path="*" element={<Navigate to="/" />} />
             <Route index element={<ActivityFeed currentUsername={user} />} />
             <Route exact path="/user/:username" element={<User currentUsername={user} />} />
+            <Route exact path="/user/:username/hidden" element={<HiddenPost currentUsername={user} />} />
             <Route exact path="/post/:id" element={<PostDetails currentUsername={user} />} />
             <Route exact path="/createpost" element={<CreatePost username={user} />} />
           </Routes>
