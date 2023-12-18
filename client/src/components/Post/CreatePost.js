@@ -25,6 +25,24 @@ function CreatePost(props) {
   }
 
   function handleFileChange(event) {
+    setErrorMessage('');
+    if (event.target.files[0].type.startsWith('image/')) {
+      if (event.target.files[0].size > 52428800) {
+        setErrorMessage('Image file size limit is 50MB');
+        setFile(null);
+        return;
+      }
+    } else if (event.target.files[0].type.startsWith('video/')) {
+      if (event.target.files[0].size > 524288000) {
+        setErrorMessage('Video file size limit is 500MB');
+        setFile(null);
+        return;
+      }
+    } else {
+      setErrorMessage('Only image and video files are allowed!');
+      setFile(null);
+      return;
+    }
     setFile(event.target.files[0]);
   }
 
@@ -32,7 +50,7 @@ function CreatePost(props) {
     event.preventDefault();
 
     if (!file) {
-      setErrorMessage('Missing media to post');
+      setErrorMessage('Missing/incorrect media');
       return;
     }
 
@@ -95,6 +113,7 @@ function CreatePost(props) {
             id="upld"
             type="file"
             name="someFiles"
+            accept="image/*,video/*"
             onChange={handleFileChange}
           />
         </div>
