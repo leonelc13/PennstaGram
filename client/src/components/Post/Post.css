@@ -1,0 +1,240 @@
+/* Styling for the form and its elements */
+.addComment form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.addComment label {
+  display: flex;
+  flex-direction: column;
+}
+
+.addComment textarea {
+  max-width: 100%;
+  height: 100px; /* Adjustable height */
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  resize: vertical; /* Allows resizing the textarea vertically */
+}
+
+.addComment button {
+  background-color: #3498db; /* Primary button color */
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.addComment button:hover {
+  background-color: red; /* Darker shade for hover effect */
+}
+
+.comment {
+  margin: 20px;
+  padding: 20px;
+  background-color: #f8f9fa; /* Light background color for the comment section */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.comment h3 {
+  color: #343a40; /* Dark color for the heading */
+  margin-bottom: 15px;
+}
+
+div .comment-preview {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin: auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+div .comment-preview button{
+    margin-left: auto;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+div .container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div .container label{
+  width: 400px;
+  height: 100px;
+  background: #fff;
+  border-radius: 10px;
+  position: relative;
+}
+
+.editPostDisplay{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  margin: auto;
+  padding: 10px;
+  background-color: #f5f5f5;
+}
+.editPostHeader{
+  font-size: 20px;
+  font-weight: bold;
+  align-items: center;
+}
+
+.editPostForm {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 800px;
+  margin: auto;
+  padding: 10px;
+}
+.editPostForm label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.editPostForm textarea{
+  width:700px;
+}
+
+.post-details{
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  margin: auto;
+  padding: 10px;
+}
+
+div .post-display{
+  width: 400px;
+  height: 400px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.post-display img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.post-content{
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  margin: auto;
+  padding: 10px;
+  background-color: aliceblue;
+}
+
+.comments{
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+  margin: auto;
+  padding: 10px;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+  align-items: center;
+  font-weight: bold;
+}
+
+.deleteButton{
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  margin: auto;
+  padding: 10px;
+}
+
+.deleteButton button{
+  align-self: right;
+  margin-left: auto;
+  background-color: #3498db;
+  color: white; 
+  border: none;
+  padding: 10px;
+  border-radius: 5px; 
+  font-size: 14px; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease;
+}
+
+.post-display {
+  background-color: #f8f9fa; /* Light grey background */
+  border-bottom: 1px solid #dee2e6; /* Border for separation */
+  padding: 20px;
+  text-align: center; /* Centering title and image/video */
+}
+
+.post-display h1 {
+  color: #343a40; /* Dark color for the title */
+  margin-bottom: 15px;
+}
+
+.image-video {
+  max-width: 100%; /* Ensuring image/video is not larger than its container */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 5px; /* Slightly rounded corners for aesthetics */
+}
+
+.post-content {
+  padding: 20px;
+  color: #495057; /* Slightly lighter color for content */
+}
+
+.post-content h2 {
+  color: #007bff; /* Highlight color for post content title */
+  margin-bottom: 10px;
+}
+
+.post-content p {
+  font-size: 0.9em; /* Smaller font size for meta information */
+  margin-top: 5px;
+}
+
+button {
+  background-color: #007bff; /* Primary button color */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 20px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3; /* Darker shade for hover effect */
+}
+
+/* Additional styles for like button */
+button.like-button {
+  background-color: #dc3545; /* Red color for like button */
+}
+
+button.like-button:hover {
+  background-color: #c82333; /* Darker shade for hover effect */
+}

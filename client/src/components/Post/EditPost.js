@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 // import { useParams, useNavigate } from 'react-router-dom';
-import './EditPost.css';
+import './Post.css';
 import { editPostById, s3Upload } from '../../api/posts';
 
 function EditPost(props) {

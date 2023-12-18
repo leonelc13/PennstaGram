@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './CreatePost.css';
+import './Post.css';
 import { createPost, s3Upload } from '../../api/posts';
 
 function CreatePost(props) {

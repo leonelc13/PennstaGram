@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getPostById, addCommentToPost } from '../../api/posts';
-import './AddComment.css';
+import './Post.css';
 
 function AddComment(props) {
   const { id } = useParams();
@@ -62,12 +62,12 @@ function AddComment(props) {
   return (
     <div>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
-      <form onSubmit={handleCommentSubmit}>
-        <label htmlFor="comment">
+      <form onSubmit={handleCommentSubmit} className="addComment">
+        <label htmlFor="comment" className="addComment">
           Comment
-          <textarea id="comment" type="text" value={comment} onChange={handleCommentChange} />
+          <textarea id="comment" className="addComment" type="text" value={comment} onChange={handleCommentChange} />
         </label>
-        <button type="submit">Submit</button>
+        <button className="addComment" type="submit">Submit</button>
       </form>
     </div>
   );

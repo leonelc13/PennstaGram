@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import './PostDetails.css';
+import './Post.css';
 import PostView from './PostView';
 import Comment from './Comment';
 import EditPost from './EditPost';

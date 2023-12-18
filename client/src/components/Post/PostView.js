@@ -1,6 +1,6 @@
 import React from 'react';
 import { updatePostLikesAndLikedBy } from '../../api/posts';
-import './PostView.css';
+import './Post.css';
 
 function PostView(props) {
   const { post, currentUsername, setPost } = props;
