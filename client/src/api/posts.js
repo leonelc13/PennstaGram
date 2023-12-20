@@ -45,7 +45,6 @@ export const getFeed = async (username, page, limit = 5) => {
     const response = await axios.get(`${jsonURL}/feed/${username}`, { params: { page, limit } });
     return response.data;
   } catch (err) {
-    // console.error('error', err.message);
     return err.message;
   }
 };
@@ -56,7 +55,6 @@ export const getPostById = async (id) => {
     const response = await axios.get(`${jsonURL}/posts/${id}`);
     return response.data;
   } catch (err) {
-    // console.error('error', err.message);
     return err.message;
   }
 };
@@ -67,7 +65,6 @@ export const getHiddenPostByUser = async (username) => {
     const response = await axios.get(`${jsonURL}/posts/hidden/${username}`);
     return response.data;
   } catch (err) {
-    // console.error('error', err.message);
     return err.message;
   }
 };
@@ -91,8 +88,6 @@ export const deletePost = async (id) => {
     return response.data;
   } catch (err) {
     reAuthenticate(401);
-    // console.error('error', err.message);
-    // reAuthenticate(401);
     return err.message;
   }
 };

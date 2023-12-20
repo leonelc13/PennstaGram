@@ -117,3 +117,17 @@ describe ('Activity Feed Tests', () => {
     });
 
 });
+
+describe('Post Route Additional Tests', () => {
+
+  test('cannot delete a post by unauthorized user', async () => {
+    const response = await request(app).delete(`/posts/${testPosts._id}`);
+    expect(response.statusCode).toBe(401);
+  });
+
+  test('retrieve all post IDs', async () => {
+    const response = await request(app).get(`/postIds`);
+    expect(response.statusCode).toBe(200);
+    expect(Array.isArray(response.body)).toBe(true);
+  });
+});
