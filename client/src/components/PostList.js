@@ -41,7 +41,7 @@ function PostList(props) {
   return (
     <div className="post-list">
       {uniquePosts?.map((post) => (
-        <div className="post-preview" key={post._id.toString()} id="postPreview">
+        <div className="post-preview" key={post._id.toString()} id="postPreview" data-testid="post-preview">
           <Link to={`/post/${post._id.toString()}`}>
             {post.isImage
               ? <img className="image-video" src={post.url} alt={post.testContent} />

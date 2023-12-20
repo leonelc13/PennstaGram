@@ -65,7 +65,7 @@ function EditPost(props) {
       <div className="editPostHeader">Edit Post</div>
       {errorMessage && <p>{errorMessage}</p>}
       <div className="editPostForm">
-        <form onSubmit={handleSubmit}>
+        <form data-testid="edit-form" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="1">
               Content

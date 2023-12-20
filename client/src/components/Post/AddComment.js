@@ -28,7 +28,7 @@ function AddComment(props) {
 
   async function handleCommentSubmit(event) {
     event.preventDefault();
-    if (comment === '') {
+    if (!post || comment === '') {
       setErrorMessage('Please fill out comment');
       return;
     }

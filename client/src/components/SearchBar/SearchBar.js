@@ -33,7 +33,7 @@ function SearchBar(props) {
   };
 
   return (
-    <input type="text" id="search-input" placeholder="Search for Users" value={input} onChange={handleOnChange} />
+    <input type="text" id="search-input" placeholder="Search for Users" value={input} onChange={handleOnChange} data-testid="a" />
   );
 }
 

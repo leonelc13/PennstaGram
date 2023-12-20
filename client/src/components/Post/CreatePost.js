@@ -54,15 +54,13 @@ function CreatePost(props) {
       return;
     }
 
-    // console.log(file);
-
     const formData = new FormData();
     formData.append('file', file);
 
     try {
       const s3Url = await s3Upload(formData);
       // console.log(s3Url);
-      if (s3Url.error) {
+      if (!s3Url || s3Url.error) {
         setErrorMessage(s3Url.error);
         return;
       }
@@ -79,7 +77,7 @@ function CreatePost(props) {
         created: new Date().toISOString(),
       });
 
-      if (postData.error) {
+      if (!postData || postData.error) {
         setErrorMessage(postData.error);
         return;
       }
@@ -111,6 +109,7 @@ function CreatePost(props) {
           File:
           <input
             id="upld"
+            data-testid="upld"
             type="file"
             name="someFiles"
             accept="image/*,video/*"

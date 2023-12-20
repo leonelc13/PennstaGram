@@ -46,7 +46,7 @@ function App() {
         <>
           <Header user_profile_picture={pic} currentUser={user} handleLogout={handleLogout} />
           <Routes>
-            <Route exact path="/" element={<ActivityFeed currentUsername={user} />} />
+            <Route exact path="/" element={<ActivityFeed currentUsername={user} data-testid="activity-feed" />} />
             <Route exact path="*" element={<Navigate to="/" />} />
             <Route index element={<ActivityFeed currentUsername={user} />} />
             <Route exact path="/user/:username" element={<User currentUsername={user} />} />

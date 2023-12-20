@@ -9,7 +9,7 @@ function Comment(props) {
   const { updatePost } = props;
 
   return (
-    <div className="comment">
+    <div data-testid="comment-list" className="comment">
       <h3> Comments </h3>
       {/* display the comments of the post here */}
       <CommentList comments={comments} currentUser={currentUser} />
