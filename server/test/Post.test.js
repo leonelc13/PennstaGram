@@ -43,7 +43,14 @@ const deleteTestDataFromDB = async (db, testData) => {
 }
 
 beforeAll(async () => {
-  await connect(process.env.DATABASE_URL);
+  // await connect(process.env.DATABASE_URL);
+  await connect(process.env.DATABASE_URL, (err, database) => {
+    if (err) {
+      console.error('Error connecting to the database:', err);
+    } else {
+      // Do any setup that requires the database connection here
+    }
+  });
 });
 
 afterAll(async () => {
@@ -52,9 +59,11 @@ afterAll(async () => {
     await deleteTestDataFromDB(db, 'testAdmin');
     await closeServer();
   } catch (err) {
-    return err;
+    console.error('Error during cleanup:', err);
+    process.exit(1); // Exit with an error code to indicate failure
   }
 });
+
 
 describe ('Activity Feed Tests', () => {
 

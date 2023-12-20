@@ -29,7 +29,7 @@
   "scripts": {
     "server": "nodemon index.js",
     "start": "node index.js",
-    "test": "jest --coverage --runInBand"
+    "test": "jest --coverage --runInBand --detectOpenHandles"
   },
   "eslintConfig": {
     "extends": [
