@@ -159,4 +159,10 @@ describe('Post Route Additional Tests', () => {
     expect(response.statusCode).toBe(200);
     expect(Array.isArray(response.body)).toBe(true);
   });
+
+  test('test get post by user', async ()=> {
+    verifyUser.mockImplementation(() => Promise.resolve(true));
+    const response = await request(app).get(`/posts/byUser/${testPosts.user}`);
+    expect(response.statusCode).toBe(200);
+  });
 });
