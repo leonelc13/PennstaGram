@@ -238,3 +238,10 @@ button.like-button {
 button.like-button:hover {
   background-color: #c82333; /* Darker shade for hover effect */
 }
+
+#error-msg{
+  color: red;
+  font-size: 0.9rem;
+  align-items: center;
+  font-weight: bold;
+}

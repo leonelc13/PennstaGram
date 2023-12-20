@@ -48,6 +48,7 @@ export const getFeed = async (username, page, limit = 5) => {
     reAuthenticate(response.status);
     return response.data;
   } catch (err) {
+    reAuthenticate(401);
     return err.message;
   }
 };
@@ -82,6 +83,7 @@ export const getPostsByUser = async (username) => {
     return response.data;
   } catch (err) {
     // console.error('error', err.message);
+    reAuthenticate(401);
     return err.message;
   }
 };

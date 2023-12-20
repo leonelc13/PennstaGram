@@ -54,6 +54,24 @@ function EditPost(props) {
   };
 
   const handleFileChange = (event) => {
+    setErrorMessage('');
+    if (event.target.files[0].type.startsWith('image/')) {
+      if (event.target.files[0].size > 52428800) {
+        setErrorMessage('Image file size limit is 50MB');
+        setFile(null);
+        return;
+      }
+    } else if (event.target.files[0].type.startsWith('video/')) {
+      if (event.target.files[0].size > 524288000) {
+        setErrorMessage('Video file size limit is 500MB');
+        setFile(null);
+        return;
+      }
+    } else {
+      setErrorMessage('Only image and video files are allowed!');
+      setFile(null);
+      return;
+    }
     setFile(event.target.files[0]);
   };
   const handleIsImageChange = (event) => {
@@ -63,7 +81,7 @@ function EditPost(props) {
   return (
     <div className="editPostDisplay">
       <div className="editPostHeader">Edit Post</div>
-      {errorMessage && <p>{errorMessage}</p>}
+      {errorMessage && <p id="error-msg">{errorMessage}</p>}
       <div className="editPostForm">
         <form data-testid="edit-form" onSubmit={handleSubmit}>
           <div>
@@ -80,6 +98,7 @@ function EditPost(props) {
               id="upld"
               type="file"
               name="someFiles"
+              accept="image/*,video/*"
               onChange={handleFileChange}
             />
           </div>
