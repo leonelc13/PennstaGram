@@ -40,9 +40,21 @@ const server = app.listen(PORT, async () => {
 });
 
 // Shuts down both servers
-const closeServer = async () => {
-  await server.close();
-  // await socketServer.close();
-};
+// const closeServer = async () => {
+//   await server.close();
+//   // await socketServer.close();
+// };
+// Shuts down both servers
+const closeServer = async () => new Promise((resolve, reject) => {
+  server.close((err) => {
+    if (err) {
+      console.error('Error closing the server:', err);
+      reject(err);
+    } else {
+      console.log('Server closed successfully.');
+      resolve();
+    }
+  });
+});
 
 module.exports = { app, closeServer };
