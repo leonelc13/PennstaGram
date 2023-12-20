@@ -101,5 +101,22 @@ describe("Register Functionality Tests", () => {
   
     expect(await screen.findByText(serverError)).toBeInTheDocument();
   });
+  
+  test("username tooltip is visible on focus and hidden on blur", async () => {
+    render(<BrowserRouter><Register /></BrowserRouter>);
+    const usernameInput = screen.getByLabelText(/Pick a Username/i);
+  
+    fireEvent.focus(usernameInput);
+    expect(await screen.findByText(/Minimum length of 5 characters/i)).toBeInTheDocument();
+  
+    fireEvent.blur(usernameInput);
+    await waitFor(() => {
+      expect(screen.queryByText(/Minimum length of 5 characters/i)).not.toBeInTheDocument();
+    });
+  });
 
+  test("all UI components are consistently rendered", () => {
+    const { asFragment } = render(<BrowserRouter><Register /></BrowserRouter>);
+    expect(asFragment()).toMatchSnapshot();
+  });
 });

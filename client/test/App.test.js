@@ -4,8 +4,6 @@ import { render, screen, act, waitFor, fireEvent } from '@testing-library/react'
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from '../src/App';
 import '@testing-library/jest-dom';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
 
 // const mock = new MockAdapter(axios);
 
