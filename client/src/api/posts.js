@@ -98,9 +98,11 @@ export const addCommentToPost = async (id, existingComments, newComment) => {
     existingComments.push(newComment);
     // console.log('addCommentToPost', existingComments);
     const response = await axios.put(`${jsonURL}/posts/${id}`, { comments: existingComments });
+    reAuthenticate(response.status);
     return response;
   } catch (err) {
     // console.error('error', err.message);
+    reAuthenticate(401);
     return err.message;
   }
 };
