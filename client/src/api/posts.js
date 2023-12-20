@@ -21,6 +21,7 @@ export const getAllPosts = async (page, limit = 5) => {
   try {
     setHeaders();
     const response = await axios.get(`${jsonURL}/posts`, { params: { page, limit } });
+    reAuthenticate(response.status);
     return response.data;
   } catch (err) {
     // console.error('error', err.message);
@@ -32,6 +33,7 @@ export const getAllPostIds = async () => {
   try {
     setHeaders();
     const response = await axios.get(`${jsonURL}/postIds`);
+    reAuthenticate(response.status);
     return response.data;
   } catch (err) {
     // console.error('error', err.message);
@@ -43,6 +45,7 @@ export const getFeed = async (username, page, limit = 5) => {
   try {
     setHeaders();
     const response = await axios.get(`${jsonURL}/feed/${username}`, { params: { page, limit } });
+    reAuthenticate(response.status);
     return response.data;
   } catch (err) {
     return err.message;
@@ -53,8 +56,10 @@ export const getPostById = async (id) => {
   try {
     setHeaders();
     const response = await axios.get(`${jsonURL}/posts/${id}`);
+    reAuthenticate(response.status);
     return response.data;
   } catch (err) {
+    reAuthenticate(401);
     return err.message;
   }
 };
@@ -73,6 +78,7 @@ export const getPostsByUser = async (username) => {
   try {
     setHeaders();
     const response = await axios.get(`${jsonURL}/posts/byUser/${username}`);
+    reAuthenticate(response.status);
     return response.data;
   } catch (err) {
     // console.error('error', err.message);
@@ -87,7 +93,6 @@ export const deletePost = async (id) => {
     reAuthenticate(response.status);
     return response.data;
   } catch (err) {
-    reAuthenticate(401);
     return err.message;
   }
 };
@@ -102,7 +107,6 @@ export const addCommentToPost = async (id, existingComments, newComment) => {
     return response;
   } catch (err) {
     // console.error('error', err.message);
-    reAuthenticate(401);
     return err.message;
   }
 };
@@ -122,6 +126,7 @@ export const createPost = async (post) => {
   try {
     setHeaders();
     const response = await axios.post(`${jsonURL}/posts`, post);
+    reAuthenticate(response.status);
     return response.data;
   } catch (err) {
     // console.error('error', err);
@@ -134,6 +139,7 @@ export const editPostById = async (id, post) => {
   try {
     setHeaders();
     const response = await axios.put(`${jsonURL}/posts/${id}`, post);
+    reAuthenticate(response.status);
     return response.data.value;
   } catch (err) {
     // console.error('error', err.message);
@@ -148,6 +154,7 @@ export const updatePostLikesAndLikedBy = async (id, likesCount, usersLiked) => {
       likes: likesCount,
       likedBy: usersLiked,
     });
+    reAuthenticate(response.status);
     return response.data;
   } catch (err) {
     return err.message;

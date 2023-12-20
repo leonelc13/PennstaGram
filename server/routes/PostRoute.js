@@ -11,6 +11,10 @@ const { getUserById } = require('../model/ProfilePageDB');
 const { verifyUser } = require('../utils/auth');
 
 const getAllPostsRoute = async (req, res) => {
+  if (!await verifyUser(req.headers.authorization)) {
+    return res.status(401).send({ error: 'Failed Authentication' });
+  }
+
   const page = parseInt(req.query.page, 10) || 1;
   const limit = parseInt(req.query.limit, 10) || 10;
 
@@ -26,6 +30,10 @@ const getAllPostsRoute = async (req, res) => {
 };
 
 const getAllPostIdsRoute = async (req, res) => {
+  if (!await verifyUser(req.headers.authorization)) {
+    return res.status(401).send({ error: 'Failed Authentication' });
+  }
+
   try {
     const posts = await getAllPostIds();
     if (!posts) {
@@ -44,6 +52,10 @@ const getFeedRoute = async (req, res) => {
 
   // console.log('getFeedRoute', username, page, limit);
 
+  if (!await verifyUser(req.headers.authorization)) {
+    return res.status(401).send({ error: 'Failed Authentication' });
+  }
+
   try {
     const user = await getUserById(username);
     const posts = await getFeed(user, page, limit);
@@ -57,6 +69,10 @@ const getFeedRoute = async (req, res) => {
 };
 
 const getPostByIdRoute = async (req, res) => {
+  if (!await verifyUser(req.headers.authorization)) {
+    return res.status(401).send({ error: 'Failed Authentication' });
+  }
+
   if (!ObjectId.isValid(req.params.id)) {
     return res.status(404).send({ error: 'Post does not exist' });
   }
@@ -90,6 +106,9 @@ const deletePostRoute = async (req, res) => {
 
 const createPostRoute = async (req, res) => {
   // console.log(req.method, req.originalUrl);
+  if (!await verifyUser(req.headers.authorization)) {
+    return res.status(401).send({ error: 'Failed Authentication' });
+  }
   const form = new formidable.IncomingForm();
   // eslint-disable-next-line no-unused-vars
   form.parse(req, async (err, post, _files) => {
@@ -111,9 +130,13 @@ const createPostRoute = async (req, res) => {
     }
     return res.status(201).send(newPost);
   });
+  return null;
 };
 
 const updatePostRoute = async (req, res) => {
+  if (!await verifyUser(req.headers.authorization)) {
+    return res.status(401).send({ error: 'Failed Authentication' });
+  }
   // console.log(req.method, req.originalUrl);
   if (!ObjectId.isValid(req.params.id)) {
     return res.status(404).send({ error: 'Post does not exist' });
@@ -138,6 +161,9 @@ const updatePostRoute = async (req, res) => {
 };
 
 const getPostsByUserRoute = async (req, res) => {
+  if (!await verifyUser(req.headers.authorization)) {
+    return res.status(401).send({ error: 'Failed Authentication' });
+  }
   // console.log("getPostsByUserRoute", req.params);
   const { username } = req.params;
   const posts = await getPostsByUser(username);
@@ -150,6 +176,9 @@ const getPostsByUserRoute = async (req, res) => {
 };
 
 const getHiddenPostByUserRoute = async (req, res) => {
+  if (!await verifyUser(req.headers.authorization)) {
+    return res.status(401).send({ error: 'Failed Authentication' });
+  }
   const { username } = req.params;
   const user = await getUserById(username);
   const posts = await getHiddenPostByUser(user);
