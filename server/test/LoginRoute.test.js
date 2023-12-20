@@ -1,23 +1,9 @@
 const request = require('supertest');
 const { app, closeServer } = require('../index');
 const { connect, getDb } = require('../model/DB');
+const { resetUserLockUntil, getUserFromDb } = require('../model/Login-RegisterDBOperations');
 
 require('dotenv').config();
-
-
-const deleteTestDataFromDB = async (db, testData) => {
-  try {
-    const result = await db.collection('User').deleteMany({ username: testData });
-    const { deletedCount } = result;
-    if (deletedCount === 1) {
-      console.log('info', 'Successfully deleted test user');
-    } else {
-      console.log('warning', `test user '${testData}' was not deleted`);
-    }
-  } catch (err) {
-    console.log('error', err.message);
-  }
-}
 
 beforeAll(async () => {
   await connect(process.env.DATABASE_URL);
@@ -25,6 +11,7 @@ beforeAll(async () => {
 
 afterAll(async () => {
   try {
+    await resetUserLockUntil('testUser');
     await closeServer();
   } catch (err) {
     return err;
@@ -56,6 +43,13 @@ describe('POST /login', () => {
     expect(response.status).toBe(401);
   });
 
+  test('empty username and password', async () => {
+    const response = await request(app)
+      .post('/login')
+      .send({ name: '', password: '' });
+    expect(response.status).toBe(401);
+  });
+
   test('returns 401 if user does not exist', async () => {
     const response = await request(app)
       .post('/login')
@@ -80,9 +74,15 @@ describe('POST /login', () => {
     expect(loginResponse.status).toBe(201);
     expect(loginResponse.body).toHaveProperty('apptoken');
   });
+
+  test('username with spaces', async () => {
+    const response = await request(app)
+      .post('/login')
+      .send({ name: '  testUser  ', password: 'testPass' });
+    expect(response.status).toBe(401);
+  });
 });
 
-// Additional utility to simulate failed login attempts
 const simulateFailedLogins = async (username, password, times) => {
   for (let attempt = 1; attempt < times; attempt++) {
     await request(app)
@@ -128,4 +128,3 @@ describe('POST /login lockout tests', () => {
     expect(response.body.error).toMatch(/Try again in/);
   });
 });
-

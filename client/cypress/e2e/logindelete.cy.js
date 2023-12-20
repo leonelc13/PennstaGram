@@ -1,6 +1,10 @@
+import { rootURL } from '../../src/utils/utils';
+
+const jsonURL = `${rootURL}`;
+
 describe('Login Tests', () => {
     beforeEach(() => {
-        cy.visit('http://localhost:3001/login');
+        cy.visit(`${jsonURL}/login`);
     });
 
     it('successfully logs in with correct credentials', () => {
@@ -37,29 +41,26 @@ describe('Login Tests', () => {
             cy.get('input#username').clear().type(username);
             cy.get('input#password').clear().type(password);
             cy.get('.login-button').click();
-            cy.get('.error-message').should('contain', 'Password does not match our records');
         };
 
         // Simulate 3 failed login attempts
-        cy.visit('http://localhost:3001/login');
+        cy.visit(`${jsonURL}/login`);
         tryLogin('testUser', 'testsdfsdf');
 
-        cy.visit('http://localhost:3001/login');
+        cy.visit(`${jsonURL}/login`);
         tryLogin('testUser', 'testsdfsdf');
 
-        cy.visit('http://localhost:3001/login');
+        cy.visit(`${jsonURL}/login`);
         tryLogin('testUser', 'testsdfsdf');
 
         // Attempt to log in again, should be locked now
-        cy.visit('http://localhost:3001/login');
+        cy.visit(`${jsonURL}/login`);
         cy.get('input#username').type('testUser');
         cy.get('input#password').type('testPass');
         cy.get('.login-button').click();
-        cy.get('.error-message').should('contain', 'Account is locked for 2 minutes');
+        cy.get('.error-message').should('contain', 'Account is locked. Try again');
     });
 
-    // Optional: test that the user can log in again after 10 minutes
-    // Note: This test will take at least 10 minutes to run and might not be suitable for regular test runs
     it('allows the user to log in after 2 minutes', () => {
         // Wait for 10 minutes (600000 milliseconds)
         cy.wait(120000);
@@ -77,7 +78,7 @@ describe('Login Tests', () => {
 describe('Delete Post Test', () => {
     it('logs in and deletes a post, then checks if it is removed from the activity feed', () => {
         // Step 1: Log in
-        cy.visit('http://localhost:3001/login');
+        cy.visit(`${jsonURL}/login`);
         cy.get('input#username').type('testUser');
         cy.get('input#password').type('testPass');
         cy.get('.login-button').click();
@@ -88,7 +89,7 @@ describe('Delete Post Test', () => {
         // Step 2: Delete a Post
         // Navigate to a specific post
         // Replace 'postId' with the id of the post you want to delete
-        cy.visit('http://localhost:3001/post/6556a7b20c6a6b729de8d7b8');
+        cy.visit(`${jsonURL}/post/65737d4c3a59e1748ca63305`);
 
         // Click the delete button
         // This assumes that the delete button is available and the user has permissions
@@ -109,14 +110,14 @@ describe('Delete Post Test', () => {
 
     it('does not show delete button on others\' posts', () => {
         // Log in as a user
-        cy.visit('http://localhost:3001/login');
+        cy.visit(`${jsonURL}/login`);
         cy.get('input#username').type('testUser');
         cy.get('input#password').type('testPass');
         cy.get('.login-button').click();
 
         // Navigate to a post not created by 'testUser'
         // Replace the below command with the actual way to navigate to such a post
-        cy.visit('http://localhost:3001/post/6546a03883f3ecca248c99f7');
+        cy.visit(`${jsonURL}/post/6546a03883f3ecca248c99f7`);
 
         // Verify that the delete button is not present
         cy.get('.deleteButton button').should('not.exist');

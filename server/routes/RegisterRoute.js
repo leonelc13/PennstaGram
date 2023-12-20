@@ -5,14 +5,21 @@ const RegisterRoute = async (req, res) => {
   // console.log('Registering new user');
   const { name, password } = req.body;
 
-  if ((name === '') && (password === '')) {
+  if (!name && !password) {
     res.status(401).json({ error: 'Missing username and password' });
     return;
-  } if (!name || name === '') {
+  } if (!name) {
     res.status(401).json({ error: 'Missing username' });
     return;
-  } if (!password || password === '') {
+  } if (!password) {
     res.status(401).json({ error: 'Missing password' });
+    return;
+  }
+
+  const user = await getUser(name);
+
+  if (user) {
+    res.status(401).json({ error: 'User already exists' });
     return;
   }
 
@@ -39,14 +46,6 @@ const RegisterRoute = async (req, res) => {
 
   if (validationErrors.length > 0) {
     res.status(400).json({ error: validationErrors.join(' ') });
-    return;
-  }
-
-  const user = await getUser(name);
-
-  if (user) {
-    // console.log('Register user check for already exists', user);
-    res.status(401).json({ error: 'User already exists' });
     return;
   }
 

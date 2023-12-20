@@ -1,8 +1,11 @@
+import { rootURL } from '../../src/utils/utils';
+
+const jsonURL = `${rootURL}`;
 // eslint-disable-next-line no-undef
 describe('Register flow', () => {
   // eslint-disable-next-line no-undef
   beforeEach(() => {
-    cy.visit('http://localhost:3001/register')
+    cy.visit(`${jsonURL}/register`);
   });
 
   it('Should display register page', () => {
@@ -50,8 +53,8 @@ describe('Register flow', () => {
 
     
     it('Successful registration navigates to login', () => {
-      cy.get('#username').type('newUser');
-      cy.get('#password').type('newPassword');
+      cy.get('#username').type('@newUser');
+      cy.get('#password').type('newPass3');
       cy.get('.btn-edits').click();
       cy.url().should('include', '/login');
     });

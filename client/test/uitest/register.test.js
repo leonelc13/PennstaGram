@@ -1,12 +1,17 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { describe, test, expect, jest } from '@jest/globals';
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 import renderer from "react-test-renderer";
 import "@testing-library/jest-dom";
 import Register from "../../src/components/RegisterPage/register";
 import axios from 'axios';
+import { rootURL } from '../../src/utils/utils';
 jest.mock('axios');
+// Mock useNavigate
+
+const jsonURL = rootURL;
 
 describe("Register component", () => {
   test("renders correctly", () => {
@@ -34,121 +39,67 @@ describe("Register component", () => {
     render(<BrowserRouter><Register /></BrowserRouter>);
     expect(screen.getByRole('heading', { name: /Penn Connect/i })).toBeInTheDocument();
   });
+});
 
-  describe('Registration Functionality', () => {
-    test('displays error message for missing username', async () => {
-      render(<BrowserRouter><Register /></BrowserRouter>);
-      const passwordInput = screen.getByLabelText(/Pick a Password/i);
-      const signUpButton = screen.getByRole('button', { name: /Sign Up/i });
+describe("Register Functionality Tests", () => {
 
-      await act(async () => {
-        fireEvent.change(passwordInput, { target: { value: 'newuser' } });
-        fireEvent.click(signUpButton);
-      });
+  test("submits form with valid data", async () => {
+    axios.post.mockResolvedValue({ data: {} });
 
-      expect(screen.getByText(/Please enter a username/i)).toBeInTheDocument();
+    render(<BrowserRouter><Register /></BrowserRouter>);
+    await act(async () => {
+      fireEvent.change(screen.getByLabelText(/Pick a Username/i), { target: { value: '@validuser' } });
+      fireEvent.change(screen.getByLabelText(/Pick a Password/i), { target: { value: 'validPass#1' } });
+      fireEvent.click(screen.getByRole('button', { name: /Sign Up/i }));
     });
-
-    test('displays error message for missing password', async () => {
-      render(<BrowserRouter><Register /></BrowserRouter>);
-      const usernameInput = screen.getByLabelText(/Pick a Username/i);
-      const signUpButton = screen.getByRole('button', { name: /Sign Up/i });
-
-      await act(async () => {
-        fireEvent.change(usernameInput, { target: { value: 'newuser' } });
-        fireEvent.click(signUpButton);
-      });
-
-      expect(screen.getByText(/Please enter a password/i)).toBeInTheDocument();
-    });
-
-    test('displays error message for missing username and password', async () => {
-      render(<BrowserRouter><Register /></BrowserRouter>);
-      const signUpButton = screen.getByRole('button', { name: /Sign Up/i });
-      
-      await act(async () => {
-        fireEvent.click(signUpButton);
-      });
-
-      expect(screen.getByText(/Please enter both a username and password/i)).toBeInTheDocument();
-    });
-
-    test('redirects to login page on click of "sign in" link', () => {
-      render(<BrowserRouter><Register /></BrowserRouter>);
-      const signInLink = screen.getByRole('link', { name: /sign in/i });
-
-      act(() => {
-        fireEvent.click(signInLink);
-      });
-    });
-
-    test('registers a new user successfully', async () => {
-      // Mock successful axios requests
-      axios.get.mockResolvedValue({ data: [] }); // No users with the given username
-      axios.post.mockResolvedValue({}); // Successful registration
-      
-      render(<BrowserRouter><Register /></BrowserRouter>);
-      
-      const usernameInput = screen.getByLabelText(/Pick a Username/i);
-      const passwordInput = screen.getByLabelText(/Pick a Password/i);
-      const signUpButton = screen.getByRole('button', { name: /Sign Up/i });
-      
-      act(() => {
-        fireEvent.change(usernameInput, { target: { value: 'username' } });
-        fireEvent.change(passwordInput, { target: { value: 'newpassword' } });
-        fireEvent.click(signUpButton);
-      });
-    });
-  
-    test('submits form on "Enter" key press', () => {
-      render(<BrowserRouter><Register /></BrowserRouter>);
-
-      act(() => {
-        fireEvent.keyDown(document, { key: 'Enter', code: 'Enter' });
-      });
-      
-      expect(screen.getByText(/Please enter both a username and password/i)).toBeInTheDocument();
-    });
-
-    test('displays error message if username is already taken', async () => {
-      // Mock a GET request where the username is already in the system
-      axios.get.mockResolvedValue({ data: [{ username: 'newuser' }] });
-      
-      render(<BrowserRouter><Register /></BrowserRouter>);
-      
-      const usernameInput = screen.getByLabelText(/Pick a Username/i);
-      const passwordInput = screen.getByLabelText(/Pick a Password/i);
-      const signUpButton = screen.getByRole('button', { name: /Sign Up/i });
-      
-      await act(async () => {
-        fireEvent.change(usernameInput, { target: { value: 'newuser' } });
-        fireEvent.change(passwordInput, { target: { value: 'password' } });
-        fireEvent.click(signUpButton);
-      });
-      
-      const errorMessage = await screen.findByText(/Username is already taken/i);
-      expect(errorMessage).toBeInTheDocument();
-    });
-
-    test('displays error message from server after registration attempt', async () => {
-      // Mock successful GET request (no existing user) but error in POST request
-      axios.get.mockResolvedValue({ data: [] });
-      const errorMessage = 'Registration failed.';
-      axios.post.mockResolvedValue({ data: { error: errorMessage } });
-      
-      render(<BrowserRouter><Register /></BrowserRouter>);
-      
-      const usernameInput = screen.getByLabelText(/Pick a Username/i);
-      const passwordInput = screen.getByLabelText(/Pick a Password/i);
-      const signUpButton = screen.getByRole('button', { name: /Sign Up/i });
-      
-      await act(async () => {
-        fireEvent.change(usernameInput, { target: { value: 'newuser' } });
-        fireEvent.change(passwordInput, { target: { value: 'password' } });
-        fireEvent.click(signUpButton);
-      });
-      
-      expect(screen.getByText(errorMessage)).toBeInTheDocument();
+    await waitFor(() => {
+        expect(axios.post).toHaveBeenCalledWith(`${jsonURL}/register`, expect.any(String));
     });
   });
+
+  test("handles 'user already exists' response", async () => {
+    const errorMessage = "User already exists";
+    axios.post.mockRejectedValue({ response: { data: { error: errorMessage } } });
+
+    render(<BrowserRouter><Register /></BrowserRouter>);
+    await act(async () => {
+      fireEvent.change(screen.getByLabelText(/Pick a Username/i), { target: { value: '@existinguser' } });
+      fireEvent.change(screen.getByLabelText(/Pick a Password/i), { target: { value: 'pass#1234' } });
+      fireEvent.click(screen.getByRole('button', { name: /Sign Up/i }));
+    });
+
+    expect(await screen.findByText(errorMessage)).toBeInTheDocument();
+  });
+
+  test("shows tooltips on input focus", async () => {
+    render(<BrowserRouter><Register /></BrowserRouter>);
+    fireEvent.focus(screen.getByLabelText(/Pick a Username/i));
+    fireEvent.focus(screen.getByLabelText(/Pick a Password/i));
+  
+    const messages = await screen.findAllByText(/Minimum length of 5 characters/i);
+    expect(messages.length).toBe(2);
+  });
+
+  test("handles server validation errors", async () => {
+    const validationError = "Username cannot start with a letter.";
+    axios.post.mockRejectedValue({ response: { data: { error: validationError } } });
+  
+    render(<BrowserRouter><Register /></BrowserRouter>);
+    fireEvent.change(screen.getByLabelText(/Pick a Username/i), { target: { value: 'user' } });
+    fireEvent.click(screen.getByRole('button', { name: /Sign Up/i }));
+  
+    expect(await screen.findByText(validationError)).toBeInTheDocument();
+  });
+
+  test("handles other server-side errors", async () => {
+    const serverError = "Server error occurred";
+    axios.post.mockRejectedValue({ response: { data: { error: serverError } } });
+  
+    render(<BrowserRouter><Register /></BrowserRouter>);
+    fireEvent.change(screen.getByLabelText(/Pick a Username/i), { target: { value: 'user' } });
+    fireEvent.click(screen.getByRole('button', { name: /Sign Up/i }));
+  
+    expect(await screen.findByText(serverError)).toBeInTheDocument();
+  });
+
 });

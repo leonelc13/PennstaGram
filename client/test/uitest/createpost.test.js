@@ -7,7 +7,7 @@ import CreatePost from '../../src/components/Post/CreatePost';
 import axios from 'axios';
 jest.mock('axios');
 
-describe("Register component", () => {
+describe("create post component", () => {
   test("renders with url and isImage inputs", () => {
     render(<BrowserRouter><CreatePost /></BrowserRouter>);
     expect(screen.getByText(/Post URL/i)).toBeInTheDocument();
@@ -20,7 +20,7 @@ describe("Register component", () => {
     expect(screen.getByRole('button', { name: /Submit/i })).toBeInTheDocument();
   });
 
-  describe('Registration Functionality', () => {
+  describe('create post Functionality', () => {
     test('displays error message for missing url', async () => {
       render(<BrowserRouter><CreatePost /></BrowserRouter>);
       const signUpButton = screen.getByRole('button', { name: /Submit/i });
@@ -88,58 +88,5 @@ describe("Register component", () => {
 
       expect(screen.getByText(/error message/i)).toBeInTheDocument();
     });
-  
-  //   test('submits form on "Enter" key press', () => {
-  //     render(<BrowserRouter><Register /></BrowserRouter>);
-
-  //     // eslint-disable-next-line testing-library/no-unnecessary-act
-  //     act(() => {
-  //       fireEvent.keyDown(document, { key: 'Enter', code: 'Enter' });
-  //     });
-      
-  //     expect(screen.getByText(/Please enter both a username and password/i)).toBeInTheDocument();
-  //   });
-
-  //   test('displays error message if username is already taken', async () => {
-  //     // Mock a GET request where the username is already in the system
-  //     axios.get.mockResolvedValue({ data: [{ username: 'newuser' }] });
-      
-  //     render(<BrowserRouter><Register /></BrowserRouter>);
-      
-  //     const usernameInput = screen.getByLabelText(/Pick a Username/i);
-  //     const passwordInput = screen.getByLabelText(/Pick a Password/i);
-  //     const signUpButton = screen.getByRole('button', { name: /Sign Up/i });
-      
-  //     // eslint-disable-next-line testing-library/no-unnecessary-act
-  //     await act(async () => {
-  //       fireEvent.change(usernameInput, { target: { value: 'newuser' } });
-  //       fireEvent.change(passwordInput, { target: { value: 'password' } });
-  //       fireEvent.click(signUpButton);
-  //     });
-      
-  //     const errorMessage = await screen.findByText(/Username is already taken/i);
-  //     expect(errorMessage).toBeInTheDocument();
-  //   });
-
-  //   test('displays error message from server after registration attempt', async () => {
-  //     // Mock successful GET request (no existing user) but error in POST request
-  //     axios.get.mockResolvedValue({ data: [] });
-  //     axios.post.mockResolvedValue({ data: { error: 'Registration failed.' } });
-      
-  //     render(<BrowserRouter><Register /></BrowserRouter>);
-      
-  //     const usernameInput = screen.getByLabelText(/Pick a Username/i);
-  //     const passwordInput = screen.getByLabelText(/Pick a Password/i);
-  //     const signUpButton = screen.getByRole('button', { name: /Sign Up/i });
-      
-  //     // eslint-disable-next-line testing-library/no-unnecessary-act
-  //     await act(async () => {
-  //       fireEvent.change(usernameInput, { target: { value: 'newuser' } });
-  //       fireEvent.change(passwordInput, { target: { value: 'password' } });
-  //       fireEvent.click(signUpButton);
-  //     });
-      
-  //     expect(screen.getByText(/Registration failed./i)).toBeInTheDocument();
-  //   });
   });
 });

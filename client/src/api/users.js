@@ -156,7 +156,6 @@ export const checkFolloing = async (u1, u2) => {
     }
     return current.following.includes(u2);
   } catch (err) {
-    // console.error('error', err.message);
     return err.message;
   }
 };
@@ -168,7 +167,6 @@ export const tryLogin = async (username, password, setErrorMessage, handleLogin)
   } catch (err) {
     const errorMessage = err.response?.data?.error || 'An error occurred. Please try again.';
     setErrorMessage(errorMessage);
-    // console.log('error', errorMessage);
   }
 };
 
@@ -176,7 +174,6 @@ export const tryRegister = async (username, password, setErrorMessage, navigate)
   try {
     const response = await axios.post(`${jsonURL}/register`, `name=${username}&password=${password}`);
     if (response.data.error !== undefined) {
-      // console.log('Error in tryRegister response', response.data);
       setErrorMessage(response.data.error);
     } else {
       navigate('/login');
@@ -184,7 +181,6 @@ export const tryRegister = async (username, password, setErrorMessage, navigate)
   } catch (err) {
     const errorMessage = err.response?.data?.error || 'An error occurred. Please try again.';
     setErrorMessage(errorMessage);
-    // console.log('error', errorMessage);
   }
 };
 

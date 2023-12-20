@@ -39,7 +39,10 @@ const testAdmin1 = {
     "password": "testAdmin1",
     "profile": "https://i.ibb.co/60NBw0q/tiger.jpg",
     "followers": [],
-    "following": []
+    "following": [],
+    failedLoginAttempts: 0,
+    lockUntil: null,
+    hiddenPosts: [],
 }
 
 const testAdmin2 = {
@@ -47,7 +50,10 @@ const testAdmin2 = {
     "password": "testAdmin2",
     "profile": "https://i.ibb.co/60NBw0q/tiger.jpg",
     "followers": [],
-    "following": []
+    "following": [],
+    failedLoginAttempts: 0,
+    lockUntil: null,
+    hiddenPosts: [],
 }
 
 describe('Test Profile Info', () => {
@@ -55,7 +61,6 @@ describe('Test Profile Info', () => {
     test('Get user profile', async () => {
         await registerUser(testAdmin1);
         const res = await request(app).get(`/users/testAdmin1`);
-        // console.log('res',res);
         expect(res.statusCode).toBe(200);
         expect(res.body.username).toEqual(testAdmin1.username);
     });
@@ -71,4 +76,14 @@ describe('Test Profile Info', () => {
         return expect(res.statusCode).toBe(200);
     });
 
+});
+
+describe('User Profile Operations', () => {
+  // ... [Your existing tests] ...
+
+  test('retrieves all user profiles', async () => {
+    const res = await request(app).get(`/users`);
+    expect(res.statusCode).toBe(200);
+    expect(Array.isArray(res.body)).toBe(true);
+  });
 });
