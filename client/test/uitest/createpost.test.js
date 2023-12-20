@@ -8,9 +8,6 @@ import CreatePost from '../../src/components/Post/CreatePost';
 import axios from 'axios';
 jest.mock('axios');
 
-// Import the actual s3Upload function
-import { createPost, s3Upload } from '../../src/api/posts';
-
 // Mock the s3Upload function
 jest.mock('../../src/api/posts', () => ({
   ...jest.requireActual('../../src/api/posts'),
@@ -18,9 +15,11 @@ jest.mock('../../src/api/posts', () => ({
   createPost: jest.fn(),
 }));
 
+// Import the actual s3Upload function
+import { createPost, s3Upload } from '../../src/api/posts';
+
 // Set up the mock implementation for s3Upload
 s3Upload.mockResolvedValue({ message: 'mocked-s3-url' });
-
 
 jest.mock('../../src/api/posts');
 

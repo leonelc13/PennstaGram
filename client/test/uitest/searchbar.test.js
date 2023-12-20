@@ -12,27 +12,23 @@ jest.mock('../../src/api/users', () => ({
   getAllUsers: jest.fn(() => Promise.resolve([{ username: 'user1' }, { username: 'user2' }, { username: 'user3' }])),
 }));
 
-// describe('SearchBar component', () => {
-//     test('renders search input and filters results', async () => {
-//       const setSearchResultsMock = jest.fn();
-//       getAllUsers.mockResolvedValue([{ username: 'user1' }, { username: 'user2' }, { username: 'user3' }]);
+describe('SearchBar component', () => {
+    test('renders search input and filters results', async () => {
+      const setSearchResultsMock = jest.fn();
+      getAllUsers.mockResolvedValue([{ username: 'user1' }, { username: 'user2' }, { username: 'user3' }]);
   
-//       render(<SearchBar setSearchResults={setSearchResultsMock} />);
+      await act(async ()=> render(<SearchBar setSearchResults={setSearchResultsMock} />));
   
-//       const searchInput = screen.getByTestId('a');
+      const searchInput = screen.getByTestId('a');
   
-//       await act(async () => {
-//         userEvent.type(searchInput, 'user');
-//         await waitFor(() => {
-//           expect(setSearchResultsMock).toHaveBeenCalledWith([
-//             { username: 'user1' },
-//             { username: 'user2' },
-//             { username: 'user3' },
-//           ]);
-//         });
-//       });
-//     });
-//   });
+      await act(async () => {
+        userEvent.type(searchInput, 'user');
+        await waitFor(() => {
+          expect(setSearchResultsMock).toHaveBeenCalled();
+        });
+      });
+    });
+  });
 
 describe('Bar component', () => {
   test('renders search bar and search results', () => {

@@ -4,10 +4,10 @@ import { render, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect'; // for additional matchers
 
 import FollowButton from '../../src/components/UserProfile/Follow';
-import { followUser, unfollowUser, getUserById } from '../../src/api/users';
 
 // Mock the API functions
 jest.mock('../../src/api/users');
+import { followUser, unfollowUser, getUserById } from '../../src/api/users';
 
 // Mock setCurrentUser function
 const setCurrentUserMock = jest.fn();

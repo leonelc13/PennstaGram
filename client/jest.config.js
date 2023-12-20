@@ -5,5 +5,5 @@ module.exports = {
         "\\.(css|less|sass|scss)$": "identity-obj-proxy"
     },
     testEnvironment: 'jsdom',
-    openHandlesTimeout: 2000
+    openHandlesTimeout: 2000,
 };
