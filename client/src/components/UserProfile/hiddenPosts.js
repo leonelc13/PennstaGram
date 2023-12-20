@@ -19,8 +19,9 @@ function HiddenPost(props) {
       const allPostIds = await getAllPostIds();
 
       // check if hidden post id is in all ids
+      // console.log(hiddenPostsData);
       // eslint-disable-next-line no-underscore-dangle
-      const filteredHiddenPosts = hiddenPostsData.filter((hiddenPost) => allPostIds?.some((post) => post._id === hiddenPost._id));
+      const filteredHiddenPosts = hiddenPostsData?.filter((hiddenPost) => allPostIds?.some((post) => post._id === hiddenPost._id));
 
       setHiddenPosts(filteredHiddenPosts);
       return data;

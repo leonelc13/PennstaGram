@@ -18,9 +18,12 @@ function UserPost(props) {
       <div className="userPost">
         {allPosts && <PostList posts={allPosts} currentUser={currentUser} filter={filter} />}
       </div>
-      <div className="hiddenPosts">
-        <Link to={`/user/${username}/hidden`}>Hidden Posts</Link>
-      </div>
+      {(username === currentUser.username)
+        ? (
+          <div className="hiddenPosts">
+            <Link to={`/user/${username}/hidden`}>Hidden Posts</Link>
+          </div>
+        ) : null}
     </div>
   );
 }
